@@ -1,14 +1,5 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * Generated with the TypeScript template
- * https://github.com/react-native-community/react-native-template-typescript
- *
- * @format
- */
-
-import React from 'react';
+import 'react-native-gesture-handler';
+import React, {useEffect} from 'react';
 import {
   SafeAreaView,
   StyleSheet,
@@ -25,10 +16,13 @@ import {
   DebugInstructions,
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
+import SplashScreen from 'react-native-splash-screen';
 
 declare const global: {HermesInternal: null | {}};
 
 const App = () => {
+  useEffect(() => SplashScreen.hide(), []);
+
   return (
     <>
       <StatusBar barStyle="dark-content" />
