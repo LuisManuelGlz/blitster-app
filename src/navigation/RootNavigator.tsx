@@ -19,7 +19,6 @@ const RootNavigator = () => {
         console.log(e.message);
       }
     };
-    setToken('hola');
   }, [token]);
 
   return token ? (
