@@ -1,8 +1,15 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, Button } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import { connect } from 'react-redux';
+import { login } from '../../redux/actions/auth';
+import { UserForLogin } from '../../interfaces/user';
 
-const LogInScreen = () => {
+interface Props {
+  login: (user: UserForLogin) => void;
+}
+
+const LogInScreen = ({ login }: Props) => {
   const navigation = useNavigation();
 
   const [formData, setFormData] = useState({ username: '', password: '' });
@@ -16,12 +23,13 @@ const LogInScreen = () => {
   };
 
   const handleLoginPress = () => {
-    console.log(formData);
+    login(formData);
   };
 
   return (
     <View>
-      <Text>This is my Login screen</Text>
+      <Text>Welcome Back!</Text>
+
       <TextInput
         placeholder="Username"
         onChangeText={(text) => handleUsernameChange(text)}
@@ -32,6 +40,7 @@ const LogInScreen = () => {
         onChangeText={(text) => handlePasswordChange(text)}
         defaultValue={formData.password}
       />
+
       <Button title="Log in" onPress={() => handleLoginPress()} />
       <Button
         title="I need an accound"
@@ -41,4 +50,4 @@ const LogInScreen = () => {
   );
 };
 
-export default LogInScreen;
+export default connect(null, { login })(LogInScreen);

@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, Button } from 'react-native';
-// import { useNavigation } from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
+import authClient from '../../api/authClient';
 
 const SignUpScreen = () => {
-  // const navigation = useNavigation();
+  const navigation = useNavigation();
 
   const [formData, setFormData] = useState({
     username: '',
@@ -28,13 +29,19 @@ const SignUpScreen = () => {
     setFormData({ ...formData, password2: text });
   };
 
-  const handleSignupPress = () => {
-    console.log(formData);
+  const handleSignupPress = async () => {
+    try {
+      const res = await authClient.post('signup', formData);
+      console.log(res.data);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
     <View>
-      <Text>This is my sign up screen</Text>
+      <Text>Welcome to Blitster!</Text>
+
       <TextInput
         placeholder="Username"
         onChangeText={(text) => handleUsernameChange(text)}
@@ -55,7 +62,12 @@ const SignUpScreen = () => {
         onChangeText={(text) => handlePassword2Change(text)}
         defaultValue={formData.password2}
       />
+
       <Button title="Sign up" onPress={() => handleSignupPress()} />
+      <Button
+        title="I already have an account"
+        onPress={() => navigation.goBack()}
+      />
     </View>
   );
 };
