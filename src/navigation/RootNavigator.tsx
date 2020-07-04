@@ -1,36 +1,37 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
-import AsyncStorage from '@react-native-community/async-storage';
-import HomeScreen from '../screens/Home';
-import LoginScreen from '../screens/Login';
-import SignupScreen from '../screens/Signup';
+import { connect } from 'react-redux';
+import DrawerNavigator from './DrawerNavigator';
+import AuthNavigator from './AuthNavigator';
 
 const Stack = createStackNavigator();
 
-const RootNavigator = () => {
-  const [token, setToken] = useState<string | null>(null);
+interface Props {
+  isAuthenticated: string;
+}
 
-  useEffect(() => {
-    async () => {
-      try {
-        const value = await AsyncStorage.getItem('@token');
-        value !== null && setToken(value);
-      } catch (e) {
-        console.log(e.message);
-      }
-    };
-  }, [token]);
-
-  return token ? (
-    <Stack.Navigator initialRouteName="Home">
-      <Stack.Screen name="Home" component={HomeScreen} />
+const RootNavigator = ({ isAuthenticated }: Props) => {
+  return isAuthenticated ? (
+    <Stack.Navigator>
+      <Stack.Screen
+        name="App"
+        component={DrawerNavigator}
+        options={{ headerShown: false }}
+      />
     </Stack.Navigator>
   ) : (
-    <Stack.Navigator initialRouteName="Login">
-      <Stack.Screen name="Login" component={LoginScreen} />
-      <Stack.Screen name="Signup" component={SignupScreen} />
+    <Stack.Navigator>
+      <Stack.Screen
+        name="Auth"
+        component={AuthNavigator}
+        options={{ headerShown: false }}
+      />
     </Stack.Navigator>
   );
 };
 
-export default RootNavigator;
+const mapStateToProps = (state: any) => ({
+  isAuthenticated: state.auth.isAuthenticated,
+});
+
+export default connect(mapStateToProps)(RootNavigator);

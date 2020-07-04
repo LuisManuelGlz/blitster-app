@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, Button } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
 import { connect } from 'react-redux';
 import { login } from '../../redux/actions/auth';
 import { UserForLogin } from '../../interfaces/user';
@@ -10,8 +9,6 @@ interface Props {
 }
 
 const LogInScreen = ({ login }: Props) => {
-  const navigation = useNavigation();
-
   const [formData, setFormData] = useState({ username: '', password: '' });
 
   const handleUsernameChange = (text: string) => {
@@ -42,10 +39,6 @@ const LogInScreen = ({ login }: Props) => {
       />
 
       <Button title="Log in" onPress={() => handleLoginPress()} />
-      <Button
-        title="I need an accound"
-        onPress={() => navigation.navigate('Signup')}
-      />
     </View>
   );
 };
