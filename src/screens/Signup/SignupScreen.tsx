@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, Button } from 'react-native';
+import { View, Text, Button } from 'react-native';
 import authClient from '../../api/authClient';
+import Input from '../../components/Input';
+import styles from './SignupScreen.styles';
 
 const SignUpScreen = () => {
   const [formData, setFormData] = useState({
@@ -36,28 +38,28 @@ const SignUpScreen = () => {
   };
 
   return (
-    <View>
+    <View style={styles.container}>
       <Text>Create your account</Text>
 
-      <TextInput
+      <Input
         placeholder="Username"
         onChangeText={(text) => handleUsernameChange(text)}
-        defaultValue={formData.username}
+        value={formData.username}
       />
-      <TextInput
+      <Input
         placeholder="Email"
         onChangeText={(text) => handleEmailChange(text)}
-        defaultValue={formData.email}
+        value={formData.email}
       />
-      <TextInput
+      <Input
         placeholder="Password"
         onChangeText={(text) => handlePassword1Change(text)}
-        defaultValue={formData.password1}
+        value={formData.password1}
       />
-      <TextInput
+      <Input
         placeholder="Confirm password"
         onChangeText={(text) => handlePassword2Change(text)}
-        defaultValue={formData.password2}
+        value={formData.password2}
       />
 
       <Button title="Sign up" onPress={() => handleSignupPress()} />

@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, Button } from 'react-native';
+import { View, Text, Button } from 'react-native';
 import { connect } from 'react-redux';
 import { login } from '../../redux/actions/auth';
 import { UserForLogin } from '../../interfaces/user';
+import Input from '../../components/Input';
+import styles from './Login.styles';
 
 interface Props {
   login: (user: UserForLogin) => void;
@@ -24,18 +26,21 @@ const LogInScreen = ({ login }: Props) => {
   };
 
   return (
-    <View>
+    <View style={styles.container}>
       <Text>Welcome Back!</Text>
 
-      <TextInput
+      <Input
         placeholder="Username"
+        value={formData.username}
         onChangeText={(text) => handleUsernameChange(text)}
-        defaultValue={formData.username}
+        iconName="person"
       />
-      <TextInput
+      <Input
         placeholder="Password"
+        value={formData.password}
         onChangeText={(text) => handlePasswordChange(text)}
-        defaultValue={formData.password}
+        iconName="lock-closed"
+        secureTextEntry={true}
       />
 
       <Button title="Log in" onPress={() => handleLoginPress()} />
