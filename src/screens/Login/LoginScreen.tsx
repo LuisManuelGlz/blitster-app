@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { View, Text, Button } from 'react-native';
+import { View, Text } from 'react-native';
 import { connect } from 'react-redux';
 import { login } from '../../redux/actions/auth';
 import { UserForLogin } from '../../interfaces/user';
-import Input from '../../components/Input';
+import { Input, Button } from '../../components';
 import styles from './Login.styles';
 
 interface Props {
@@ -43,7 +43,12 @@ const LogInScreen = ({ login }: Props) => {
         secureTextEntry={true}
       />
 
-      <Button title="Log in" onPress={() => handleLoginPress()} />
+      <Button.Primary
+        style={styles.button}
+        block
+        title="Log in"
+        onPress={() => handleLoginPress()}
+      />
     </View>
   );
 };

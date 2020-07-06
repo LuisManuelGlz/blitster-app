@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { View, Text, Button } from 'react-native';
+import { View, Text } from 'react-native';
 import authClient from '../../api/authClient';
-import Input from '../../components/Input';
+import { Input, Button } from '../../components';
 import styles from './SignupScreen.styles';
 
 const SignUpScreen = () => {
@@ -62,7 +62,12 @@ const SignUpScreen = () => {
         value={formData.password2}
       />
 
-      <Button title="Sign up" onPress={() => handleSignupPress()} />
+      <Button.Primary
+        style={styles.button}
+        block
+        title="Sign up"
+        onPress={() => handleSignupPress()}
+      />
     </View>
   );
 };

@@ -3,10 +3,10 @@ import { screen, PADDING_HORIZONTAL } from '../../constants/Layout';
 
 export default StyleSheet.create({
   container: {
-    margin: 16,
+    marginTop: 8,
   },
   input: {
-    width: screen.width - 8,
+    width: screen.width - 64,
     height: 48,
     fontSize: 16,
     paddingHorizontal: PADDING_HORIZONTAL,
@@ -14,7 +14,7 @@ export default StyleSheet.create({
     backgroundColor: '#CCCCCC',
   },
   inputWithIcon: {
-    width: screen.width - 8,
+    width: screen.width - 64,
     height: 48,
     paddingLeft: 48,
     paddingHorizontal: PADDING_HORIZONTAL,
