@@ -22,7 +22,7 @@ const IntroScreen = () => {
         style={styles.button}
         title="Sign up"
         block
-        onPress={() => navigation.navigate('Signup')}
+        onPress={() => navigation.navigate('SignupStepOne')}
       />
     </View>
   );

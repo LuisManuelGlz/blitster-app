@@ -2,22 +2,17 @@ import React, { useState } from 'react';
 import { View, Text } from 'react-native';
 import authClient from '../../api/authClient';
 import { Input, Button } from '../../components';
-import styles from './SignupScreen.styles';
+import styles from './SignupStepTwoScreen.styles';
 
-const SignUpScreen = () => {
+const SignupStepTwoScreen = () => {
   const [formData, setFormData] = useState({
     username: '',
-    email: '',
     password1: '',
     password2: '',
   });
 
   const handleUsernameChange = (text: string) => {
     setFormData({ ...formData, username: text });
-  };
-
-  const handleEmailChange = (text: string) => {
-    setFormData({ ...formData, email: text });
   };
 
   const handlePassword1Change = (text: string) => {
@@ -47,11 +42,6 @@ const SignUpScreen = () => {
         value={formData.username}
       />
       <Input
-        placeholder="Email"
-        onChangeText={(text) => handleEmailChange(text)}
-        value={formData.email}
-      />
-      <Input
         placeholder="Password"
         onChangeText={(text) => handlePassword1Change(text)}
         value={formData.password1}
@@ -72,4 +62,4 @@ const SignUpScreen = () => {
   );
 };
 
-export default SignUpScreen;
+export default SignupStepTwoScreen;
