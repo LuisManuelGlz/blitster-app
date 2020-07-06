@@ -6,6 +6,10 @@ export default StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  logo: {
+    width: 120,
+    height: 120,
+  },
   button: {
     marginTop: 16,
   },
