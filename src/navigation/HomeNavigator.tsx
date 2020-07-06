@@ -6,7 +6,14 @@ import PostDetailScreen from '../screens/PostDetail';
 const Stack = createStackNavigator();
 
 const HomeNavigator = () => (
-  <Stack.Navigator>
+  <Stack.Navigator
+    screenOptions={{
+      headerStyle: {
+        backgroundColor: 'transparent',
+        elevation: 0,
+        shadowOpacity: 0,
+      },
+    }}>
     <Stack.Screen name="Home" component={HomeScreen} />
     <Stack.Screen
       name="PostDetail"

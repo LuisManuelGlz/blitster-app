@@ -7,7 +7,14 @@ import SignupScreen from '../screens/Signup';
 const Stack = createStackNavigator();
 
 const AuthNavigator = () => (
-  <Stack.Navigator>
+  <Stack.Navigator
+    screenOptions={{
+      headerStyle: {
+        backgroundColor: 'transparent',
+        elevation: 0,
+        shadowOpacity: 0,
+      },
+    }}>
     <Stack.Screen
       name="Intro"
       component={IntroScreen}
