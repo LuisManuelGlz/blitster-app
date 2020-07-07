@@ -1,28 +1,26 @@
 import React from 'react';
-import { View, TextInput, Text } from 'react-native';
+import { View, TextInput } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import styles from './Input.Styles';
 
 interface Props {
   placeholder?: string;
-  secureTextEntry?: boolean;
   title?: string;
   value: string;
+  secureTextEntry?: boolean;
   iconName?: string;
   onChangeText: (text: string) => void;
 }
 
 const Input = ({
   placeholder,
-  secureTextEntry,
-  title,
   value,
   iconName,
+  secureTextEntry,
   onChangeText,
 }: Props) => {
   return (
     <View style={styles.container}>
-      {title !== undefined && <Text>{title}</Text>}
       {iconName !== undefined && (
         <Ionicons
           style={styles.inputIcon}

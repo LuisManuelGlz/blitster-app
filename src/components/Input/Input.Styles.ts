@@ -1,12 +1,12 @@
 import { StyleSheet } from 'react-native';
-import { screen, PADDING_HORIZONTAL } from '../../constants/Layout';
+import { PADDING_HORIZONTAL } from '../../constants/Layout';
 
 export default StyleSheet.create({
   container: {
-    marginTop: 8,
+    width: '100%',
+    marginBottom: 8,
   },
   input: {
-    width: screen.width - 64,
     height: 48,
     fontSize: 16,
     paddingHorizontal: PADDING_HORIZONTAL,
@@ -14,8 +14,8 @@ export default StyleSheet.create({
     backgroundColor: '#CCCCCC',
   },
   inputWithIcon: {
-    width: screen.width - 64,
     height: 48,
+    fontSize: 16,
     paddingLeft: 48,
     paddingHorizontal: PADDING_HORIZONTAL,
     borderRadius: 25,

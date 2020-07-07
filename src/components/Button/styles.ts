@@ -1,5 +1,4 @@
 import { StyleSheet } from 'react-native';
-import { screen } from '../../constants/Layout';
 
 export default StyleSheet.create({
   default: {
@@ -7,6 +6,6 @@ export default StyleSheet.create({
     paddingVertical: 16,
   },
   block: {
-    width: screen.width - 64,
+    width: '100%',
   },
 });

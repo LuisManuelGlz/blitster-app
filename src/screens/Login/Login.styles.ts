@@ -1,10 +1,14 @@
 import { StyleSheet } from 'react-native';
+import { Layout } from '../../styles';
 
 export default StyleSheet.create({
   container: {
-    flex: 1,
+    ...Layout.containerWithMargin,
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  input: {
+    marginBottom: 8,
   },
   button: {
     marginTop: 16,
