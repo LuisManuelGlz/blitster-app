@@ -8,15 +8,14 @@ interface Props {
   children: React.ReactNode;
   primary?: boolean;
   secondary?: boolean;
-  dark?: boolean;
   light?: boolean;
   danger?: boolean;
   center?: boolean;
 }
 
 const H3 = (props: Props) => {
-  const customStyles = [styles.default, props.style];
-  const { primary, secondary, dark, light, danger, center } = props;
+  const customStyles = [mainStyles.default, styles.default, props.style];
+  const { primary, secondary, light, danger, center } = props;
 
   if (primary) {
     customStyles.push(mainStyles.primary);
@@ -24,10 +23,6 @@ const H3 = (props: Props) => {
 
   if (secondary) {
     customStyles.push(mainStyles.secondary);
-  }
-
-  if (dark) {
-    customStyles.push(mainStyles.dark);
   }
 
   if (light) {

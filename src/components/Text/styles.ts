@@ -2,14 +2,14 @@ import { StyleSheet } from 'react-native';
 import { Colors } from '../../styles';
 
 export default StyleSheet.create({
+  default: {
+    color: Colors.black,
+  },
   primary: {
     color: Colors.purple,
   },
   secondary: {
     color: Colors.gray,
-  },
-  dark: {
-    color: Colors.black,
   },
   light: {
     color: Colors.white,
