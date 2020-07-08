@@ -1,8 +1,8 @@
 import React from 'react';
-import { View, Text, Image } from 'react-native';
+import { View, Image } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import styles from './Intro.styles';
-import Button from '../../components/Button';
+import { Button, Text } from '../../components';
 import ImagesAssets from '../../constants/ImagesAssets';
 
 const IntroScreen = () => {
@@ -11,7 +11,7 @@ const IntroScreen = () => {
   return (
     <View style={styles.container}>
       <Image style={styles.logo} source={ImagesAssets.logos.react} />
-      <Text>Welcome to Blitster</Text>
+      <Text.H1>Welcome to Blitster</Text.H1>
       <Button.Primary
         style={styles.button}
         title="Log in"

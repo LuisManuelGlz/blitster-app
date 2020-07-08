@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { View, Text } from 'react-native';
+import { View } from 'react-native';
 import { connect } from 'react-redux';
 import { login } from '../../redux/actions/auth';
 import { UserForLogin } from '../../interfaces/user';
-import { Input, Button } from '../../components';
+import { Input, Button, Text } from '../../components';
 import styles from './Login.styles';
 
 interface Props {
@@ -27,7 +27,7 @@ const LogInScreen = ({ login }: Props) => {
 
   return (
     <View style={styles.container}>
-      <Text>Welcome Back!</Text>
+      <Text.H1 style={styles.title}>Welcome Back!</Text.H1>
 
       <Input
         placeholder="Username"

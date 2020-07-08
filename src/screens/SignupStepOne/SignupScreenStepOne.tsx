@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { View, Text } from 'react-native';
+import { View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { Input, Button } from '../../components';
+import { Input, Button, Text } from '../../components';
 import styles from './SignupStepOneScreen.styles';
 
 const SignupStepOneScreen = () => {
@@ -22,7 +22,7 @@ const SignupStepOneScreen = () => {
 
   return (
     <View style={styles.container}>
-      <Text>Create your account</Text>
+      <Text.H1 style={styles.title}>Create your account</Text.H1>
 
       <Input
         placeholder="Full name"
