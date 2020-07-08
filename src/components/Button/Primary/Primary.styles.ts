@@ -1,8 +1,9 @@
 import { StyleSheet } from 'react-native';
+import { Colors } from '../../../styles';
 
 export default StyleSheet.create({
   default: {
-    backgroundColor: 'purple',
+    backgroundColor: Colors.purple,
     borderRadius: 25,
   },
   buttonTitle: {

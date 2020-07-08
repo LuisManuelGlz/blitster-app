@@ -1,5 +1,6 @@
 import { StyleSheet } from 'react-native';
 import { PADDING_HORIZONTAL } from '../../constants/Layout';
+import { Colors } from '../../styles';
 
 export default StyleSheet.create({
   container: {
@@ -11,7 +12,7 @@ export default StyleSheet.create({
     fontSize: 16,
     paddingHorizontal: PADDING_HORIZONTAL,
     borderRadius: 25,
-    backgroundColor: '#CCCCCC',
+    backgroundColor: Colors.gray,
   },
   inputWithIcon: {
     height: 48,

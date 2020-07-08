@@ -1,14 +1,15 @@
 import { StyleSheet } from 'react-native';
+import { Colors } from '../../../styles';
 
 export default StyleSheet.create({
   default: {
     backgroundColor: 'transparent',
     borderWidth: 2,
-    borderColor: 'purple',
+    borderColor: Colors.purple,
     borderRadius: 25,
   },
   buttonTitle: {
-    color: 'purple',
+    color: Colors.purple,
     textAlign: 'center',
     fontSize: 16,
   },
