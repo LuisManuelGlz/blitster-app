@@ -8,12 +8,17 @@ const SignupStepOneScreen = () => {
   const navigation = useNavigation();
 
   const [formData, setFormData] = useState({
-    fullName: '',
+    firstName: '',
+    lastName: '',
     email: '',
   });
 
-  const handleUsernameChange = (text: string) => {
-    setFormData({ ...formData, fullName: text });
+  const handleFirstNameChange = (text: string) => {
+    setFormData({ ...formData, firstName: text });
+  };
+
+  const handleLastNameChange = (text: string) => {
+    setFormData({ ...formData, lastName: text });
   };
 
   const handleEmailChange = (text: string) => {
@@ -25,9 +30,14 @@ const SignupStepOneScreen = () => {
       <Text.H1 style={styles.title}>Create your account</Text.H1>
 
       <Input
-        placeholder="Full name"
-        onChangeText={(text) => handleUsernameChange(text)}
-        value={formData.fullName}
+        placeholder="Fisrt name"
+        onChangeText={(text) => handleFirstNameChange(text)}
+        value={formData.firstName}
+      />
+      <Input
+        placeholder="Last name"
+        onChangeText={(text) => handleLastNameChange(text)}
+        value={formData.lastName}
       />
       <Input
         placeholder="Email"
