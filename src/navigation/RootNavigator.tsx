@@ -11,7 +11,7 @@ interface Props {
 }
 
 const RootNavigator = ({ isAuthenticated }: Props) => {
-  return !isAuthenticated ? (
+  return isAuthenticated ? (
     <Stack.Navigator>
       <Stack.Screen
         name="App"

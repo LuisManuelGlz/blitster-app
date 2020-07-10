@@ -53,4 +53,6 @@ const LogInScreen = ({ login }: Props) => {
   );
 };
 
-export default connect(null, { login })(LogInScreen);
+const mapDispatchToProps = { login };
+
+export default connect(null, mapDispatchToProps)(LogInScreen);

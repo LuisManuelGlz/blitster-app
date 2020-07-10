@@ -1,6 +1,6 @@
-import Alert from './Alert';
+import AlertContainer from './AlertsContainer';
 import Input from './Input';
 import Button from './Button';
 import Text from './Text';
 
-export { Alert, Input, Button, Text };
+export { AlertContainer, Input, Button, Text };

@@ -3,7 +3,7 @@ import { Alert } from '../../interfaces/alert';
 
 interface Action {
   type: string;
-  payload?: Alert;
+  payload?: string | Alert;
 }
 
 const initialState: Alert[] = [];
@@ -15,7 +15,7 @@ export default (state = initialState, action: Action) => {
     case SET_ALERT:
       return [...state, payload];
     case REMOVE_ALERT:
-      return state.filter((alert: Alert) => alert.id !== payload?.id);
+      return state.filter((alert: Alert) => alert.id !== payload);
     case CLEAR_ALERTS:
       return [];
     default:
