@@ -35,7 +35,7 @@ const SignupStepOneScreen = () => {
         value={formData.email}
       />
 
-      <Button
+      <Button.Simple
         style={styles.button}
         title="Next"
         onPress={() => navigation.navigate('SignupStepTwo')}
