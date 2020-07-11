@@ -5,6 +5,19 @@ import { setAlert } from './alert';
 import authClient from '../../api/authClient';
 import { UserForLogin } from '../../interfaces/user';
 
+export const checkEmail = (email: string) => async (
+  dispatch: ThunkDispatch<{}, {}, AnyAction>,
+) => {
+  try {
+    await authClient.post('check-email', { email });
+  } catch (error) {
+    const { errors } = error.response.data;
+
+    dispatch({ type: CLEAR_ALERTS });
+    errors.map((err: { msg: string }) => dispatch(setAlert(err.msg, 'Error')));
+  }
+};
+
 export const login = (user: UserForLogin) => async (
   dispatch: ThunkDispatch<{}, {}, AnyAction>,
 ) => {
