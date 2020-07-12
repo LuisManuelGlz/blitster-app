@@ -4,7 +4,6 @@ import { Colors } from '../../styles';
 
 export default StyleSheet.create({
   inputContainer: {
-    flex: 1,
     flexDirection: 'row',
     width: '100%',
     maxHeight: 48,
@@ -29,6 +28,5 @@ export default StyleSheet.create({
   },
   errorMessage: {
     color: Colors.red,
-    // marginTop: 1,
   },
 });

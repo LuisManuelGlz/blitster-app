@@ -5,8 +5,7 @@ import styles from './Input.Styles';
 interface Props {
   style?: StyleProp<ViewStyle>;
   placeholder?: string;
-  title?: string;
-  value: string;
+  value?: string;
   secureTextEntry?: boolean;
   iconLeft?: any;
   iconRight?: any;
