@@ -33,13 +33,13 @@ const LogInScreen = ({ login }: Props) => {
         placeholder="Username"
         value={formData.username}
         onChangeText={(text) => handleUsernameChange(text)}
-        iconName="person"
+        iconNameLeft="person"
       />
       <Input
         placeholder="Password"
         value={formData.password}
         onChangeText={(text) => handlePasswordChange(text)}
-        iconName="lock-closed"
+        iconNameLeft="lock-closed"
         secureTextEntry={true}
       />
 

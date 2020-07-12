@@ -8,14 +8,15 @@ import authClient from '../../api/authClient';
 const SignupStepOneScreen = () => {
   const navigation = useNavigation();
 
+  const [isEmailValid, setIsEmailValid] = useState(false);
+  const [isEmailInputLoading, setIsEmailInputLoading] = useState(false);
+  const [iconNameRight, setIconNameRight] = useState('');
+  const [errorMessages, setErrorMessages] = useState([]);
+
   const [formData, setFormData] = useState({
     fullName: '',
     email: '',
   });
-
-  const [isEmailValid, setIsEmailValid] = useState(false);
-
-  const [isEmailInputLoading, setIsEmailInputLoading] = useState(false);
 
   const handleFullNameChange = (text: string) => {
     setFormData({ ...formData, fullName: text });
@@ -28,8 +29,12 @@ const SignupStepOneScreen = () => {
     try {
       const email = formData.email;
       await authClient.post('check-email', { email });
+      setErrorMessages([]);
+      setIconNameRight('checkmark');
       setIsEmailValid(true);
     } catch (error) {
+      setErrorMessages(error.response.data.errors);
+      setIconNameRight('');
       setIsEmailValid(false);
     } finally {
       setIsEmailInputLoading(false);
@@ -53,6 +58,8 @@ const SignupStepOneScreen = () => {
         placeholder="Email"
         onChangeText={(text) => handleEmailChange(text)}
         value={formData.email}
+        iconNameRight={iconNameRight}
+        errorMessages={errorMessages}
       />
       {isEmailInputLoading && <Text.H3>Loading</Text.H3>}
 
