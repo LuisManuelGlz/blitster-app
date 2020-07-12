@@ -1,1 +1,1 @@
-export { default } from './SignupScreenStepTwo';
+export { default } from './SignupStepTwoScreen';

@@ -25,10 +25,14 @@ const SignupStepOneScreen = () => {
   const handleEmailChange = async (text: string) => {
     setFormData({ ...formData, email: text });
     setIsEmailInputLoading(true);
+    setIconNameRight('');
+    setIsEmailValid(false);
+
+    const { email } = formData;
 
     try {
-      const email = formData.email;
       await authClient.post('check-email', { email });
+
       setErrorMessages([]);
       setIconNameRight('checkmark');
       setIsEmailValid(true);
