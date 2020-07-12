@@ -1,7 +1,6 @@
 import { StyleSheet } from 'react-native';
 import { PADDING_HORIZONTAL } from '../../constants/Layout';
 import { Colors } from '../../styles';
-// import { screen } from '../../constants/Layout';
 
 export default StyleSheet.create({
   inputContainer: {

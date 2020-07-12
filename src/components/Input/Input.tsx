@@ -1,6 +1,5 @@
 import React from 'react';
 import { View, Text, TextInput, StyleProp, ViewStyle } from 'react-native';
-import Ionicons from 'react-native-vector-icons/Ionicons';
 import styles from './Input.Styles';
 
 interface Props {
@@ -9,8 +8,8 @@ interface Props {
   title?: string;
   value: string;
   secureTextEntry?: boolean;
-  iconNameLeft?: string;
-  iconNameRight?: string;
+  iconLeft?: any;
+  iconRight?: any;
   errorMessages?: { msg: string }[];
   onChangeText: (text: string) => void;
 }
@@ -19,8 +18,8 @@ const Input = ({
   style,
   placeholder,
   value,
-  iconNameLeft,
-  iconNameRight,
+  iconLeft,
+  iconRight,
   errorMessages,
   secureTextEntry,
   onChangeText,
@@ -35,9 +34,7 @@ const Input = ({
             : null,
         ]}>
         <View style={styles.iconContainer}>
-          {iconNameLeft !== undefined && (
-            <Ionicons name={iconNameLeft} size={24} color={'gray'} />
-          )}
+          {iconLeft !== undefined && iconLeft}
         </View>
         <TextInput
           style={styles.input}
@@ -47,9 +44,7 @@ const Input = ({
           onChangeText={(text) => onChangeText(text)}
         />
         <View style={styles.iconContainer}>
-          {iconNameRight !== undefined && iconNameRight !== '' && (
-            <Ionicons name={iconNameRight} size={24} color={'gray'} />
-          )}
+          {iconRight !== undefined && iconRight}
         </View>
       </View>
       <View style={styles.errorsContainer}>

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { View } from 'react-native';
 import { connect } from 'react-redux';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 import { login } from '../../redux/actions/auth';
 import { UserForLogin } from '../../interfaces/user';
 import { Input, Button, Text } from '../../components';
@@ -34,14 +35,14 @@ const LogInScreen = ({ login }: Props) => {
         placeholder="Username"
         value={formData.username}
         onChangeText={(text) => handleUsernameChange(text)}
-        iconNameLeft="person"
+        iconLeft={<Ionicons name="person" size={24} color={'gray'} />}
       />
       <Input
         style={styles.input}
         placeholder="Password"
         value={formData.password}
         onChangeText={(text) => handlePasswordChange(text)}
-        iconNameLeft="lock-closed"
+        iconLeft={<Ionicons name="lock-closed" size={24} color={'gray'} />}
         secureTextEntry={true}
       />
 
