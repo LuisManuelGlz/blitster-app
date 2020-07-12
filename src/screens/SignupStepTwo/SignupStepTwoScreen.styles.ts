@@ -10,6 +10,9 @@ export default StyleSheet.create({
   title: {
     marginBottom: 32,
   },
+  input: {
+    marginBottom: 8,
+  },
   button: {
     marginTop: 16,
   },

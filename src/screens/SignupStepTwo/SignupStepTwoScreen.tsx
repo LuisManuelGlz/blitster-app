@@ -37,16 +37,19 @@ const SignupStepTwoScreen = () => {
       <Text.H1 style={styles.title}>Create your account</Text.H1>
 
       <Input
+        style={styles.input}
         placeholder="Username"
         onChangeText={(text) => handleUsernameChange(text)}
         value={formData.username}
       />
       <Input
+        style={styles.input}
         placeholder="Password"
         onChangeText={(text) => handlePassword1Change(text)}
         value={formData.password1}
       />
       <Input
+        style={styles.input}
         placeholder="Confirm password"
         onChangeText={(text) => handlePassword2Change(text)}
         value={formData.password2}

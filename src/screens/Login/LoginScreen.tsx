@@ -30,12 +30,14 @@ const LogInScreen = ({ login }: Props) => {
       <Text.H1 style={styles.title}>Welcome Back!</Text.H1>
 
       <Input
+        style={styles.input}
         placeholder="Username"
         value={formData.username}
         onChangeText={(text) => handleUsernameChange(text)}
         iconNameLeft="person"
       />
       <Input
+        style={styles.input}
         placeholder="Password"
         value={formData.password}
         onChangeText={(text) => handlePasswordChange(text)}

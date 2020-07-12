@@ -1,9 +1,10 @@
 import React from 'react';
-import { View, Text, TextInput } from 'react-native';
+import { View, Text, TextInput, StyleProp, ViewStyle } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import styles from './Input.Styles';
 
 interface Props {
+  style?: StyleProp<ViewStyle>;
   placeholder?: string;
   title?: string;
   value: string;
@@ -15,6 +16,7 @@ interface Props {
 }
 
 const Input = ({
+  style,
   placeholder,
   value,
   iconNameLeft,
@@ -24,41 +26,39 @@ const Input = ({
   onChangeText,
 }: Props) => {
   return (
-    <View style={styles.container}>
-      {iconNameLeft !== undefined && (
-        <Ionicons
-          style={styles.inputIconLeft}
-          name={iconNameLeft}
-          size={24}
-          color={'gray'}
-        />
-      )}
-      <TextInput
+    <View style={style}>
+      <View
         style={[
-          styles.input,
-          iconNameLeft ? styles.inputWithIcon : null,
-          errorMessages !== undefined && errorMessages?.length > 0
+          styles.inputContainer,
+          errorMessages !== undefined && errorMessages.length > 0
             ? styles.inputError
             : null,
-        ]}
-        placeholder={placeholder}
-        secureTextEntry={secureTextEntry}
-        value={value}
-        onChangeText={(text) => onChangeText(text)}
-      />
-      {iconNameRight !== undefined && iconNameRight !== '' && (
-        <Ionicons
-          style={styles.inputIconRight}
-          name={iconNameRight}
-          size={24}
-          color={'gray'}
+        ]}>
+        <View style={styles.iconContainer}>
+          {iconNameLeft !== undefined && (
+            <Ionicons name={iconNameLeft} size={24} color={'gray'} />
+          )}
+        </View>
+        <TextInput
+          style={styles.input}
+          placeholder={placeholder}
+          secureTextEntry={secureTextEntry}
+          value={value}
+          onChangeText={(text) => onChangeText(text)}
         />
-      )}
-      {errorMessages?.map((errorMessage, index) => (
-        <Text key={index} style={styles.errorMessage}>
-          {errorMessage.msg}
-        </Text>
-      ))}
+        <View style={styles.iconContainer}>
+          {iconNameRight !== undefined && iconNameRight !== '' && (
+            <Ionicons name={iconNameRight} size={24} color={'gray'} />
+          )}
+        </View>
+      </View>
+      <View style={styles.errorsContainer}>
+        {errorMessages?.map((errorMessage, index) => (
+          <Text key={index} style={styles.errorMessage}>
+            {errorMessage.msg}
+          </Text>
+        ))}
+      </View>
     </View>
   );
 };

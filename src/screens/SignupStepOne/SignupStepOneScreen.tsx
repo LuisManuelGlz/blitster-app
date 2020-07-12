@@ -54,11 +54,13 @@ const SignupStepOneScreen = () => {
       <Text.H1 style={styles.title}>Create your account</Text.H1>
 
       <Input
+        style={styles.input}
         placeholder="Full name"
         onChangeText={(text) => handleFullNameChange(text)}
         value={formData.fullName}
       />
       <Input
+        style={styles.input}
         placeholder="Email"
         onChangeText={(text) => handleEmailChange(text)}
         value={formData.email}

@@ -1,40 +1,35 @@
 import { StyleSheet } from 'react-native';
 import { PADDING_HORIZONTAL } from '../../constants/Layout';
 import { Colors } from '../../styles';
+// import { screen } from '../../constants/Layout';
 
 export default StyleSheet.create({
-  container: {
+  inputContainer: {
+    flex: 1,
+    flexDirection: 'row',
     width: '100%',
-    marginBottom: 8,
+    maxHeight: 48,
+    backgroundColor: Colors.gray,
+    borderRadius: 25,
+    paddingHorizontal: PADDING_HORIZONTAL,
   },
   input: {
-    height: 48,
+    flexGrow: 1,
+    flexShrink: 1,
     fontSize: 16,
-    paddingHorizontal: PADDING_HORIZONTAL,
-    borderRadius: 25,
-    backgroundColor: Colors.gray,
   },
-  inputWithIcon: {
-    paddingLeft: 48,
-  },
-  inputIconLeft: {
-    position: 'absolute',
-    top: 8,
-    left: 16,
-    zIndex: 1000,
-  },
-  inputIconRight: {
-    position: 'absolute',
-    top: 8,
-    right: 16,
-    zIndex: 1000,
+  iconContainer: {
+    marginTop: 8,
   },
   inputError: {
     borderWidth: 1.5,
     borderColor: Colors.red,
   },
+  errorsContainer: {
+    paddingHorizontal: 8,
+  },
   errorMessage: {
     color: Colors.red,
-    marginTop: 1,
+    // marginTop: 1,
   },
 });
