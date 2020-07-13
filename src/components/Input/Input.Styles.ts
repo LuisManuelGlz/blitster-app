@@ -17,7 +17,7 @@ export default StyleSheet.create({
     fontSize: 16,
   },
   iconContainer: {
-    marginTop: 8,
+    marginTop: 12,
   },
   inputError: {
     borderWidth: 1.5,
