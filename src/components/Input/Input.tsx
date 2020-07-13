@@ -28,13 +28,9 @@ const Input = ({
       <View
         style={[
           styles.inputContainer,
-          errorMessages !== undefined && errorMessages.length > 0
-            ? styles.inputError
-            : null,
+          errorMessages && errorMessages.length > 0 ? styles.inputError : null,
         ]}>
-        <View style={styles.iconContainer}>
-          {iconLeft !== undefined && iconLeft}
-        </View>
+        <View style={styles.iconContainer}>{iconLeft}</View>
         <TextInput
           style={styles.input}
           placeholder={placeholder}
@@ -42,9 +38,7 @@ const Input = ({
           value={value}
           onChangeText={(text) => onChangeText(text)}
         />
-        <View style={styles.iconContainer}>
-          {iconRight !== undefined && iconRight}
-        </View>
+        <View style={styles.iconContainer}>{iconRight}</View>
       </View>
       <View style={styles.errorsContainer}>
         {errorMessages?.map((errorMessage, index) => (
