@@ -1,18 +1,24 @@
 import React, { useState } from 'react';
 import { View } from 'react-native';
-import { connect } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import { login } from '../../redux/actions/auth';
-import { UserForLogin } from '../../interfaces/user';
+import authClient from '../../api/authClient';
+import { setAlert } from '../../redux/actions/alert';
+import { LOGIN_SUCCESS, LOGIN_FAIL } from '../../redux/actions/actionTypes';
 import { Input, Button, Text } from '../../components';
 import styles from './Login.styles';
+import { BadRequestError } from '../../interfaces/axios';
 
-interface Props {
-  login: (user: UserForLogin) => void;
-}
+const LogInScreen = () => {
+  const dispatch = useDispatch();
 
-const LogInScreen = ({ login }: Props) => {
   const [formData, setFormData] = useState({ username: '', password: '' });
+  const [usernameErrorMessages, setUsernameErrorMessages] = useState<
+    BadRequestError[]
+  >([]);
+  const [passwordErrorMessages, setPasswordErrorMessages] = useState<
+    BadRequestError[]
+  >([]);
 
   const handleUsernameChange = (text: string) => {
     setFormData({ ...formData, username: text });
@@ -22,8 +28,35 @@ const LogInScreen = ({ login }: Props) => {
     setFormData({ ...formData, password: text });
   };
 
-  const handleLoginPress = () => {
-    login(formData);
+  const handleLoginPress = async () => {
+    setUsernameErrorMessages([]);
+    setPasswordErrorMessages([]);
+
+    try {
+      const res = await authClient.post('login', formData);
+      dispatch({ type: LOGIN_SUCCESS, payload: res.data });
+    } catch (error) {
+      const { status, data } = error.response;
+
+      if (status === 404) {
+        dispatch(setAlert(data.message, 'Error'));
+      } else {
+        data.errors?.map((err: BadRequestError) => {
+          if (err.param === 'username') {
+            setUsernameErrorMessages((oldErrorMessages) => [
+              ...oldErrorMessages,
+              err,
+            ]);
+          } else if (err.param === 'password') {
+            setPasswordErrorMessages((oldErrorMessages) => [
+              ...oldErrorMessages,
+              err,
+            ]);
+          }
+        });
+        dispatch({ type: LOGIN_FAIL });
+      }
+    }
   };
 
   return (
@@ -36,6 +69,7 @@ const LogInScreen = ({ login }: Props) => {
         value={formData.username}
         onChangeText={(text) => handleUsernameChange(text)}
         iconLeft={<Ionicons name="person" size={24} color={'gray'} />}
+        errorMessages={usernameErrorMessages}
       />
       <Input
         style={styles.input}
@@ -43,6 +77,7 @@ const LogInScreen = ({ login }: Props) => {
         value={formData.password}
         onChangeText={(text) => handlePasswordChange(text)}
         iconLeft={<Ionicons name="lock-closed" size={24} color={'gray'} />}
+        errorMessages={passwordErrorMessages}
         secureTextEntry={true}
       />
 
@@ -56,6 +91,4 @@ const LogInScreen = ({ login }: Props) => {
   );
 };
 
-const mapDispatchToProps = { login };
-
-export default connect(null, mapDispatchToProps)(LogInScreen);
+export default LogInScreen;

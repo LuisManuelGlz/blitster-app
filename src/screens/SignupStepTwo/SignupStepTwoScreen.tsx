@@ -73,7 +73,9 @@ const SignupStepTwoScreen = ({ route }: Props) => {
 
       dispatch({ type: SIGNUP_SUCCESS, payload: res.data });
     } catch (error) {
-      error.response.data.errors.map((err: BadRequestError) => {
+      const { data } = error.response;
+
+      data.errors?.map((err: BadRequestError) => {
         if (err.param === 'username') {
           setUsernameErrorMessages((oldErrorMessages) => [
             ...oldErrorMessages,
