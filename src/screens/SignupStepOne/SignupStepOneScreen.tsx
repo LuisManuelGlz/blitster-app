@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View } from 'react-native';
+import { ActivityIndicator, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { Input, Button, Text } from '../../components';
 import styles from './SignupStepOneScreen.styles';
@@ -10,7 +10,6 @@ const SignupStepOneScreen = () => {
 
   const [isEmailValid, setIsEmailValid] = useState(false);
   const [isEmailInputLoading, setIsEmailInputLoading] = useState(false);
-  const [iconNameRight, setIconNameRight] = useState('');
   const [errorMessages, setErrorMessages] = useState([]);
 
   const [formData, setFormData] = useState({
@@ -25,7 +24,6 @@ const SignupStepOneScreen = () => {
   const handleEmailChange = async (text: string) => {
     setFormData({ ...formData, email: text });
     setIsEmailInputLoading(true);
-    setIconNameRight('');
     setIsEmailValid(false);
 
     const { email } = formData;
@@ -34,11 +32,9 @@ const SignupStepOneScreen = () => {
       await authClient.post('check-email', { email });
 
       setErrorMessages([]);
-      setIconNameRight('checkmark');
       setIsEmailValid(true);
     } catch (error) {
       setErrorMessages(error.response.data.errors);
-      setIconNameRight('');
       setIsEmailValid(false);
     } finally {
       setIsEmailInputLoading(false);
@@ -46,7 +42,7 @@ const SignupStepOneScreen = () => {
   };
 
   const handleNextPress = () => {
-    navigation.navigate('SignupStepTwo');
+    navigation.navigate('SignupStepTwo', { userDetails: formData });
   };
 
   return (
@@ -64,10 +60,11 @@ const SignupStepOneScreen = () => {
         placeholder="Email"
         onChangeText={(text) => handleEmailChange(text)}
         value={formData.email}
-        iconNameRight={iconNameRight}
+        iconRight={
+          isEmailInputLoading ? <ActivityIndicator color={'purple'} /> : null
+        }
         errorMessages={errorMessages}
       />
-      {isEmailInputLoading && <Text.H3>Loading</Text.H3>}
 
       {isEmailValid && formData.fullName !== '' && formData.email !== '' && (
         <Button.Simple

@@ -5,7 +5,14 @@ import LoginScreen from '../screens/Login';
 import SignupStepOneScreen from '../screens/SignupStepOne';
 import SignupStepTwoScreen from '../screens/SignupStepTwo';
 
-const Stack = createStackNavigator();
+export type AuthStackParamList = {
+  Intro: undefined;
+  Login: undefined;
+  SignupStepOne: undefined;
+  SignupStepTwo: { userDetails: { fullName: string; email: string } };
+};
+
+const Stack = createStackNavigator<AuthStackParamList>();
 
 const AuthNavigator = () => (
   <Stack.Navigator

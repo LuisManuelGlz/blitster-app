@@ -1,10 +1,10 @@
 import {
-  // SIGNUP_SUCCESS,
+  SIGNUP_SUCCESS,
   // SIGNUP_FAIL,
   // LOGIN_LOADED,
   LOGIN_SUCCESS,
   LOGIN_FAIL,
-  // LOGOUT,
+  LOGOUT,
 } from '../actions/actionTypes';
 
 const initialState = {
@@ -28,14 +28,18 @@ interface Action {
 export default (state = initialState, action: Action) => {
   switch (action.type) {
     case LOGIN_SUCCESS:
+    case SIGNUP_SUCCESS:
       return {
         ...state,
         ...action.payload,
         isAuthenticated: true,
       };
     case LOGIN_FAIL:
+    case LOGOUT:
       return {
-        ...state,
+        tokenType: null,
+        accessToken: null,
+        refreshToken: null,
         isAuthenticated: false,
       };
     default:
