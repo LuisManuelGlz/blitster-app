@@ -4,19 +4,19 @@ import { createStackNavigator } from '@react-navigation/stack';
 import RootNavigator from '../navigation/RootNavigator';
 import { AlertContainer } from '../components';
 
-const Stack = createStackNavigator();
+const AppStack = createStackNavigator();
 
 const AppNavigator = () => {
   return (
     <Fragment>
       <NavigationContainer>
-        <Stack.Navigator>
-          <Stack.Screen
+        <AppStack.Navigator>
+          <AppStack.Screen
             name="AppStack"
             component={RootNavigator}
             options={{ headerShown: false }}
           />
-        </Stack.Navigator>
+        </AppStack.Navigator>
       </NavigationContainer>
       <AlertContainer />
     </Fragment>

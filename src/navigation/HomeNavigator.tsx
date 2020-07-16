@@ -3,10 +3,10 @@ import { createStackNavigator } from '@react-navigation/stack';
 import HomeScreen from '../screens/Home';
 import PostDetailScreen from '../screens/PostDetail';
 
-const Stack = createStackNavigator();
+const HomeStack = createStackNavigator();
 
 const HomeNavigator = () => (
-  <Stack.Navigator
+  <HomeStack.Navigator
     screenOptions={{
       headerStyle: {
         backgroundColor: 'transparent',
@@ -14,13 +14,13 @@ const HomeNavigator = () => (
         shadowOpacity: 0,
       },
     }}>
-    <Stack.Screen name="Home" component={HomeScreen} />
-    <Stack.Screen
+    <HomeStack.Screen name="Home" component={HomeScreen} />
+    <HomeStack.Screen
       name="PostDetail"
       component={PostDetailScreen}
       options={{ title: 'Post detail xd' }}
     />
-  </Stack.Navigator>
+  </HomeStack.Navigator>
 );
 
 export default HomeNavigator;

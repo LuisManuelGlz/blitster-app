@@ -12,10 +12,10 @@ export type AuthStackParamList = {
   SignupStepTwo: { userDetails: { fullName: string; email: string } };
 };
 
-const Stack = createStackNavigator<AuthStackParamList>();
+const AuthStack = createStackNavigator<AuthStackParamList>();
 
 const AuthNavigator = () => (
-  <Stack.Navigator
+  <AuthStack.Navigator
     screenOptions={{
       headerStyle: {
         backgroundColor: 'transparent',
@@ -23,27 +23,27 @@ const AuthNavigator = () => (
         shadowOpacity: 0,
       },
     }}>
-    <Stack.Screen
+    <AuthStack.Screen
       name="Intro"
       component={IntroScreen}
       options={{ headerShown: false }}
     />
-    <Stack.Screen
+    <AuthStack.Screen
       name="Login"
       component={LoginScreen}
       options={{ headerTitle: '' }}
     />
-    <Stack.Screen
+    <AuthStack.Screen
       name="SignupStepOne"
       component={SignupStepOneScreen}
       options={{ headerTitle: '' }}
     />
-    <Stack.Screen
+    <AuthStack.Screen
       name="SignupStepTwo"
       component={SignupStepTwoScreen}
       options={{ headerTitle: '' }}
     />
-  </Stack.Navigator>
+  </AuthStack.Navigator>
 );
 
 export default AuthNavigator;

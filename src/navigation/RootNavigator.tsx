@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import DrawerNavigator from './DrawerNavigator';
 import AuthNavigator from './AuthNavigator';
 
-const Stack = createStackNavigator();
+const RootStack = createStackNavigator();
 
 interface Props {
   isAuthenticated: string;
@@ -12,21 +12,21 @@ interface Props {
 
 const RootNavigator = ({ isAuthenticated }: Props) => {
   return isAuthenticated ? (
-    <Stack.Navigator>
-      <Stack.Screen
+    <RootStack.Navigator>
+      <RootStack.Screen
         name="App"
         component={DrawerNavigator}
         options={{ headerShown: false }}
       />
-    </Stack.Navigator>
+    </RootStack.Navigator>
   ) : (
-    <Stack.Navigator>
-      <Stack.Screen
+    <RootStack.Navigator>
+      <RootStack.Screen
         name="Auth"
         component={AuthNavigator}
         options={{ headerShown: false }}
       />
-    </Stack.Navigator>
+    </RootStack.Navigator>
   );
 };
 

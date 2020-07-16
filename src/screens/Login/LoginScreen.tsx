@@ -39,7 +39,7 @@ const LogInScreen = () => {
       const { status, data } = error.response;
 
       if (status === 404) {
-        dispatch(setAlert(data.message, 'Error'));
+        dispatch(setAlert(data.message, 'error'));
       } else {
         data.errors?.map((err: BadRequestError) => {
           if (err.param === 'username') {

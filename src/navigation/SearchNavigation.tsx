@@ -2,10 +2,10 @@ import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import SearchScreen from '../screens/Search';
 
-const Stack = createStackNavigator();
+const SearchStack = createStackNavigator();
 
 const SearchNavigator = () => (
-  <Stack.Navigator
+  <SearchStack.Navigator
     screenOptions={{
       headerStyle: {
         backgroundColor: 'transparent',
@@ -13,8 +13,8 @@ const SearchNavigator = () => (
         shadowOpacity: 0,
       },
     }}>
-    <Stack.Screen name="Search" component={SearchScreen} />
-  </Stack.Navigator>
+    <SearchStack.Screen name="Search" component={SearchScreen} />
+  </SearchStack.Navigator>
 );
 
 export default SearchNavigator;
