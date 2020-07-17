@@ -12,12 +12,14 @@ const initialState = {
   accessToken: null,
   refreshToken: null,
   isAuthenticated: null,
+  expiresIn: null,
 };
 
 interface Payload {
   tokenType: string;
   accessToken: string;
   refreshToken: string;
+  expiresIn: number;
 }
 
 interface Action {
@@ -41,6 +43,7 @@ export default (state = initialState, action: Action) => {
         accessToken: null,
         refreshToken: null,
         isAuthenticated: false,
+        expiresIn: null,
       };
     default:
       return state;

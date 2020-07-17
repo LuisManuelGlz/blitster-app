@@ -4,8 +4,3 @@ export interface ServerData {
   refreshToken?: string;
   expiresIn: number;
 }
-
-export interface BadRequestError {
-  msg: string;
-  param: string;
-}
