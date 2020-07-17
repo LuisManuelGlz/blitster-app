@@ -8,8 +8,8 @@ import rootReducer from './reducers';
 const persistConfig = {
   key: 'root',
   storage: AsyncStorage,
-  whiteList: ['auth'],
-  blackList: ['alert', 'errorMessage'],
+  whitelist: ['auth'],
+  blacklist: ['alert', 'errorMessage'],
 };
 
 const middleware = [thunk, createLogger()];
