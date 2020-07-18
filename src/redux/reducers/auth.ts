@@ -1,6 +1,6 @@
 import {
   SIGNUP_SUCCESS,
-  // SIGNUP_FAIL,
+  SIGNUP_FAIL,
   // LOGIN_LOADED,
   LOGIN_SUCCESS,
   LOGIN_FAIL,
@@ -37,6 +37,7 @@ export default (state = initialState, action: Action) => {
         isAuthenticated: true,
       };
     case LOGIN_FAIL:
+    case SIGNUP_FAIL:
     case LOGOUT:
       return {
         tokenType: null,

@@ -1,19 +1,22 @@
 import React, { useState } from 'react';
 import { ActivityIndicator, View } from 'react-native';
-import { useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { RouteProp } from '@react-navigation/native';
-import authClient from '../../api/authClient';
-import { SIGNUP_SUCCESS } from '../../redux/actions/actionTypes';
 import { Input, Button, Text } from '../../components';
 import styles from './SignupStepTwoScreen.styles';
 import { AuthStackParamList } from '../../navigation/AuthNavigator';
-import { BadRequestError } from '../../interfaces/axios';
+import { ErrorMessage } from '../../interfaces/errorMessage';
+import { RootState } from '../../redux/reducers';
+import { checkUsername, signup } from '../../redux/actions/auth';
 
 interface Props {
   route: RouteProp<AuthStackParamList, 'SignupStepTwo'>;
 }
 
 const SignupStepTwoScreen = ({ route }: Props) => {
+  const errorMessages: ErrorMessage[] = useSelector(
+    (store: RootState) => store.errorMessage,
+  );
   const dispatch = useDispatch();
 
   const [formData, setFormData] = useState({
@@ -23,31 +26,12 @@ const SignupStepTwoScreen = ({ route }: Props) => {
   });
 
   const [isUsernameInputLoading, setIsUsernameInputLoading] = useState(false);
-  const [usernameErrorMessages, setUsernameErrorMessages] = useState<
-    BadRequestError[]
-  >([]);
-  const [password1ErrorMessages, setPassword1ErrorMessages] = useState<
-    BadRequestError[]
-  >([]);
-  const [password2ErrorMessages, setPassword2ErrorMessages] = useState<
-    BadRequestError[]
-  >([]);
 
-  const handleUsernameChange = async (text: string) => {
+  const handleUsernameChange = (text: string) => {
     setFormData({ ...formData, username: text });
     setIsUsernameInputLoading(true);
-
-    const { username } = formData;
-
-    try {
-      await authClient.post('check-username', { username });
-
-      setUsernameErrorMessages([]);
-    } catch (error) {
-      setUsernameErrorMessages(error.response.data.errors);
-    } finally {
-      setIsUsernameInputLoading(false);
-    }
+    dispatch(checkUsername(formData.username));
+    setIsUsernameInputLoading(false);
   };
 
   const handlePassword1Change = (text: string) => {
@@ -58,42 +42,15 @@ const SignupStepTwoScreen = ({ route }: Props) => {
     setFormData({ ...formData, password2: text });
   };
 
-  const handleSignupPress = async () => {
+  const handleSignupPress = () => {
     const { userDetails } = route.params;
 
-    setUsernameErrorMessages([]);
-    setPassword1ErrorMessages([]);
-    setPassword2ErrorMessages([]);
-
-    try {
-      const res = await authClient.post('signup', {
+    dispatch(
+      signup({
         ...formData,
         ...userDetails,
-      });
-
-      dispatch({ type: SIGNUP_SUCCESS, payload: res.data });
-    } catch (error) {
-      const { data } = error.response;
-
-      data.errors?.map((err: BadRequestError) => {
-        if (err.param === 'username') {
-          setUsernameErrorMessages((oldErrorMessages) => [
-            ...oldErrorMessages,
-            err,
-          ]);
-        } else if (err.param === 'password1') {
-          setPassword1ErrorMessages((oldErrorMessages) => [
-            ...oldErrorMessages,
-            err,
-          ]);
-        } else if (err.param === 'password2') {
-          setPassword2ErrorMessages((oldErrorMessages) => [
-            ...oldErrorMessages,
-            err,
-          ]);
-        }
-      });
-    }
+      }),
+    );
   };
 
   return (
@@ -108,14 +65,18 @@ const SignupStepTwoScreen = ({ route }: Props) => {
         iconRight={
           isUsernameInputLoading ? <ActivityIndicator color={'purple'} /> : null
         }
-        errorMessages={usernameErrorMessages}
+        errorMessages={errorMessages.filter(
+          (err: ErrorMessage) => err.param === 'username',
+        )}
       />
       <Input
         style={styles.input}
         placeholder="Password"
         onChangeText={(text) => handlePassword1Change(text)}
         value={formData.password1}
-        errorMessages={password1ErrorMessages}
+        errorMessages={errorMessages.filter(
+          (err: ErrorMessage) => err.param === 'password1',
+        )}
         secureTextEntry={true}
       />
       <Input
@@ -123,7 +84,9 @@ const SignupStepTwoScreen = ({ route }: Props) => {
         placeholder="Confirm password"
         onChangeText={(text) => handlePassword2Change(text)}
         value={formData.password2}
-        errorMessages={password2ErrorMessages}
+        errorMessages={errorMessages.filter(
+          (err: ErrorMessage) => err.param === 'password2',
+        )}
         secureTextEntry={true}
       />
 
