@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { ActivityIndicator, View } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
@@ -15,13 +15,23 @@ const SignupStepOneScreen = () => {
   );
   const dispatch = useDispatch();
 
-  const [isEmailValid, setIsEmailValid] = useState(false);
-  const [isEmailInputLoading, setIsEmailInputLoading] = useState(false);
+  const [isEmailValid, setIsEmailValid] = useState<boolean>(false);
+  const [isEmailInputLoading, setIsEmailInputLoading] = useState<boolean>(
+    false,
+  );
 
   const [formData, setFormData] = useState({
     fullName: '',
     email: '',
   });
+
+  useEffect(() => {
+    if (errorMessages.length === 0) {
+      setIsEmailValid(true);
+    } else {
+      setIsEmailValid(false);
+    }
+  }, [errorMessages]);
 
   const handleFullNameChange = (text: string) => {
     setFormData({ ...formData, fullName: text });
@@ -30,11 +40,7 @@ const SignupStepOneScreen = () => {
   const handleEmailChange = async (text: string) => {
     setFormData({ ...formData, email: text });
     setIsEmailInputLoading(true);
-    setIsEmailValid(false);
     dispatch(checkEmail(formData.email));
-    if (errorMessages.length === 0) {
-      setIsEmailValid(true);
-    }
     setIsEmailInputLoading(false);
   };
 

@@ -19,11 +19,16 @@ import { ErrorMessage } from '../../interfaces/errorMessage';
 export const checkEmail = (email: string) => async (
   dispatch: ThunkDispatch<{}, {}, AnyAction>,
 ) => {
-  dispatch(removeErrorMessages('email'));
   try {
-    await authClient.post('check-email', { email });
+    await authClient.post('check-email', {
+      email,
+    });
+    dispatch(removeErrorMessages('email'));
   } catch (error) {
     const { errors } = error.response.data;
+
+    dispatch(removeErrorMessages('email'));
+
     errors?.map((err: ErrorMessage) => {
       dispatch(setErrorMessage(err));
     });
@@ -33,11 +38,14 @@ export const checkEmail = (email: string) => async (
 export const checkUsername = (username: string) => async (
   dispatch: ThunkDispatch<{}, {}, AnyAction>,
 ) => {
-  dispatch(removeErrorMessages('username'));
   try {
     await authClient.post('check-username', { username });
+    dispatch(removeErrorMessages('username'));
   } catch (error) {
     const { errors } = error.response.data;
+
+    dispatch(removeErrorMessages('username'));
+
     errors?.map((err: ErrorMessage) => {
       dispatch(setErrorMessage(err));
     });
