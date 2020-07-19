@@ -10,7 +10,7 @@ import { login } from '../../redux/actions/auth';
 
 const LogInScreen = () => {
   const errorMessages: ErrorMessage[] = useSelector(
-    (store: RootState) => store.errorMessage,
+    (store: RootState) => store.errorMessage.errorMessages,
   );
   const dispatch = useDispatch();
 
