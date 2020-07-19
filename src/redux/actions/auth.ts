@@ -14,7 +14,7 @@ import {
   setIsEmailValid,
   setIsEmailInputLoading,
   setIsUsernameInputLoading,
-} from './errorMessage';
+} from './validation';
 import authClient from '../../api/authClient';
 import { UserForLogin, UserForSignup } from '../../interfaces/user';
 import { ErrorMessage } from '../../interfaces/errorMessage';

@@ -9,7 +9,7 @@ const persistConfig = {
   key: 'root',
   storage: AsyncStorage,
   whitelist: ['auth'],
-  blacklist: ['alert', 'errorMessage'],
+  blacklist: ['alert', 'validation'],
 };
 
 const middleware = [thunk, createLogger()];

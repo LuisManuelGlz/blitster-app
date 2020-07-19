@@ -1,12 +1,12 @@
 import { combineReducers } from 'redux';
 
 import alert from './alert';
-import errorMessage from './errorMessage';
+import validation from './validation';
 import auth from './auth';
 
 const rootReducer = combineReducers({
   alert,
-  errorMessage,
+  validation,
   auth,
 });
 

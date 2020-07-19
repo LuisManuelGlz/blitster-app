@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { ActivityIndicator, View } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
@@ -7,17 +7,18 @@ import styles from './SignupStepOneScreen.styles';
 import { checkEmail } from '../../redux/actions/auth';
 import { RootState } from '../../redux/reducers';
 import { ErrorMessage } from '../../interfaces/errorMessage';
+import { clearErrorMessages } from '../../redux/actions/validation';
 
 const SignupStepOneScreen = () => {
   const navigation = useNavigation();
   const errorMessages: ErrorMessage[] = useSelector(
-    (store: RootState) => store.errorMessage.errorMessages,
+    (store: RootState) => store.validation.errorMessages,
   );
   const isEmailValid: boolean = useSelector(
-    (store: RootState) => store.errorMessage.isEmailValid,
+    (store: RootState) => store.validation.isEmailValid,
   );
   const isEmailInputLoading: boolean = useSelector(
-    (store: RootState) => store.errorMessage.isEmailInputLoading,
+    (store: RootState) => store.validation.isEmailInputLoading,
   );
   const dispatch = useDispatch();
 
@@ -25,6 +26,12 @@ const SignupStepOneScreen = () => {
     fullName: '',
     email: '',
   });
+
+  useEffect(() => {
+    return (): void => {
+      dispatch(clearErrorMessages());
+    };
+  }, [dispatch]);
 
   const handleFullNameChange = (text: string) => {
     setFormData({ ...formData, fullName: text });

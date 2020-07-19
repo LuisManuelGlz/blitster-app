@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { ActivityIndicator, View } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import { RouteProp } from '@react-navigation/native';
@@ -8,6 +8,7 @@ import { AuthStackParamList } from '../../navigation/AuthNavigator';
 import { ErrorMessage } from '../../interfaces/errorMessage';
 import { RootState } from '../../redux/reducers';
 import { checkUsername, signup } from '../../redux/actions/auth';
+import { clearErrorMessages } from '../../redux/actions/validation';
 
 interface Props {
   route: RouteProp<AuthStackParamList, 'SignupStepTwo'>;
@@ -15,10 +16,10 @@ interface Props {
 
 const SignupStepTwoScreen = ({ route }: Props) => {
   const errorMessages: ErrorMessage[] = useSelector(
-    (store: RootState) => store.errorMessage.errorMessages,
+    (store: RootState) => store.validation.errorMessages,
   );
   const isUsernameInputLoading: boolean = useSelector(
-    (store: RootState) => store.errorMessage.isUsernameInputLoading,
+    (store: RootState) => store.validation.isUsernameInputLoading,
   );
   const dispatch = useDispatch();
 
@@ -27,6 +28,12 @@ const SignupStepTwoScreen = ({ route }: Props) => {
     password1: '',
     password2: '',
   });
+
+  useEffect(() => {
+    return (): void => {
+      dispatch(clearErrorMessages());
+    };
+  }, [dispatch]);
 
   const handleUsernameChange = (text: string) => {
     setFormData({ ...formData, username: text });
