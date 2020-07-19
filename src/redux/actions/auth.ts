@@ -11,6 +11,9 @@ import {
   setErrorMessage,
   removeErrorMessages,
   clearErrorMessages,
+  setIsEmailValid,
+  setIsEmailInputLoading,
+  setIsUsernameInputLoading,
 } from './errorMessage';
 import authClient from '../../api/authClient';
 import { UserForLogin, UserForSignup } from '../../interfaces/user';
@@ -19,25 +22,35 @@ import { ErrorMessage } from '../../interfaces/errorMessage';
 export const checkEmail = (email: string) => async (
   dispatch: ThunkDispatch<{}, {}, AnyAction>,
 ) => {
+  dispatch(setIsEmailValid(false));
+  dispatch(setIsEmailInputLoading(true));
+
   try {
     await authClient.post('check-email', {
       email,
     });
+
+    dispatch(setIsEmailValid(true));
     dispatch(removeErrorMessages('email'));
   } catch (error) {
     const { errors } = error.response.data;
 
+    dispatch(setIsEmailValid(false));
     dispatch(removeErrorMessages('email'));
 
     errors?.map((err: ErrorMessage) => {
       dispatch(setErrorMessage(err));
     });
+  } finally {
+    dispatch(setIsEmailInputLoading(false));
   }
 };
 
 export const checkUsername = (username: string) => async (
   dispatch: ThunkDispatch<{}, {}, AnyAction>,
 ) => {
+  dispatch(setIsUsernameInputLoading(true));
+
   try {
     await authClient.post('check-username', { username });
     dispatch(removeErrorMessages('username'));
@@ -49,6 +62,8 @@ export const checkUsername = (username: string) => async (
     errors?.map((err: ErrorMessage) => {
       dispatch(setErrorMessage(err));
     });
+  } finally {
+    dispatch(setIsUsernameInputLoading(false));
   }
 };
 

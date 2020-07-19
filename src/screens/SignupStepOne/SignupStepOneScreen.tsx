@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { ActivityIndicator, View } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
@@ -11,27 +11,20 @@ import { ErrorMessage } from '../../interfaces/errorMessage';
 const SignupStepOneScreen = () => {
   const navigation = useNavigation();
   const errorMessages: ErrorMessage[] = useSelector(
-    (store: RootState) => store.errorMessage,
+    (store: RootState) => store.errorMessage.errorMessages,
+  );
+  const isEmailValid: boolean = useSelector(
+    (store: RootState) => store.errorMessage.isEmailValid,
+  );
+  const isEmailInputLoading: boolean = useSelector(
+    (store: RootState) => store.errorMessage.isEmailInputLoading,
   );
   const dispatch = useDispatch();
-
-  const [isEmailValid, setIsEmailValid] = useState<boolean>(false);
-  const [isEmailInputLoading, setIsEmailInputLoading] = useState<boolean>(
-    false,
-  );
 
   const [formData, setFormData] = useState({
     fullName: '',
     email: '',
   });
-
-  useEffect(() => {
-    if (errorMessages.length === 0) {
-      setIsEmailValid(true);
-    } else {
-      setIsEmailValid(false);
-    }
-  }, [errorMessages]);
 
   const handleFullNameChange = (text: string) => {
     setFormData({ ...formData, fullName: text });
@@ -39,9 +32,7 @@ const SignupStepOneScreen = () => {
 
   const handleEmailChange = async (text: string) => {
     setFormData({ ...formData, email: text });
-    setIsEmailInputLoading(true);
     dispatch(checkEmail(formData.email));
-    setIsEmailInputLoading(false);
   };
 
   const handleNextPress = () => {

@@ -15,7 +15,10 @@ interface Props {
 
 const SignupStepTwoScreen = ({ route }: Props) => {
   const errorMessages: ErrorMessage[] = useSelector(
-    (store: RootState) => store.errorMessage,
+    (store: RootState) => store.errorMessage.errorMessages,
+  );
+  const isUsernameInputLoading: boolean = useSelector(
+    (store: RootState) => store.errorMessage.isUsernameInputLoading,
   );
   const dispatch = useDispatch();
 
@@ -25,13 +28,9 @@ const SignupStepTwoScreen = ({ route }: Props) => {
     password2: '',
   });
 
-  const [isUsernameInputLoading, setIsUsernameInputLoading] = useState(false);
-
   const handleUsernameChange = (text: string) => {
     setFormData({ ...formData, username: text });
-    setIsUsernameInputLoading(true);
     dispatch(checkUsername(formData.username));
-    setIsUsernameInputLoading(false);
   };
 
   const handlePassword1Change = (text: string) => {
