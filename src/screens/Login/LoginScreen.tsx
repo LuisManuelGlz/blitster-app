@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View } from 'react-native';
+import { View, TouchableOpacity } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { Input, Button, Text } from '../../components';
@@ -15,6 +15,7 @@ const LogInScreen = () => {
   const dispatch = useDispatch();
 
   const [formData, setFormData] = useState({ username: '', password: '' });
+  const [isPasswordHidden, setIsPasswordHidden] = useState(true);
 
   const handleUsernameChange = (text: string) => {
     setFormData({ ...formData, username: text });
@@ -48,10 +49,20 @@ const LogInScreen = () => {
         value={formData.password}
         onChangeText={(text) => handlePasswordChange(text)}
         iconLeft={<Ionicons name="lock-closed" size={24} color={'gray'} />}
+        iconRight={
+          <TouchableOpacity
+            onPress={() => setIsPasswordHidden((value) => !value)}>
+            <Ionicons
+              name={isPasswordHidden ? 'eye' : 'eye-off'}
+              size={24}
+              color={'gray'}
+            />
+          </TouchableOpacity>
+        }
         errorMessages={errorMessages.filter(
           (err: ErrorMessage) => err.param === 'password',
         )}
-        secureTextEntry={true}
+        secureTextEntry={isPasswordHidden}
       />
 
       <Button.Primary
