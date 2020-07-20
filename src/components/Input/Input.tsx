@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, TextInput, StyleProp, ViewStyle } from 'react-native';
 import styles from './Input.Styles';
-import { BadRequestError } from 'src/interfaces/axios';
+import { ErrorMessage } from '../../interfaces/errorMessage';
 
 interface Props {
   style?: StyleProp<ViewStyle>;
@@ -10,7 +10,7 @@ interface Props {
   secureTextEntry?: boolean;
   iconLeft?: any;
   iconRight?: any;
-  errorMessages?: BadRequestError[];
+  errorMessages?: ErrorMessage[];
   onChangeText: (text: string) => void;
 }
 

@@ -11,7 +11,7 @@ const rootReducer = combineReducers({
   auth: authReducer,
 });
 
-interface RootState {
+export interface RootState {
   alert: ReturnType<typeof alertReducer>;
   validation: ReturnType<typeof validationReducer>;
   auth: ReturnType<typeof authReducer>;

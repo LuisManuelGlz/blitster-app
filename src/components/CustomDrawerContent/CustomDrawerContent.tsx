@@ -12,7 +12,7 @@ import authClient from '../../api/authClient';
 import { LOGOUT } from '../../redux/actions/actionTypes';
 import { setAlert } from '../../redux/actions/alert';
 import { RootState } from '../../redux/reducers';
-import { BadRequestError } from '../../interfaces/axios';
+import { ErrorMessage } from '../../interfaces/errorMessage';
 
 const CustomDrawerContent = (props: any) => {
   const refreshToken = useSelector(
@@ -30,7 +30,7 @@ const CustomDrawerContent = (props: any) => {
       if (status === 401) {
         dispatch(setAlert(data.message, 'error'));
       } else {
-        data.errors?.map((err: BadRequestError) => {
+        data.errors?.map((err: ErrorMessage) => {
           dispatch(setAlert(err.msg, 'error'));
         });
       }

@@ -7,6 +7,8 @@ import {
   SET_IS_EMAIL_VALID,
   SET_IS_EMAIL_INPUT_LOADING,
   SET_IS_USERNAME_INPUT_LOADING,
+  SET_IS_LOGGING_IN,
+  SET_IS_SIGNING_UP,
 } from './actionTypes';
 import { ErrorMessage } from '../../interfaces/errorMessage';
 
@@ -49,5 +51,23 @@ export const setIsUsernameInputLoading = (isUsernameInputLoading: boolean) => (
   dispatch({
     type: SET_IS_USERNAME_INPUT_LOADING,
     payload: { isUsernameInputLoading },
+  });
+};
+
+export const setIsLoggingIn = (isLoggingIn: boolean) => (
+  dispatch: ThunkDispatch<{}, {}, AnyAction>,
+) => {
+  dispatch({
+    type: SET_IS_LOGGING_IN,
+    payload: { isLoggingIn },
+  });
+};
+
+export const setIsSigningUp = (isSigningUp: boolean) => (
+  dispatch: ThunkDispatch<{}, {}, AnyAction>,
+) => {
+  dispatch({
+    type: SET_IS_SIGNING_UP,
+    payload: { isSigningUp },
   });
 };

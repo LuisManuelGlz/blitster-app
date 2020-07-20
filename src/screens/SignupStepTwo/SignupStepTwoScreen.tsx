@@ -21,6 +21,7 @@ const SignupStepTwoScreen = ({ route }: Props) => {
   const isUsernameInputLoading = useTypedSelector(
     (store) => store.validation.isUsernameInputLoading,
   );
+  const isSigningUp = useTypedSelector((store) => store.validation.isSigningUp);
   const dispatch = useDispatch();
 
   const [formData, setFormData] = useState({
@@ -96,12 +97,16 @@ const SignupStepTwoScreen = ({ route }: Props) => {
         secureTextEntry={true}
       />
 
-      <Button.Primary
-        style={styles.button}
-        block
-        title="Sign up"
-        onPress={() => handleSignupPress()}
-      />
+      {isSigningUp ? (
+        <ActivityIndicator color={'purple'} size={'large'} />
+      ) : (
+        <Button.Primary
+          style={styles.button}
+          block
+          title="Sign up"
+          onPress={() => handleSignupPress()}
+        />
+      )}
     </View>
   );
 };

@@ -14,6 +14,8 @@ import {
   setIsEmailValid,
   setIsEmailInputLoading,
   setIsUsernameInputLoading,
+  setIsLoggingIn,
+  setIsSigningUp,
 } from './validation';
 import authClient from '../../api/authClient';
 import { UserForLogin, UserForSignup } from '../../interfaces/user';
@@ -70,6 +72,7 @@ export const checkUsername = (username: string) => async (
 export const login = (user: UserForLogin) => async (
   dispatch: ThunkDispatch<{}, {}, AnyAction>,
 ) => {
+  dispatch(setIsLoggingIn(true));
   dispatch(clearErrorMessages());
 
   try {
@@ -85,12 +88,15 @@ export const login = (user: UserForLogin) => async (
       });
       dispatch({ type: LOGIN_FAIL });
     }
+  } finally {
+    dispatch(setIsLoggingIn(false));
   }
 };
 
 export const signup = (user: UserForSignup) => async (
   dispatch: ThunkDispatch<{}, {}, AnyAction>,
 ) => {
+  dispatch(setIsSigningUp(true));
   dispatch(clearErrorMessages());
 
   try {
@@ -107,5 +113,7 @@ export const signup = (user: UserForSignup) => async (
       });
       dispatch({ type: SIGNUP_FAIL });
     }
+  } finally {
+    dispatch(setIsSigningUp(false));
   }
 };

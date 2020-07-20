@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, TouchableOpacity } from 'react-native';
+import { View, TouchableOpacity, ActivityIndicator } from 'react-native';
 import { useDispatch } from 'react-redux';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { Input, Button, Text } from '../../components';
@@ -13,6 +13,7 @@ const LogInScreen = () => {
   const errorMessages = useTypedSelector(
     (store) => store.validation.errorMessages,
   );
+  const isLoggingIn = useTypedSelector((store) => store.validation.isLoggingIn);
   const dispatch = useDispatch();
 
   const [formData, setFormData] = useState({ username: '', password: '' });
@@ -72,12 +73,16 @@ const LogInScreen = () => {
         secureTextEntry={isPasswordHidden}
       />
 
-      <Button.Primary
-        style={styles.button}
-        block
-        title="Log in"
-        onPress={() => handleLoginPress()}
-      />
+      {isLoggingIn ? (
+        <ActivityIndicator color={'purple'} size={'large'} />
+      ) : (
+        <Button.Primary
+          style={styles.button}
+          block
+          title="Log in"
+          onPress={() => handleLoginPress()}
+        />
+      )}
     </View>
   );
 };

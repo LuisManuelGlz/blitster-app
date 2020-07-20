@@ -5,6 +5,8 @@ import {
   SET_IS_EMAIL_VALID,
   SET_IS_EMAIL_INPUT_LOADING,
   SET_IS_USERNAME_INPUT_LOADING,
+  SET_IS_LOGGING_IN,
+  SET_IS_SIGNING_UP,
 } from '../actions/actionTypes';
 import { ErrorMessage } from '../../interfaces/errorMessage';
 
@@ -15,6 +17,8 @@ interface Payload {
   isEmailInputLoading: boolean;
   isUsernameValid: boolean;
   isUsernameInputLoading: boolean;
+  isLoggingIn: boolean;
+  isSigningUp: boolean;
 }
 
 interface Action {
@@ -28,6 +32,8 @@ interface ValidationState {
   isEmailInputLoading: boolean | null;
   isUsernameValid: boolean | null;
   isUsernameInputLoading: boolean | null;
+  isLoggingIn: boolean | null;
+  isSigningUp: boolean | null;
 }
 
 const initialState: ValidationState = {
@@ -36,6 +42,8 @@ const initialState: ValidationState = {
   isEmailInputLoading: null,
   isUsernameValid: null,
   isUsernameInputLoading: null,
+  isLoggingIn: null,
+  isSigningUp: null,
 };
 
 export const validationReducer = (
@@ -76,6 +84,16 @@ export const validationReducer = (
       return {
         ...state,
         isUsernameInputLoading: payload!.isUsernameInputLoading,
+      };
+    case SET_IS_LOGGING_IN:
+      return {
+        ...state,
+        isLoggingIn: payload!.isLoggingIn,
+      };
+    case SET_IS_SIGNING_UP:
+      return {
+        ...state,
+        isSigningUp: payload!.isSigningUp,
       };
     default:
       return state;
