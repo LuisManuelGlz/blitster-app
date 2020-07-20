@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { ActivityIndicator, View } from 'react-native';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { RouteProp } from '@react-navigation/native';
 import { Input, Button, Text } from '../../components';
 import styles from './SignupStepTwoScreen.styles';
 import { AuthStackParamList } from '../../navigation/AuthNavigator';
 import { ErrorMessage } from '../../interfaces/errorMessage';
-import { RootState } from '../../redux/reducers';
+import { useTypedSelector } from '../../redux/reducers';
 import { checkUsername, signup } from '../../redux/actions/auth';
 import { clearErrorMessages } from '../../redux/actions/validation';
 
@@ -15,11 +15,11 @@ interface Props {
 }
 
 const SignupStepTwoScreen = ({ route }: Props) => {
-  const errorMessages: ErrorMessage[] = useSelector(
-    (store: RootState) => store.validation.errorMessages,
+  const errorMessages = useTypedSelector(
+    (store) => store.validation.errorMessages,
   );
-  const isUsernameInputLoading: boolean = useSelector(
-    (store: RootState) => store.validation.isUsernameInputLoading,
+  const isUsernameInputLoading = useTypedSelector(
+    (store) => store.validation.isUsernameInputLoading,
   );
   const dispatch = useDispatch();
 

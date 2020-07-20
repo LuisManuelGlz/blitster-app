@@ -7,14 +7,6 @@ import {
   LOGOUT,
 } from '../actions/actionTypes';
 
-const initialState = {
-  tokenType: null,
-  accessToken: null,
-  refreshToken: null,
-  isAuthenticated: null,
-  expiresIn: null,
-};
-
 interface Payload {
   tokenType: string;
   accessToken: string;
@@ -27,7 +19,26 @@ interface Action {
   payload?: Payload;
 }
 
-export default (state = initialState, action: Action) => {
+interface AuthState {
+  tokenType: string | null;
+  accessToken: string | null;
+  refreshToken: string | null;
+  isAuthenticated: boolean | null;
+  expiresIn: number | null;
+}
+
+const initialState: AuthState = {
+  tokenType: null,
+  accessToken: null,
+  refreshToken: null,
+  isAuthenticated: null,
+  expiresIn: null,
+};
+
+export const authReducer = (
+  state = initialState,
+  action: Action,
+): AuthState => {
   switch (action.type) {
     case LOGIN_SUCCESS:
     case SIGNUP_SUCCESS:

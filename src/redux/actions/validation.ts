@@ -1,4 +1,5 @@
-import { Dispatch, AnyAction } from 'redux';
+import { AnyAction } from 'redux';
+import { ThunkDispatch } from 'redux-thunk';
 import {
   SET_ERROR_MESSAGE,
   REMOVE_ERROR_MESSAGES,
@@ -10,38 +11,43 @@ import {
 import { ErrorMessage } from '../../interfaces/errorMessage';
 
 export const setErrorMessage = (errorMessage: ErrorMessage) => (
-  dispatch: Dispatch<AnyAction>,
+  dispatch: ThunkDispatch<{}, {}, AnyAction>,
 ) => {
-  dispatch({ type: SET_ERROR_MESSAGE, payload: errorMessage });
+  dispatch({ type: SET_ERROR_MESSAGE, payload: { errorMessage } });
 };
 
 export const removeErrorMessages = (param: string) => (
-  dispatch: Dispatch<AnyAction>,
+  dispatch: ThunkDispatch<{}, {}, AnyAction>,
 ) => {
-  dispatch({ type: REMOVE_ERROR_MESSAGES, payload: param });
+  dispatch({ type: REMOVE_ERROR_MESSAGES, payload: { param } });
 };
 
-export const clearErrorMessages = () => (dispatch: Dispatch<AnyAction>) => {
+export const clearErrorMessages = () => (
+  dispatch: ThunkDispatch<{}, {}, AnyAction>,
+) => {
   dispatch({ type: CLEAR_ERROR_MESSAGES });
 };
 
 export const setIsEmailValid = (isEmailValid: boolean) => (
-  dispatch: Dispatch<AnyAction>,
+  dispatch: ThunkDispatch<{}, {}, AnyAction>,
 ) => {
-  dispatch({ type: SET_IS_EMAIL_VALID, payload: isEmailValid });
+  dispatch({ type: SET_IS_EMAIL_VALID, payload: { isEmailValid } });
 };
 
-export const setIsEmailInputLoading = (isEmailInputLoding: boolean) => (
-  dispatch: Dispatch<AnyAction>,
+export const setIsEmailInputLoading = (isEmailInputLoading: boolean) => (
+  dispatch: ThunkDispatch<{}, {}, AnyAction>,
 ) => {
-  dispatch({ type: SET_IS_EMAIL_INPUT_LOADING, payload: isEmailInputLoding });
+  dispatch({
+    type: SET_IS_EMAIL_INPUT_LOADING,
+    payload: { isEmailInputLoading },
+  });
 };
 
-export const setIsUsernameInputLoading = (isUsernameInputLoding: boolean) => (
-  dispatch: Dispatch<AnyAction>,
+export const setIsUsernameInputLoading = (isUsernameInputLoading: boolean) => (
+  dispatch: ThunkDispatch<{}, {}, AnyAction>,
 ) => {
   dispatch({
     type: SET_IS_USERNAME_INPUT_LOADING,
-    payload: isUsernameInputLoding,
+    payload: { isUsernameInputLoading },
   });
 };

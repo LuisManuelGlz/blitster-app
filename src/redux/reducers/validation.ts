@@ -8,12 +8,29 @@ import {
 } from '../actions/actionTypes';
 import { ErrorMessage } from '../../interfaces/errorMessage';
 
-interface Action {
-  type: string;
-  payload?: string | boolean | ErrorMessage;
+interface Payload {
+  param: string;
+  errorMessage: ErrorMessage;
+  isEmailValid: boolean;
+  isEmailInputLoading: boolean;
+  isUsernameValid: boolean;
+  isUsernameInputLoading: boolean;
 }
 
-const initialState = {
+interface Action {
+  type: string;
+  payload?: Payload;
+}
+
+interface ValidationState {
+  errorMessages: ErrorMessage[];
+  isEmailValid: boolean | null;
+  isEmailInputLoading: boolean | null;
+  isUsernameValid: boolean | null;
+  isUsernameInputLoading: boolean | null;
+}
+
+const initialState: ValidationState = {
   errorMessages: [],
   isEmailValid: null,
   isEmailInputLoading: null,
@@ -21,20 +38,23 @@ const initialState = {
   isUsernameInputLoading: null,
 };
 
-export default (state = initialState, action: Action) => {
+export const validationReducer = (
+  state = initialState,
+  action: Action,
+): ValidationState => {
   const { type, payload } = action;
 
   switch (type) {
     case SET_ERROR_MESSAGE:
       return {
         ...state,
-        errorMessages: [...state.errorMessages, payload],
+        errorMessages: [...state.errorMessages, payload!.errorMessage],
       };
     case REMOVE_ERROR_MESSAGES:
       return {
         ...state,
         errorMessages: state.errorMessages.filter(
-          (err: ErrorMessage) => err.param !== payload,
+          (err: ErrorMessage) => err.param !== payload?.param,
         ),
       };
     case CLEAR_ERROR_MESSAGES:
@@ -45,17 +65,17 @@ export default (state = initialState, action: Action) => {
     case SET_IS_EMAIL_VALID:
       return {
         ...state,
-        isEmailValid: payload,
+        isEmailValid: payload!.isEmailValid,
       };
     case SET_IS_EMAIL_INPUT_LOADING:
       return {
         ...state,
-        isEmailInputLoading: payload,
+        isEmailInputLoading: payload!.isEmailInputLoading,
       };
     case SET_IS_USERNAME_INPUT_LOADING:
       return {
         ...state,
-        isUsernameInputLoading: payload,
+        isUsernameInputLoading: payload!.isUsernameInputLoading,
       };
     default:
       return state;

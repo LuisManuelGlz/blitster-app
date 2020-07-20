@@ -1,17 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { View, TouchableOpacity } from 'react-native';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { Input, Button, Text } from '../../components';
 import styles from './Login.styles';
 import { ErrorMessage } from '../../interfaces/errorMessage';
-import { RootState } from '../../redux/reducers';
+import { useTypedSelector } from '../../redux/reducers';
 import { login } from '../../redux/actions/auth';
 import { clearErrorMessages } from '../../redux/actions/validation';
 
 const LogInScreen = () => {
-  const errorMessages: ErrorMessage[] = useSelector(
-    (store: RootState) => store.validation.errorMessages,
+  const errorMessages = useTypedSelector(
+    (store) => store.validation.errorMessages,
   );
   const dispatch = useDispatch();
 
