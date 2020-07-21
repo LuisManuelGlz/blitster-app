@@ -8,11 +8,8 @@ import {
 } from '@react-navigation/drawer';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import styles from './CustomDrawerContent.styles';
-import authClient from '../../api/authClient';
-import { LOGOUT } from '../../redux/actions/actionTypes';
-import { setAlert } from '../../redux/actions/alert';
+import { logout } from '../../redux/actions/auth';
 import { RootState } from '../../redux/reducers';
-import { ErrorMessage } from '../../interfaces/errorMessage';
 
 const CustomDrawerContent = (props: any) => {
   const refreshToken = useSelector(
@@ -21,20 +18,7 @@ const CustomDrawerContent = (props: any) => {
   const dispatch = useDispatch();
 
   const handleLogoutPress = async () => {
-    try {
-      await authClient.post('revoke', { refreshToken });
-      dispatch({ type: LOGOUT });
-    } catch (error) {
-      const { status, data } = error.response;
-
-      if (status === 401) {
-        dispatch(setAlert(data.message, 'error'));
-      } else {
-        data.errors?.map((err: ErrorMessage) => {
-          dispatch(setAlert(err.msg, 'error'));
-        });
-      }
-    }
+    dispatch(logout(refreshToken));
   };
 
   return (

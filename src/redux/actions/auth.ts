@@ -1,10 +1,16 @@
 import { AnyAction } from 'redux';
 import { ThunkDispatch } from 'redux-thunk';
+import jwtDecode from 'jwt-decode';
 import {
   LOGIN_SUCCESS,
   LOGIN_FAIL,
   SIGNUP_SUCCESS,
   SIGNUP_FAIL,
+  LOGOUT,
+  REFRESH_TOKEN_SUCCESS,
+  REFRESH_TOKEN_FAIL,
+  AUTH_ERROR,
+  REFRESHING_TOKEN,
 } from './actionTypes';
 import { setAlert } from './alert';
 import {
@@ -19,6 +25,7 @@ import {
 } from './validation';
 import authClient from '../../api/authClient';
 import { UserForLogin, UserForSignup } from '../../interfaces/user';
+import { Decoded } from '../../interfaces/auth';
 import { ErrorMessage } from '../../interfaces/errorMessage';
 
 export const checkEmail = (email: string) => async (
@@ -77,7 +84,19 @@ export const login = (user: UserForLogin) => async (
 
   try {
     const res = await authClient.post('login', user);
-    dispatch({ type: LOGIN_SUCCESS, payload: res.data });
+    const decoded = jwtDecode<Decoded>(res.data.accessToken);
+
+    const decodedToken = {
+      userId: decoded._id,
+      username: decoded.username,
+      role: decoded.role,
+      isVerified: decoded.isVerified,
+    };
+
+    dispatch({
+      type: LOGIN_SUCCESS,
+      payload: { ...res.data, ...decodedToken },
+    });
   } catch (error) {
     const { status, data } = error.response;
     if (status === 404 || status === 500) {
@@ -101,7 +120,19 @@ export const signup = (user: UserForSignup) => async (
 
   try {
     const res = await authClient.post('signup', user);
-    dispatch({ type: SIGNUP_SUCCESS, payload: res.data });
+    const decoded = jwtDecode<Decoded>(res.data.accessToken);
+
+    const decodedToken = {
+      userId: decoded._id,
+      username: decoded.username,
+      role: decoded.role,
+      isVerified: decoded.isVerified,
+    };
+
+    dispatch({
+      type: SIGNUP_SUCCESS,
+      payload: { ...res.data, ...decodedToken },
+    });
   } catch (error) {
     const { status, data } = error.response;
 
@@ -115,5 +146,45 @@ export const signup = (user: UserForSignup) => async (
     }
   } finally {
     dispatch(setIsSigningUp(false));
+  }
+};
+
+export const logout = (refreshToken: string | null) => async (
+  dispatch: ThunkDispatch<{}, {}, AnyAction>,
+) => {
+  try {
+    await authClient.post('revoke', { refreshToken });
+    dispatch({ type: LOGOUT });
+  } catch (error) {
+    const { status, data } = error.response;
+    dispatch({ type: AUTH_ERROR });
+
+    if (status === 500 || status === 401) {
+      dispatch(setAlert(data.message, 'error'));
+    }
+  }
+};
+
+export const authRefreshToken = ({
+  userId,
+  refreshToken,
+}: {
+  userId: string;
+  refreshToken: string;
+}) => async (dispatch: ThunkDispatch<{}, {}, AnyAction>) => {
+  dispatch({ type: REFRESHING_TOKEN, payload: true });
+
+  try {
+    const res = await authClient.post('refreshToken', {
+      userId,
+      refreshToken,
+    });
+    dispatch({ type: REFRESH_TOKEN_SUCCESS, payload: res.data });
+  } catch (error) {
+    const { data } = error.response;
+    dispatch({ type: REFRESH_TOKEN_FAIL });
+    dispatch(setAlert(data.message, 'error'));
+  } finally {
+    dispatch({ type: REFRESHING_TOKEN, payload: false });
   }
 };

@@ -4,6 +4,7 @@ import thunk from 'redux-thunk';
 import { createLogger } from 'redux-logger';
 import { persistStore, persistReducer } from 'redux-persist';
 import rootReducer from './reducers';
+import { jwt } from './middlewares';
 
 const persistConfig = {
   key: 'root',
@@ -12,7 +13,7 @@ const persistConfig = {
   blacklist: ['alert', 'validation'],
 };
 
-const middleware = [thunk, createLogger()];
+const middleware = [jwt, thunk, createLogger()];
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
