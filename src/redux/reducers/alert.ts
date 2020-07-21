@@ -18,9 +18,10 @@ export const alertReducer = (state = initialState, action: Action) => {
 
   switch (type) {
     case SET_ALERT:
+      console.log(`\n\n\n ${JSON.stringify(payload!.alert)} \n\n\n`);
       return [...state, payload!.alert];
     case REMOVE_ALERT:
-      return state.filter((alert: Alert) => alert.id !== payload?.id);
+      return state.filter((alert: Alert) => alert.id !== payload!.id);
     case CLEAR_ALERTS:
       return [];
     default:

@@ -8,7 +8,8 @@ export const setAlert = (message: string, typeAlert: string) => (
   dispatch: ThunkDispatch<{}, {}, AnyAction>,
 ) => {
   const id = uuidv4();
-  dispatch({ type: SET_ALERT, payload: { id, message, typeAlert } });
+  console.log(`\n\n\n ${id} ${message} ${typeAlert} \n\n\n`);
+  dispatch({ type: SET_ALERT, payload: { alert: { id, message, typeAlert } } });
 };
 
 export const removeAlert = (id: string | number) => (
