@@ -1,4 +1,3 @@
-import { AnyAction } from 'redux';
 import { ThunkDispatch } from 'redux-thunk';
 import {
   SET_ERROR_MESSAGE,
@@ -9,65 +8,66 @@ import {
   SET_IS_USERNAME_INPUT_LOADING,
   SET_IS_LOGGING_IN,
   SET_IS_SIGNING_UP,
-} from './actionTypes';
+  ValidationActionTypes,
+} from './types';
 import { ErrorMessage } from '../../interfaces/errorMessage';
 
 export const setErrorMessage = (errorMessage: ErrorMessage) => (
-  dispatch: ThunkDispatch<{}, {}, AnyAction>,
+  dispatch: ThunkDispatch<{}, {}, ValidationActionTypes>,
 ) => {
-  dispatch({ type: SET_ERROR_MESSAGE, payload: { errorMessage } });
+  dispatch({ type: SET_ERROR_MESSAGE, errorMessage });
 };
 
 export const removeErrorMessages = (param: string) => (
-  dispatch: ThunkDispatch<{}, {}, AnyAction>,
+  dispatch: ThunkDispatch<{}, {}, ValidationActionTypes>,
 ) => {
-  dispatch({ type: REMOVE_ERROR_MESSAGES, payload: { param } });
+  dispatch({ type: REMOVE_ERROR_MESSAGES, param });
 };
 
 export const clearErrorMessages = () => (
-  dispatch: ThunkDispatch<{}, {}, AnyAction>,
+  dispatch: ThunkDispatch<{}, {}, ValidationActionTypes>,
 ) => {
   dispatch({ type: CLEAR_ERROR_MESSAGES });
 };
 
 export const setIsEmailValid = (isEmailValid: boolean) => (
-  dispatch: ThunkDispatch<{}, {}, AnyAction>,
+  dispatch: ThunkDispatch<{}, {}, ValidationActionTypes>,
 ) => {
-  dispatch({ type: SET_IS_EMAIL_VALID, payload: { isEmailValid } });
+  dispatch({ type: SET_IS_EMAIL_VALID, isEmailValid });
 };
 
 export const setIsEmailInputLoading = (isEmailInputLoading: boolean) => (
-  dispatch: ThunkDispatch<{}, {}, AnyAction>,
+  dispatch: ThunkDispatch<{}, {}, ValidationActionTypes>,
 ) => {
   dispatch({
     type: SET_IS_EMAIL_INPUT_LOADING,
-    payload: { isEmailInputLoading },
+    isEmailInputLoading,
   });
 };
 
 export const setIsUsernameInputLoading = (isUsernameInputLoading: boolean) => (
-  dispatch: ThunkDispatch<{}, {}, AnyAction>,
+  dispatch: ThunkDispatch<{}, {}, ValidationActionTypes>,
 ) => {
   dispatch({
     type: SET_IS_USERNAME_INPUT_LOADING,
-    payload: { isUsernameInputLoading },
+    isUsernameInputLoading,
   });
 };
 
 export const setIsLoggingIn = (isLoggingIn: boolean) => (
-  dispatch: ThunkDispatch<{}, {}, AnyAction>,
+  dispatch: ThunkDispatch<{}, {}, ValidationActionTypes>,
 ) => {
   dispatch({
     type: SET_IS_LOGGING_IN,
-    payload: { isLoggingIn },
+    isLoggingIn,
   });
 };
 
 export const setIsSigningUp = (isSigningUp: boolean) => (
-  dispatch: ThunkDispatch<{}, {}, AnyAction>,
+  dispatch: ThunkDispatch<{}, {}, ValidationActionTypes>,
 ) => {
   dispatch({
     type: SET_IS_SIGNING_UP,
-    payload: { isSigningUp },
+    isSigningUp,
   });
 };

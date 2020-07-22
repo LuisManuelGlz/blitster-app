@@ -8,8 +8,8 @@ import {
 } from '@react-navigation/drawer';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import styles from './CustomDrawerContent.styles';
-import { logout } from '../../redux/actions/auth';
-import { RootState } from '../../redux/reducers';
+import { auth } from '../../ducks';
+import { RootState } from '../../redux';
 
 const CustomDrawerContent = (props: any) => {
   const refreshToken = useSelector(
@@ -18,7 +18,7 @@ const CustomDrawerContent = (props: any) => {
   const dispatch = useDispatch();
 
   const handleLogoutPress = async () => {
-    dispatch(logout(refreshToken));
+    dispatch(auth.actions.logout(refreshToken));
   };
 
   return (

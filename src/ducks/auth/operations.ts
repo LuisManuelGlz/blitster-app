@@ -1,18 +1,9 @@
+import 'react-native-get-random-values';
+import { v4 as uuidv4 } from 'uuid';
 import { AnyAction } from 'redux';
 import { ThunkDispatch } from 'redux-thunk';
 import jwtDecode from 'jwt-decode';
-import {
-  LOGIN_SUCCESS,
-  LOGIN_FAIL,
-  SIGNUP_SUCCESS,
-  SIGNUP_FAIL,
-  LOGOUT,
-  REFRESH_TOKEN_SUCCESS,
-  REFRESH_TOKEN_FAIL,
-  AUTH_ERROR,
-  REFRESHING_TOKEN,
-} from './actionTypes';
-import { setAlert } from './alert';
+import { AuthActionTypes } from './types';
 import {
   setErrorMessage,
   removeErrorMessages,
@@ -22,10 +13,18 @@ import {
   setIsUsernameInputLoading,
   setIsLoggingIn,
   setIsSigningUp,
-} from './validation';
+} from '../validation/actions';
+import { setAlert } from '../alert/actions';
+import {
+  setAuth,
+  authError,
+  setDecodedToken,
+  setIsRefreshingToken,
+  setRefreshToken,
+} from './actions';
 import authClient from '../../api/authClient';
 import { UserForLogin, UserForSignup } from '../../interfaces/user';
-import { Decoded } from '../../interfaces/auth';
+import { DecodedTokenPayload } from '../../interfaces/auth';
 import { ErrorMessage } from '../../interfaces/errorMessage';
 
 export const checkEmail = (email: string) => async (
@@ -83,8 +82,8 @@ export const login = (user: UserForLogin) => async (
   dispatch(clearErrorMessages());
 
   try {
-    const res = await authClient.post('login', user);
-    const decoded = jwtDecode<Decoded>(res.data.accessToken);
+    const { data } = await authClient.post('login', user);
+    const decoded = jwtDecode<DecodedTokenPayload>(data.accessToken);
 
     const decodedToken = {
       userId: decoded._id,
@@ -93,19 +92,19 @@ export const login = (user: UserForLogin) => async (
       isVerified: decoded.isVerified,
     };
 
-    dispatch({
-      type: LOGIN_SUCCESS,
-      payload: { ...res.data, ...decodedToken },
-    });
+    dispatch(setAuth(data));
+    dispatch(setDecodedToken(decodedToken));
   } catch (error) {
     const { status, data } = error.response;
     if (status === 404 || status === 500) {
-      dispatch(setAlert(data.message, 'error'));
+      const id = uuidv4();
+      const alert = { id, message: data.message, typeAlert: 'error' };
+      dispatch(setAlert(alert));
     } else {
       data.errors?.map((err: ErrorMessage) => {
         dispatch(setErrorMessage(err));
       });
-      dispatch({ type: LOGIN_FAIL });
+      dispatch(authError());
     }
   } finally {
     dispatch(setIsLoggingIn(false));
@@ -119,8 +118,8 @@ export const signup = (user: UserForSignup) => async (
   dispatch(clearErrorMessages());
 
   try {
-    const res = await authClient.post('signup', user);
-    const decoded = jwtDecode<Decoded>(res.data.accessToken);
+    const { data } = await authClient.post('signup', user);
+    const decoded = jwtDecode<DecodedTokenPayload>(data.accessToken);
 
     const decodedToken = {
       userId: decoded._id,
@@ -129,39 +128,23 @@ export const signup = (user: UserForSignup) => async (
       isVerified: decoded.isVerified,
     };
 
-    dispatch({
-      type: SIGNUP_SUCCESS,
-      payload: { ...res.data, ...decodedToken },
-    });
+    dispatch(setAuth(data));
+    dispatch(setDecodedToken(decodedToken));
   } catch (error) {
     const { status, data } = error.response;
 
     if (status === 500) {
-      dispatch(setAlert(data.message, 'error'));
+      const id = uuidv4();
+      const alert = { id, message: data.message, typeAlert: 'error' };
+      dispatch(setAlert(alert));
     } else {
       data.errors?.map((err: ErrorMessage) => {
         dispatch(setErrorMessage(err));
       });
-      dispatch({ type: SIGNUP_FAIL });
+      dispatch(authError());
     }
   } finally {
     dispatch(setIsSigningUp(false));
-  }
-};
-
-export const logout = (refreshToken: string | null) => async (
-  dispatch: ThunkDispatch<{}, {}, AnyAction>,
-) => {
-  try {
-    await authClient.post('revoke', { refreshToken });
-    dispatch({ type: LOGOUT });
-  } catch (error) {
-    const { status, data } = error.response;
-    dispatch({ type: AUTH_ERROR });
-
-    if (status === 500 || status === 401) {
-      dispatch(setAlert(data.message, 'error'));
-    }
   }
 };
 
@@ -171,20 +154,22 @@ export const authRefreshToken = ({
 }: {
   userId: string;
   refreshToken: string;
-}) => async (dispatch: ThunkDispatch<{}, {}, AnyAction>) => {
-  dispatch({ type: REFRESHING_TOKEN, payload: true });
+}) => async (dispatch: ThunkDispatch<{}, {}, AuthActionTypes>) => {
+  dispatch(setIsRefreshingToken(true));
 
   try {
-    const res = await authClient.post('refreshToken', {
+    const { data } = await authClient.post('refreshToken', {
       userId,
       refreshToken,
     });
-    dispatch({ type: REFRESH_TOKEN_SUCCESS, payload: res.data });
+    dispatch(setRefreshToken(data.accessToken));
   } catch (error) {
     const { data } = error.response;
-    dispatch({ type: REFRESH_TOKEN_FAIL });
-    dispatch(setAlert(data.message, 'error'));
+    dispatch(authError());
+    const id = uuidv4();
+    const alert = { id, message: data.message, typeAlert: 'error' };
+    dispatch(setAlert(alert));
   } finally {
-    dispatch({ type: REFRESHING_TOKEN, payload: false });
+    dispatch(setIsRefreshingToken(false));
   }
 };

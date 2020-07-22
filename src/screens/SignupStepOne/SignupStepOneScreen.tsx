@@ -4,10 +4,9 @@ import { useDispatch } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
 import { Input, Button, Text } from '../../components';
 import styles from './SignupStepOneScreen.styles';
-import { checkEmail } from '../../redux/actions/auth';
-import { useTypedSelector } from '../../redux/reducers';
+import { auth, validation } from '../../ducks';
+import { useTypedSelector } from '../../redux';
 import { ErrorMessage } from '../../interfaces/errorMessage';
-import { clearErrorMessages } from '../../redux/actions/validation';
 
 const SignupStepOneScreen = () => {
   const navigation = useNavigation();
@@ -29,7 +28,7 @@ const SignupStepOneScreen = () => {
 
   useEffect(() => {
     return (): void => {
-      dispatch(clearErrorMessages());
+      dispatch(validation.actions.clearErrorMessages());
     };
   }, [dispatch]);
 
@@ -39,7 +38,7 @@ const SignupStepOneScreen = () => {
 
   const handleEmailChange = async (text: string) => {
     setFormData({ ...formData, email: text });
-    dispatch(checkEmail(formData.email));
+    dispatch(auth.operations.checkEmail(formData.email));
   };
 
   const handleNextPress = () => {

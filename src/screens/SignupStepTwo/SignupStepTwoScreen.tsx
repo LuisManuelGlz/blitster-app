@@ -6,9 +6,8 @@ import { Input, Button, Text } from '../../components';
 import styles from './SignupStepTwoScreen.styles';
 import { AuthStackParamList } from '../../navigation/AuthNavigator';
 import { ErrorMessage } from '../../interfaces/errorMessage';
-import { useTypedSelector } from '../../redux/reducers';
-import { checkUsername, signup } from '../../redux/actions/auth';
-import { clearErrorMessages } from '../../redux/actions/validation';
+import { useTypedSelector } from '../../redux';
+import { validation, auth } from '../../ducks';
 
 interface Props {
   route: RouteProp<AuthStackParamList, 'SignupStepTwo'>;
@@ -32,13 +31,13 @@ const SignupStepTwoScreen = ({ route }: Props) => {
 
   useEffect(() => {
     return (): void => {
-      dispatch(clearErrorMessages());
+      dispatch(validation.actions.clearErrorMessages());
     };
   }, [dispatch]);
 
   const handleUsernameChange = (text: string) => {
     setFormData({ ...formData, username: text });
-    dispatch(checkUsername(formData.username));
+    dispatch(auth.operations.checkUsername(formData.username));
   };
 
   const handlePassword1Change = (text: string) => {
@@ -53,7 +52,7 @@ const SignupStepTwoScreen = ({ route }: Props) => {
     const { userDetails } = route.params;
 
     dispatch(
-      signup({
+      auth.operations.signup({
         ...formData,
         ...userDetails,
       }),

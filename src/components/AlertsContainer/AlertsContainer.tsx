@@ -1,11 +1,12 @@
 import React from 'react';
 import { View } from 'react-native';
-import { connect } from 'react-redux';
 import styles from './AlertsContainer.styles';
 import Alert from '../Alert';
-import { RootState } from 'src/redux/reducers';
+import { useTypedSelector } from '../../redux';
 
-const AlertContainer = ({ alerts }: any) => {
+const AlertContainer = () => {
+  const alerts = useTypedSelector((store) => store.alert.alerts);
+
   return (
     <View style={styles.container}>
       {alerts.map((alert: { id: string; message: string }) => (
@@ -15,8 +16,4 @@ const AlertContainer = ({ alerts }: any) => {
   );
 };
 
-const mapStateToProps = (state: RootState) => ({
-  alerts: state.alert,
-});
-
-export default connect(mapStateToProps)(AlertContainer);
+export default AlertContainer;

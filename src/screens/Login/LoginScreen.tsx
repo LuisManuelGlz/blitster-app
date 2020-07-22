@@ -5,9 +5,8 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import { Input, Button, Text } from '../../components';
 import styles from './Login.styles';
 import { ErrorMessage } from '../../interfaces/errorMessage';
-import { useTypedSelector } from '../../redux/reducers';
-import { login } from '../../redux/actions/auth';
-import { clearErrorMessages } from '../../redux/actions/validation';
+import { useTypedSelector } from '../../redux';
+import { auth, validation } from '../../ducks';
 
 const LogInScreen = () => {
   const errorMessages = useTypedSelector(
@@ -28,12 +27,14 @@ const LogInScreen = () => {
   };
 
   const handleLoginPress = () => {
-    dispatch(login(formData));
+    dispatch(auth.operations.login(formData));
   };
 
   useEffect(() => {
-    return (): void => {
-      dispatch(clearErrorMessages());
+    return () => {
+      // TODO
+      // make a condition if there are errorMessages
+      dispatch(validation.actions.clearErrorMessages());
     };
   }, [dispatch]);
 
