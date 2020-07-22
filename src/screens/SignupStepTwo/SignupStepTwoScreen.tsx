@@ -7,7 +7,7 @@ import styles from './SignupStepTwoScreen.styles';
 import { AuthStackParamList } from '../../navigation/AuthNavigator';
 import { ErrorMessage } from '../../interfaces/errorMessage';
 import { useTypedSelector } from '../../redux';
-import { validation, auth } from '../../ducks';
+import { validation, auth } from '../../redux/ducks';
 
 interface Props {
   route: RouteProp<AuthStackParamList, 'SignupStepTwo'>;

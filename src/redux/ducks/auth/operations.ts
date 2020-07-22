@@ -22,10 +22,10 @@ import {
   setIsRefreshingToken,
   setRefreshToken,
 } from './actions';
-import authClient from '../../api/authClient';
-import { UserForLogin, UserForSignup } from '../../interfaces/user';
-import { DecodedTokenPayload } from '../../interfaces/auth';
-import { ErrorMessage } from '../../interfaces/errorMessage';
+import authClient from '../../../api/authClient';
+import { UserForLogin, UserForSignup } from '../../../interfaces/user';
+import { DecodedTokenPayload } from '../../../interfaces/auth';
+import { ErrorMessage } from '../../../interfaces/errorMessage';
 
 export const checkEmail = (email: string) => async (
   dispatch: ThunkDispatch<{}, {}, AnyAction>,

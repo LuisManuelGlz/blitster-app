@@ -5,7 +5,7 @@ import {
   CLEAR_ALERTS,
   AlertActionTypes,
 } from './types';
-import { Alert } from '../../interfaces/alert';
+import { Alert } from '../../../interfaces/alert';
 
 export const setAlert = (alert: Alert) => (
   dispatch: ThunkDispatch<{}, {}, AlertActionTypes>,

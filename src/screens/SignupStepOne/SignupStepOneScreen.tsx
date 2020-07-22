@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
 import { Input, Button, Text } from '../../components';
 import styles from './SignupStepOneScreen.styles';
-import { auth, validation } from '../../ducks';
+import { auth, validation } from '../../redux/ducks';
 import { useTypedSelector } from '../../redux';
 import { ErrorMessage } from '../../interfaces/errorMessage';
 

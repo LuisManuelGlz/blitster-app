@@ -11,8 +11,8 @@ import {
   SET_REFRESH_TOKEN,
 } from './types';
 import { setAlert } from '../alert/actions';
-import authClient from '../../api/authClient';
-import { Auth, DecodedToken } from '../../interfaces/auth';
+import authClient from '../../../api/authClient';
+import { Auth, DecodedToken } from '../../../interfaces/auth';
 
 export const setAuth = (auth: Auth) => async (
   dispatch: ThunkDispatch<{}, {}, AuthActionTypes>,

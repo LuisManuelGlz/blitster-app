@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
 import { TypedUseSelectorHook, useSelector } from 'react-redux';
-import { alert, validation, auth } from '../ducks';
+import { alert, validation, auth } from './ducks';
 
 const rootReducer = combineReducers({
   alert: alert.reducer,

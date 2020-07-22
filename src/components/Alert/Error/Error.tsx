@@ -8,7 +8,7 @@ import {
 } from 'react-native';
 import { useDispatch } from 'react-redux';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import { alert } from '../../../ducks';
+import { alert } from '../../../redux/ducks';
 import mainStyles from '../styles';
 import styles from './Error.styles';
 

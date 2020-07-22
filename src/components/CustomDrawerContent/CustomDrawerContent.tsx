@@ -8,7 +8,7 @@ import {
 } from '@react-navigation/drawer';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import styles from './CustomDrawerContent.styles';
-import { auth } from '../../ducks';
+import { auth } from '../../redux/ducks';
 import { RootState } from '../../redux';
 
 const CustomDrawerContent = (props: any) => {

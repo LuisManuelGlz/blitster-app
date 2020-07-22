@@ -10,7 +10,7 @@ import {
   SET_IS_SIGNING_UP,
   ValidationActionTypes,
 } from './types';
-import { ErrorMessage } from '../../interfaces/errorMessage';
+import { ErrorMessage } from '../../../interfaces/errorMessage';
 
 export const setErrorMessage = (errorMessage: ErrorMessage) => (
   dispatch: ThunkDispatch<{}, {}, ValidationActionTypes>,

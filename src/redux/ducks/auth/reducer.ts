@@ -7,7 +7,7 @@ import {
   AUTH_ERROR,
   AuthActionTypes,
 } from './types';
-import { DecodedToken } from '../../interfaces/auth';
+import { DecodedToken } from '../../../interfaces/auth';
 
 interface AuthState {
   tokenType: string | null;

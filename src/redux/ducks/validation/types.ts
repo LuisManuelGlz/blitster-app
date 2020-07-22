@@ -1,4 +1,4 @@
-import { ErrorMessage } from '../../interfaces/validation';
+import { ErrorMessage } from '../../../interfaces/validation';
 
 export const SET_ERROR_MESSAGE = 'Blitster/validation/SET_ERROR_MESSAGE';
 export const REMOVE_ERROR_MESSAGES =

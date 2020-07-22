@@ -1,4 +1,4 @@
-import { Auth, DecodedToken } from '../../interfaces/auth';
+import { Auth, DecodedToken } from '../../../interfaces/auth';
 
 export const SET_AUTH = 'Blitster/auth/SET_AUTH';
 export const SET_DECODED_TOKEN = 'Blitster/auth/SET_DECODED_TOKEN';

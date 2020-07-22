@@ -6,7 +6,7 @@ import { Input, Button, Text } from '../../components';
 import styles from './Login.styles';
 import { ErrorMessage } from '../../interfaces/errorMessage';
 import { useTypedSelector } from '../../redux';
-import { auth, validation } from '../../ducks';
+import { auth, validation } from '../../redux/ducks';
 
 const LogInScreen = () => {
   const errorMessages = useTypedSelector(
