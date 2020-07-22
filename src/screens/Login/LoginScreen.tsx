@@ -32,11 +32,11 @@ const LogInScreen = () => {
 
   useEffect(() => {
     return () => {
-      // TODO
-      // make a condition if there are errorMessages
-      dispatch(validation.actions.clearErrorMessages());
+      if (errorMessages.length > 0) {
+        dispatch(validation.actions.clearErrorMessages());
+      }
     };
-  }, [dispatch]);
+  }, [errorMessages, dispatch]);
 
   return (
     <View style={styles.container}>

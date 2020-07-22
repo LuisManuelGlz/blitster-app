@@ -27,10 +27,12 @@ const SignupStepOneScreen = () => {
   });
 
   useEffect(() => {
-    return (): void => {
-      dispatch(validation.actions.clearErrorMessages());
+    return () => {
+      if (errorMessages.length > 0) {
+        dispatch(validation.actions.clearErrorMessages());
+      }
     };
-  }, [dispatch]);
+  }, [errorMessages, dispatch]);
 
   const handleFullNameChange = (text: string) => {
     setFormData({ ...formData, fullName: text });

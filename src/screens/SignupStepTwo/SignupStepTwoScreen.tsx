@@ -30,10 +30,12 @@ const SignupStepTwoScreen = ({ route }: Props) => {
   });
 
   useEffect(() => {
-    return (): void => {
-      dispatch(validation.actions.clearErrorMessages());
+    return () => {
+      if (errorMessages.length > 0) {
+        dispatch(validation.actions.clearErrorMessages());
+      }
     };
-  }, [dispatch]);
+  }, [errorMessages, dispatch]);
 
   const handleUsernameChange = (text: string) => {
     setFormData({ ...formData, username: text });
