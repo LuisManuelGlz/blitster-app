@@ -1,7 +1,9 @@
 import {
   SET_AUTH,
   SET_DECODED_TOKEN,
-  SET_IS_REFRESHING_TOKEN,
+  REFRESH_TOKEN_SUCCESS,
+  REFRESH_TOKEN_FAIL,
+  SET_REFRESHING_TOKEN,
   SET_REFRESH_TOKEN,
   LOGOUT,
   AUTH_ERROR,
@@ -16,7 +18,7 @@ interface AuthState {
   expiresIn: number | null;
   isAuthenticated: boolean | null;
   decodedToken: DecodedToken;
-  isRefreshingToken: boolean | null;
+  refreshingToken: Promise<void> | null;
 }
 
 const initialState: AuthState = {
@@ -31,7 +33,7 @@ const initialState: AuthState = {
     role: null,
     isVerified: null,
   },
-  isRefreshingToken: null,
+  refreshingToken: null,
 };
 
 export default (state = initialState, action: AuthActionTypes) => {
@@ -47,21 +49,24 @@ export default (state = initialState, action: AuthActionTypes) => {
         ...state,
         decodedToken: action.decodedToken,
       };
-    case SET_IS_REFRESHING_TOKEN:
+    case REFRESH_TOKEN_SUCCESS:
+    case REFRESH_TOKEN_FAIL:
       return {
         ...state,
-        isRefreshingToken: action.isRefreshingToken,
+        refreshingToken: null,
+      };
+    case SET_REFRESHING_TOKEN:
+      return {
+        ...state,
+        refreshingToken: action.refreshingToken,
       };
     case SET_REFRESH_TOKEN:
       return {
         ...state,
+        accessToken: action.refreshToken,
         refreshToken: action.refreshToken,
       };
     case LOGOUT:
-      return {
-        ...initialState,
-        isAuthenticated: false,
-      };
     case AUTH_ERROR:
       return {
         ...initialState,

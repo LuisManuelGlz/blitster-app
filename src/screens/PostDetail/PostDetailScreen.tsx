@@ -1,10 +1,31 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import { useDispatch } from 'react-redux';
+import { authClient } from '../../api';
+import { View, Button } from 'react-native';
+import { clearAlerts } from '../../redux/ducks/alert/actions';
 
-const PostDetailScreen = () => (
-  <View>
-    <Text>Post detail</Text>
-  </View>
-);
+const PostDetailScreen = () => {
+  const dispatch = useDispatch();
+
+  const handlePress = async () => {
+    try {
+      const posts = await authClient.get('posts');
+      console.log(`\n\n\n POSTS: ${JSON.stringify(posts.data)} \n\n\n`);
+    } catch (error) {
+      console.log(`\n\n\n ERROR: ${error} \n\n\n`);
+    }
+  };
+
+  const handlePress2 = async () => {
+    dispatch(clearAlerts());
+  };
+
+  return (
+    <View>
+      <Button title="Test" onPress={() => handlePress()} />
+      <Button title="Test 2" onPress={() => handlePress2()} />
+    </View>
+  );
+};
 
 export default PostDetailScreen;

@@ -7,7 +7,9 @@ import {
   SET_AUTH,
   SET_DECODED_TOKEN,
   AuthActionTypes,
-  SET_IS_REFRESHING_TOKEN,
+  REFRESH_TOKEN_SUCCESS,
+  REFRESH_TOKEN_FAIL,
+  SET_REFRESHING_TOKEN,
   SET_REFRESH_TOKEN,
 } from './types';
 import { setAlert } from '../alert/actions';
@@ -26,10 +28,22 @@ export const setDecodedToken = (decodedToken: DecodedToken) => async (
   dispatch({ type: SET_DECODED_TOKEN, decodedToken });
 };
 
-export const setIsRefreshingToken = (isRefreshingToken: boolean) => async (
+export const refreshTokenSuccess = () => async (
   dispatch: ThunkDispatch<{}, {}, AuthActionTypes>,
 ) => {
-  dispatch({ type: SET_IS_REFRESHING_TOKEN, isRefreshingToken });
+  dispatch({ type: REFRESH_TOKEN_SUCCESS });
+};
+
+export const refreshTokenFail = () => async (
+  dispatch: ThunkDispatch<{}, {}, AuthActionTypes>,
+) => {
+  dispatch({ type: REFRESH_TOKEN_FAIL });
+};
+
+export const setRefreshingToken = (
+  refreshingToken: Promise<void> | null,
+) => async (dispatch: ThunkDispatch<{}, {}, AuthActionTypes>) => {
+  dispatch({ type: SET_REFRESHING_TOKEN, refreshingToken });
 };
 
 export const setRefreshToken = (refreshToken: string) => async (

@@ -13,6 +13,8 @@ interface Decoded {
 
 export interface DecodedTokenPayload extends Decoded {
   _id: string;
+  iat: number;
+  exp: number;
 }
 
 export interface DecodedToken extends Decoded {

@@ -3,7 +3,6 @@ import { v4 as uuidv4 } from 'uuid';
 import { AnyAction } from 'redux';
 import { ThunkDispatch } from 'redux-thunk';
 import jwtDecode from 'jwt-decode';
-import { AuthActionTypes } from './types';
 import {
   setErrorMessage,
   removeErrorMessages,
@@ -18,14 +17,17 @@ import { setAlert } from '../alert/actions';
 import {
   setAuth,
   authError,
+  // refreshTokenSuccess,
+  // refreshTokenFail,
   setDecodedToken,
-  setIsRefreshingToken,
+  setRefreshingToken,
   setRefreshToken,
 } from './actions';
-import authClient from '../../../api/authClient';
+import { authClient } from '../../../api';
 import { UserForLogin, UserForSignup } from '../../../interfaces/user';
 import { DecodedTokenPayload } from '../../../interfaces/auth';
 import { ErrorMessage } from '../../../interfaces/errorMessage';
+import { RootState } from '../..';
 
 export const checkEmail = (email: string) => async (
   dispatch: ThunkDispatch<{}, {}, AnyAction>,
@@ -34,7 +36,7 @@ export const checkEmail = (email: string) => async (
   dispatch(setIsEmailInputLoading(true));
 
   try {
-    await authClient.post('check-email', {
+    await authClient.post('auth/check-email', {
       email,
     });
 
@@ -60,7 +62,7 @@ export const checkUsername = (username: string) => async (
   dispatch(setIsUsernameInputLoading(true));
 
   try {
-    await authClient.post('check-username', { username });
+    await authClient.post('auth/check-username', { username });
     dispatch(removeErrorMessages('username'));
   } catch (error) {
     const { errors } = error.response.data;
@@ -82,7 +84,7 @@ export const login = (user: UserForLogin) => async (
   dispatch(clearErrorMessages());
 
   try {
-    const { data } = await authClient.post('login', user);
+    const { data } = await authClient.post('auth/login', user);
     const decoded = jwtDecode<DecodedTokenPayload>(data.accessToken);
 
     const decodedToken = {
@@ -95,6 +97,7 @@ export const login = (user: UserForLogin) => async (
     dispatch(setAuth(data));
     dispatch(setDecodedToken(decodedToken));
   } catch (error) {
+    console.log(`\n\n\n ERROR: ${JSON.stringify(error.response)} \n\n\n`);
     const { status, data } = error.response;
     if (status === 404 || status === 500) {
       const id = uuidv4();
@@ -118,7 +121,7 @@ export const signup = (user: UserForSignup) => async (
   dispatch(clearErrorMessages());
 
   try {
-    const { data } = await authClient.post('signup', user);
+    const { data } = await authClient.post('auth/signup', user);
     const decoded = jwtDecode<DecodedTokenPayload>(data.accessToken);
 
     const decodedToken = {
@@ -148,28 +151,81 @@ export const signup = (user: UserForSignup) => async (
   }
 };
 
-export const authRefreshToken = ({
-  userId,
-  refreshToken,
-}: {
-  userId: string;
-  refreshToken: string;
-}) => async (dispatch: ThunkDispatch<{}, {}, AuthActionTypes>) => {
-  dispatch(setIsRefreshingToken(true));
+// export const authRefreshToken = async (
+//   dispatch: ThunkDispatch<{}, {}, AnyAction>,
+//   { auth }: RootState,
+// ) => {
+//   setRefreshingToken(true);
+//   console.log(
+//     `\n\n\n FRESHING: ${auth.decodedToken.userId} ${auth.refreshToken} \n\n\n`,
+//   );
 
-  try {
-    const { data } = await authClient.post('refreshToken', {
-      userId,
-      refreshToken,
+//   try {
+//     const { data } = await authClient.post('auth/refresh', {
+//       userId: auth.decodedToken.userId,
+//       refreshToken: auth.refreshToken,
+//     });
+//     dispatch(setRefreshToken(data.accessToken));
+//   } catch (error) {
+//     const { status, data } = error.response;
+
+//     if (status === 401 || status === 500) {
+//       const id = uuidv4();
+//       const alert = { id, message: data.message, typeAlert: 'error' };
+//       dispatch(setAlert(alert));
+//       console.log(`\n\n\n ALERT: ${JSON.stringify(alert)} \n\n\n`);
+//     } else {
+//       data.errors?.map((err: ErrorMessage) => {
+//         const id = uuidv4();
+//         const alert = { id, message: err.msg, typeAlert: 'error' };
+//         dispatch(setAlert(alert));
+//       });
+//     }
+
+//     dispatch(authError());
+//   } finally {
+//     setRefreshingToken(false);
+//   }
+// };
+
+export const authRefreshToken = (
+  dispatch: ThunkDispatch<{}, {}, AnyAction>,
+  { auth }: RootState,
+) => {
+  console.log(
+    `\n\n\n FRESHING: ${auth.decodedToken.userId} ${auth.refreshToken} \n\n\n`,
+  );
+  let isFulfilled = false;
+
+  const refreshTokenPromise = authClient
+    .post('auth/refresh', {
+      userId: auth.decodedToken.userId,
+      refreshToken: auth.refreshToken,
+    })
+    .then((data) => {
+      dispatch(setRefreshToken(data.accessToken));
+      isFulfilled = true;
+    })
+    .catch((error) => {
+      const { status, data } = error.response;
+
+      if (status === 401 || status === 500) {
+        const id = uuidv4();
+        const alert = { id, message: data.message, typeAlert: 'error' };
+        dispatch(setAlert(alert));
+        console.log(`\n\n\n ALERT: ${JSON.stringify(alert)} \n\n\n`);
+      } else {
+        data.errors?.map((err: ErrorMessage) => {
+          const id = uuidv4();
+          const alert = { id, message: err.msg, typeAlert: 'error' };
+          dispatch(setAlert(alert));
+        });
+      }
+      dispatch(authError());
+      isFulfilled = true;
     });
-    dispatch(setRefreshToken(data.accessToken));
-  } catch (error) {
-    const { data } = error.response;
-    dispatch(authError());
-    const id = uuidv4();
-    const alert = { id, message: data.message, typeAlert: 'error' };
-    dispatch(setAlert(alert));
-  } finally {
-    dispatch(setIsRefreshingToken(false));
-  }
+
+  dispatch(setRefreshingToken(isFulfilled ? null : refreshTokenPromise));
+
+  return refreshTokenPromise;
 };
