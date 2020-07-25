@@ -1,6 +1,7 @@
 import {
   SET_AUTH,
   SET_DECODED_TOKEN,
+  INVALID_TOKEN,
   REFRESH_TOKEN_SUCCESS,
   REFRESH_TOKEN_FAIL,
   SET_REFRESHING_TOKEN,
@@ -18,7 +19,7 @@ interface AuthState {
   expiresIn: number | null;
   isAuthenticated: boolean | null;
   decodedToken: DecodedToken;
-  refreshingToken: Promise<void> | null;
+  refreshingToken: boolean | null;
 }
 
 const initialState: AuthState = {
@@ -49,11 +50,15 @@ export default (state = initialState, action: AuthActionTypes) => {
         ...state,
         decodedToken: action.decodedToken,
       };
+    case INVALID_TOKEN:
+      return {
+        ...state,
+      };
     case REFRESH_TOKEN_SUCCESS:
     case REFRESH_TOKEN_FAIL:
       return {
         ...state,
-        refreshingToken: null,
+        refreshingToken: false,
       };
     case SET_REFRESHING_TOKEN:
       return {

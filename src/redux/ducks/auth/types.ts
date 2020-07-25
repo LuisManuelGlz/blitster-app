@@ -5,6 +5,7 @@ export const SET_DECODED_TOKEN = 'Blitster/auth/SET_DECODED_TOKEN';
 // export const SIGNUP_SUCCESS = 'Blitster/auth/SIGNUP_SUCCESS';
 // export const LOGIN_SUCCESS = 'Blitster/auth/LOGIN_SUCCESS';
 // export const USER_LOADED = 'Blitster/auth/USER_LOADED';
+export const INVALID_TOKEN = 'Blitster/auth/INVALID_TOKEN';
 export const REFRESH_TOKEN_SUCCESS = 'Blitster/auth/REFRESH_TOKEN_SUCCESS';
 export const REFRESH_TOKEN_FAIL = 'Blitster/auth/REFRESH_TOKEN_FAIL';
 export const SET_REFRESHING_TOKEN = 'Blitster/auth/SET_REFRESHING_TOKEN';
@@ -22,6 +23,10 @@ interface SetDecodedToken {
   decodedToken: DecodedToken;
 }
 
+interface InvalidToken {
+  type: typeof INVALID_TOKEN;
+}
+
 interface RefreshTokenSuccess {
   type: typeof REFRESH_TOKEN_SUCCESS;
 }
@@ -32,7 +37,7 @@ interface RefreshTokenFail {
 
 interface SetRefreshingToken {
   type: typeof SET_REFRESHING_TOKEN;
-  refreshingToken: Promise<void> | null;
+  refreshingToken: boolean;
 }
 
 interface SetRefreshToken {
@@ -51,6 +56,7 @@ interface AuthError {
 export type AuthActionTypes =
   | SetAuth
   | SetDecodedToken
+  | InvalidToken
   | RefreshTokenSuccess
   | RefreshTokenFail
   | SetRefreshToken

@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux';
 import { authClient } from '../../api';
 import { View, Button } from 'react-native';
 import { clearAlerts } from '../../redux/ducks/alert/actions';
+import { invalidToken } from '../../redux/ducks/auth/actions';
 
 const PostDetailScreen = () => {
   const dispatch = useDispatch();
@@ -18,6 +19,7 @@ const PostDetailScreen = () => {
 
   const handlePress2 = async () => {
     dispatch(clearAlerts());
+    dispatch(invalidToken());
   };
 
   return (

@@ -7,6 +7,7 @@ import {
   SET_AUTH,
   SET_DECODED_TOKEN,
   AuthActionTypes,
+  INVALID_TOKEN,
   REFRESH_TOKEN_SUCCESS,
   REFRESH_TOKEN_FAIL,
   SET_REFRESHING_TOKEN,
@@ -28,6 +29,12 @@ export const setDecodedToken = (decodedToken: DecodedToken) => async (
   dispatch({ type: SET_DECODED_TOKEN, decodedToken });
 };
 
+export const invalidToken = () => async (
+  dispatch: ThunkDispatch<{}, {}, AuthActionTypes>,
+) => {
+  dispatch({ type: INVALID_TOKEN });
+};
+
 export const refreshTokenSuccess = () => async (
   dispatch: ThunkDispatch<{}, {}, AuthActionTypes>,
 ) => {
@@ -40,9 +47,9 @@ export const refreshTokenFail = () => async (
   dispatch({ type: REFRESH_TOKEN_FAIL });
 };
 
-export const setRefreshingToken = (
-  refreshingToken: Promise<void> | null,
-) => async (dispatch: ThunkDispatch<{}, {}, AuthActionTypes>) => {
+export const setRefreshingToken = (refreshingToken: boolean) => async (
+  dispatch: ThunkDispatch<{}, {}, AuthActionTypes>,
+) => {
   dispatch({ type: SET_REFRESHING_TOKEN, refreshingToken });
 };
 
