@@ -35,7 +35,7 @@ export const logout = (refreshToken: string | null) => async (
   dispatch: ThunkDispatch<{}, {}, AuthActionTypes>,
 ) => {
   try {
-    await authClient.post('revoke', { refreshToken });
+    await authClient.post('auth/revoke', { refreshToken });
     dispatch({ type: LOGOUT });
   } catch (error) {
     const { status, data } = error.response;
