@@ -4,9 +4,8 @@ import thunk from 'redux-thunk';
 import { createLogger } from 'redux-logger';
 import { persistStore, persistReducer } from 'redux-persist';
 import rootReducer from '.';
-// import { jwt } from './middlewares';
 
-const persistConfig = {
+const rootPersistConfig = {
   key: 'root',
   storage: AsyncStorage,
   whitelist: ['auth'],
@@ -15,7 +14,7 @@ const persistConfig = {
 
 const middleware = [thunk, createLogger()];
 
-const persistedReducer = persistReducer(persistConfig, rootReducer);
+const persistedReducer = persistReducer(rootPersistConfig, rootReducer);
 
 const store = createStore(persistedReducer, applyMiddleware(...middleware));
 

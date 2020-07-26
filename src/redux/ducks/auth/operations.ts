@@ -3,7 +3,6 @@ import { v4 as uuidv4 } from 'uuid';
 import { AnyAction } from 'redux';
 import { ThunkDispatch } from 'redux-thunk';
 import jwtDecode from 'jwt-decode';
-import { AuthActionTypes } from './types';
 import {
   setErrorMessage,
   removeErrorMessages,
@@ -19,13 +18,13 @@ import {
   setAuth,
   authError,
   setDecodedToken,
-  setIsRefreshingToken,
   setRefreshToken,
 } from './actions';
-import authClient from '../../../api/authClient';
+import { authClient } from '../../../api';
 import { UserForLogin, UserForSignup } from '../../../interfaces/user';
 import { DecodedTokenPayload } from '../../../interfaces/auth';
 import { ErrorMessage } from '../../../interfaces/errorMessage';
+import { RootState } from '../../../redux';
 
 export const checkEmail = (email: string) => async (
   dispatch: ThunkDispatch<{}, {}, AnyAction>,
@@ -34,7 +33,7 @@ export const checkEmail = (email: string) => async (
   dispatch(setIsEmailInputLoading(true));
 
   try {
-    await authClient.post('check-email', {
+    await authClient.post('auth/check-email', {
       email,
     });
 
@@ -60,7 +59,7 @@ export const checkUsername = (username: string) => async (
   dispatch(setIsUsernameInputLoading(true));
 
   try {
-    await authClient.post('check-username', { username });
+    await authClient.post('auth/check-username', { username });
     dispatch(removeErrorMessages('username'));
   } catch (error) {
     const { errors } = error.response.data;
@@ -82,7 +81,7 @@ export const login = (user: UserForLogin) => async (
   dispatch(clearErrorMessages());
 
   try {
-    const { data } = await authClient.post('login', user);
+    const { data } = await authClient.post('auth/login', user);
     const decoded = jwtDecode<DecodedTokenPayload>(data.accessToken);
 
     const decodedToken = {
@@ -118,7 +117,7 @@ export const signup = (user: UserForSignup) => async (
   dispatch(clearErrorMessages());
 
   try {
-    const { data } = await authClient.post('signup', user);
+    const { data } = await authClient.post('auth/signup', user);
     const decoded = jwtDecode<DecodedTokenPayload>(data.accessToken);
 
     const decodedToken = {
@@ -148,28 +147,31 @@ export const signup = (user: UserForSignup) => async (
   }
 };
 
-export const authRefreshToken = ({
-  userId,
-  refreshToken,
-}: {
-  userId: string;
-  refreshToken: string;
-}) => async (dispatch: ThunkDispatch<{}, {}, AuthActionTypes>) => {
-  dispatch(setIsRefreshingToken(true));
-
+export const refreshToken = async (
+  dispatch: ThunkDispatch<{}, {}, AnyAction>,
+  { auth }: RootState,
+) => {
   try {
-    const { data } = await authClient.post('refreshToken', {
-      userId,
-      refreshToken,
+    const { data } = await authClient.post('auth/refresh', {
+      userId: auth.decodedToken.userId,
+      refreshToken: auth.refreshToken,
     });
     dispatch(setRefreshToken(data.accessToken));
   } catch (error) {
-    const { data } = error.response;
+    const { status, data } = error.response;
+
+    if (status === 401 || status === 500) {
+      const id = uuidv4();
+      const alert = { id, message: data.message, typeAlert: 'error' };
+      dispatch(setAlert(alert));
+    } else {
+      data.errors?.map((err: ErrorMessage) => {
+        const id = uuidv4();
+        const alert = { id, message: err.msg, typeAlert: 'error' };
+        dispatch(setAlert(alert));
+      });
+    }
+
     dispatch(authError());
-    const id = uuidv4();
-    const alert = { id, message: data.message, typeAlert: 'error' };
-    dispatch(setAlert(alert));
-  } finally {
-    dispatch(setIsRefreshingToken(false));
   }
 };

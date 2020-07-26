@@ -2,13 +2,12 @@ import 'react-native-get-random-values';
 import { v4 as uuidv4 } from 'uuid';
 import { ThunkDispatch } from 'redux-thunk';
 import {
-  LOGOUT,
-  AUTH_ERROR,
   SET_AUTH,
   SET_DECODED_TOKEN,
-  AuthActionTypes,
-  SET_IS_REFRESHING_TOKEN,
   SET_REFRESH_TOKEN,
+  LOGOUT,
+  AUTH_ERROR,
+  AuthActionTypes,
 } from './types';
 import { setAlert } from '../alert/actions';
 import authClient from '../../../api/authClient';
@@ -24,12 +23,6 @@ export const setDecodedToken = (decodedToken: DecodedToken) => async (
   dispatch: ThunkDispatch<{}, {}, AuthActionTypes>,
 ) => {
   dispatch({ type: SET_DECODED_TOKEN, decodedToken });
-};
-
-export const setIsRefreshingToken = (isRefreshingToken: boolean) => async (
-  dispatch: ThunkDispatch<{}, {}, AuthActionTypes>,
-) => {
-  dispatch({ type: SET_IS_REFRESHING_TOKEN, isRefreshingToken });
 };
 
 export const setRefreshToken = (refreshToken: string) => async (
