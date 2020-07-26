@@ -32,7 +32,8 @@ const SignupStepOneScreen = () => {
         dispatch(validation.actions.clearErrorMessages());
       }
     };
-  }, [errorMessages, dispatch]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [dispatch]);
 
   const handleFullNameChange = (text: string) => {
     setFormData({ ...formData, fullName: text });

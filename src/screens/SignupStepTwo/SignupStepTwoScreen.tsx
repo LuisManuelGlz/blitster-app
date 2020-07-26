@@ -35,7 +35,8 @@ const SignupStepTwoScreen = ({ route }: Props) => {
         dispatch(validation.actions.clearErrorMessages());
       }
     };
-  }, [errorMessages, dispatch]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [dispatch]);
 
   const handleUsernameChange = (text: string) => {
     setFormData({ ...formData, username: text });

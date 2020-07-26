@@ -36,7 +36,8 @@ const LogInScreen = () => {
         dispatch(validation.actions.clearErrorMessages());
       }
     };
-  }, [errorMessages, dispatch]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [dispatch]);
 
   return (
     <View style={styles.container}>
