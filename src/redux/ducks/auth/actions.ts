@@ -2,16 +2,12 @@ import 'react-native-get-random-values';
 import { v4 as uuidv4 } from 'uuid';
 import { ThunkDispatch } from 'redux-thunk';
 import {
-  LOGOUT,
-  AUTH_ERROR,
   SET_AUTH,
   SET_DECODED_TOKEN,
-  AuthActionTypes,
-  INVALID_TOKEN,
-  REFRESH_TOKEN_SUCCESS,
-  REFRESH_TOKEN_FAIL,
-  SET_REFRESHING_TOKEN,
   SET_REFRESH_TOKEN,
+  LOGOUT,
+  AUTH_ERROR,
+  AuthActionTypes,
 } from './types';
 import { setAlert } from '../alert/actions';
 import authClient from '../../../api/authClient';
@@ -27,30 +23,6 @@ export const setDecodedToken = (decodedToken: DecodedToken) => async (
   dispatch: ThunkDispatch<{}, {}, AuthActionTypes>,
 ) => {
   dispatch({ type: SET_DECODED_TOKEN, decodedToken });
-};
-
-export const invalidToken = () => async (
-  dispatch: ThunkDispatch<{}, {}, AuthActionTypes>,
-) => {
-  dispatch({ type: INVALID_TOKEN });
-};
-
-export const refreshTokenSuccess = () => async (
-  dispatch: ThunkDispatch<{}, {}, AuthActionTypes>,
-) => {
-  dispatch({ type: REFRESH_TOKEN_SUCCESS });
-};
-
-export const refreshTokenFail = () => async (
-  dispatch: ThunkDispatch<{}, {}, AuthActionTypes>,
-) => {
-  dispatch({ type: REFRESH_TOKEN_FAIL });
-};
-
-export const setRefreshingToken = (refreshingToken: boolean) => async (
-  dispatch: ThunkDispatch<{}, {}, AuthActionTypes>,
-) => {
-  dispatch({ type: SET_REFRESHING_TOKEN, refreshingToken });
 };
 
 export const setRefreshToken = (refreshToken: string) => async (

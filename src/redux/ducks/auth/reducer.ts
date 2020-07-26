@@ -1,10 +1,6 @@
 import {
   SET_AUTH,
   SET_DECODED_TOKEN,
-  INVALID_TOKEN,
-  REFRESH_TOKEN_SUCCESS,
-  REFRESH_TOKEN_FAIL,
-  SET_REFRESHING_TOKEN,
   SET_REFRESH_TOKEN,
   LOGOUT,
   AUTH_ERROR,
@@ -49,21 +45,6 @@ export default (state = initialState, action: AuthActionTypes) => {
       return {
         ...state,
         decodedToken: action.decodedToken,
-      };
-    case INVALID_TOKEN:
-      return {
-        ...state,
-      };
-    case REFRESH_TOKEN_SUCCESS:
-    case REFRESH_TOKEN_FAIL:
-      return {
-        ...state,
-        refreshingToken: false,
-      };
-    case SET_REFRESHING_TOKEN:
-      return {
-        ...state,
-        refreshingToken: action.refreshingToken,
       };
     case SET_REFRESH_TOKEN:
       return {

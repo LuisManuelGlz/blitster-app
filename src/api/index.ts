@@ -1,3 +1,4 @@
 import authClient from './authClient';
+import loggedInClient from './loggedInClient';
 
-export { authClient };
+export { authClient, loggedInClient };

@@ -17,9 +17,6 @@ import { setAlert } from '../alert/actions';
 import {
   setAuth,
   authError,
-  // refreshTokenSuccess,
-  // refreshTokenFail,
-  setRefreshingToken,
   setDecodedToken,
   setRefreshToken,
 } from './actions';
@@ -27,6 +24,7 @@ import { authClient } from '../../../api';
 import { UserForLogin, UserForSignup } from '../../../interfaces/user';
 import { DecodedTokenPayload } from '../../../interfaces/auth';
 import { ErrorMessage } from '../../../interfaces/errorMessage';
+import { RootState } from '../../../redux';
 
 export const checkEmail = (email: string) => async (
   dispatch: ThunkDispatch<{}, {}, AnyAction>,
@@ -149,19 +147,14 @@ export const signup = (user: UserForSignup) => async (
   }
 };
 
-export const authRefreshToken = ({
-  userId,
-  refreshToken,
-}: {
-  userId: string;
-  refreshToken: string;
-}) => async (dispatch: ThunkDispatch<{}, {}, AnyAction>) => {
-  dispatch(setRefreshingToken(true));
-
+export const refreshToken = async (
+  dispatch: ThunkDispatch<{}, {}, AnyAction>,
+  { auth }: RootState,
+) => {
   try {
     const { data } = await authClient.post('auth/refresh', {
-      userId: userId,
-      refreshToken: refreshToken,
+      userId: auth.decodedToken.userId,
+      refreshToken: auth.refreshToken,
     });
     dispatch(setRefreshToken(data.accessToken));
   } catch (error) {
@@ -180,7 +173,5 @@ export const authRefreshToken = ({
     }
 
     dispatch(authError());
-  } finally {
-    dispatch(setRefreshingToken(false));
   }
 };
