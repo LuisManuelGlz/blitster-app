@@ -1,8 +1,9 @@
 import React from 'react';
-import { View } from 'react-native';
+import { ScrollView } from 'react-native';
 import styles from './PostContainer.styles';
 import PostItem from '../PostItem';
 import { Post } from '../../interfaces/post';
+import Text from '../Text';
 
 interface Props {
   posts: Post[];
@@ -10,11 +11,12 @@ interface Props {
 
 const PostContainer = ({ posts }: Props) => {
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
       {posts.map((post) => (
         <PostItem key={post.postId} post={post} />
       ))}
-    </View>
+      <Text.H1 style={styles.endScroll}>🦆</Text.H1>
+    </ScrollView>
   );
 };
 
