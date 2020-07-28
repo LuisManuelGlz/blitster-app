@@ -1,6 +1,13 @@
+export interface User {
+  userId: string;
+  fullName: string;
+  username: string;
+  avatar: string;
+}
+
 export interface Post {
   postId: string;
-  user: any;
+  user: User;
   content: string;
   images?: string[];
   likes: number;

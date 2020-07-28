@@ -7,7 +7,13 @@ const HomeScreen = () => {
   const posts: Post[] = [
     {
       postId: '1230',
-      user: 'Luis',
+      user: {
+        userId: 'abc',
+        username: 'luis',
+        fullName: 'Luis',
+        avatar:
+          'https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y',
+      },
       content: 'hola',
       likes: 3,
       comments: 1,
@@ -15,7 +21,13 @@ const HomeScreen = () => {
     },
     {
       postId: '1231',
-      user: 'Pepe',
+      user: {
+        userId: 'def',
+        username: 'pepe',
+        fullName: 'Pepe',
+        avatar:
+          'https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y',
+      },
       content: 'adios',
       likes: 4,
       comments: 2,
@@ -23,7 +35,13 @@ const HomeScreen = () => {
     },
     {
       postId: '1233',
-      user: 'Juan',
+      user: {
+        userId: 'ghi',
+        username: 'juan',
+        fullName: 'Juan',
+        avatar:
+          'https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y',
+      },
       content: ':)',
       likes: 5,
       comments: 3,

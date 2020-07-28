@@ -16,7 +16,10 @@ const PostItem = ({ post }: Props) => {
   return (
     <View style={styles.container}>
       <Text.H3>{postId}</Text.H3>
-      <Text.H3>{user}</Text.H3>
+      <Text.H3>{user.userId}</Text.H3>
+      <Text.H3>{user.avatar}</Text.H3>
+      <Text.H3>{user.fullName}</Text.H3>
+      <Text.H3>{user.username}</Text.H3>
       <Text.H3>{content}</Text.H3>
       <Text.H3>Likes: {likes}</Text.H3>
       <Text.H3>Comments: {comments}</Text.H3>
