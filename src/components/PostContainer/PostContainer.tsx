@@ -15,7 +15,7 @@ const PostContainer = ({ posts }: Props) => {
       {posts.map((post) => (
         <PostItem key={post.postId} post={post} />
       ))}
-      <Text.H1 style={styles.endScroll}>🦆</Text.H1>
+      <Text.H2 style={styles.endScroll}>🦆</Text.H2>
     </ScrollView>
   );
 };
