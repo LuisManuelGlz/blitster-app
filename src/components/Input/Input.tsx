@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text, TextInput, StyleProp, ViewStyle } from 'react-native';
-import styles from './Input.Styles';
+import styles from './Input.styles';
 import { ErrorMessage } from '../../interfaces/errorMessage';
 
 interface Props {
