@@ -1,9 +1,15 @@
 import React from 'react';
-import { View } from 'react-native';
+import { View, ActivityIndicator } from 'react-native';
 import PostContainer from '../../components/PostContainer';
 import { Post } from '../../interfaces/post';
+import styles from './Home.styles';
+import { useTypedSelector } from '../../redux';
 
 const HomeScreen = () => {
+  const isFetchingPosts = useTypedSelector(
+    (state) => state.post.isFetchingPosts,
+  );
+
   const posts: Post[] = [
     {
       postId: '1230',
@@ -48,6 +54,14 @@ const HomeScreen = () => {
       createdAt: new Date(),
     },
   ];
+
+  if (isFetchingPosts) {
+    return (
+      <View style={styles.activityIndicatorContainer}>
+        <ActivityIndicator color={'purple'} size={'large'} />
+      </View>
+    );
+  }
 
   return (
     <View>
