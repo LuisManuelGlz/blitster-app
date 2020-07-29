@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Image } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import styles from './Intro.styles';
+import styles from './IntroScreen.styles';
 import { Button, Text } from '../../components';
 import ImagesAssets from '../../constants/ImagesAssets';
 

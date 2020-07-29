@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { View, ActivityIndicator } from 'react-native';
 import { useDispatch } from 'react-redux';
 import { PostContainer } from '../../components';
-import styles from './Home.styles';
+import styles from './HomeScreen.styles';
 import { useTypedSelector } from '../../redux';
 import { post } from '../../redux/ducks';
 
