@@ -4,8 +4,12 @@ export default StyleSheet.create({
   container: {
     paddingHorizontal: 16,
   },
+  post: {
+    marginTop: 8,
+    borderRadius: 20,
+  },
   endScroll: {
-    padding: 8,
+    marginVertical: 8,
     textAlign: 'center',
   },
 });

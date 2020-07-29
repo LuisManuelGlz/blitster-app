@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, ActivityIndicator } from 'react-native';
-import PostContainer from '../../components/PostContainer';
+import { PostContainer } from '../../components';
 import { Post } from '../../interfaces/post';
 import styles from './Home.styles';
 import { useTypedSelector } from '../../redux';
@@ -51,6 +51,20 @@ const HomeScreen = () => {
       content: ':)',
       likes: 5,
       comments: 3,
+      createdAt: new Date(),
+    },
+    {
+      postId: '1234',
+      user: {
+        userId: 'jkl',
+        username: 'root',
+        fullName: 'Root',
+        avatar:
+          'https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y',
+      },
+      content: ':D',
+      likes: 50,
+      comments: 30,
       createdAt: new Date(),
     },
   ];
