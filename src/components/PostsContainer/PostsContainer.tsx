@@ -6,15 +6,22 @@ import { Post as IPost } from '../../interfaces/post';
 import Text from '../Text';
 
 interface Props {
-  posts: IPost[];
+  posts: IPost[] | null;
 }
 
-const PostsContainer = ({ posts }: Props) => {
+const PostsContainer = (props: Props) => {
+  const posts =
+    props.posts && props.posts.length > 0 ? (
+      props.posts?.map((post) => (
+        <Post.Item style={styles.post} key={post.postId} post={post} />
+      ))
+    ) : (
+      <Text.H2 style={styles.noPostsMessage}>No posts yet.</Text.H2>
+    );
+
   return (
     <ScrollView style={styles.container}>
-      {posts.map((post) => (
-        <Post.Item style={styles.post} key={post.postId} post={post} />
-      ))}
+      {posts}
       <Text.H2 style={styles.endScroll}>🦆</Text.H2>
     </ScrollView>
   );

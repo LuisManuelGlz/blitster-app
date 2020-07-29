@@ -27,6 +27,19 @@ const App = () => {
 
 export default App;
 
+loggedInClient.interceptors.request.use(
+  (config) => {
+    let { tokenType, accessToken } = store.getState().auth;
+
+    if (accessToken) {
+      loggedInClient.defaults.headers.common.Authorization = `${tokenType} ${accessToken}`;
+    }
+
+    return config;
+  },
+  (error) => Promise.reject(error),
+);
+
 loggedInClient.interceptors.response.use(
   (response) => response,
   async (error) => {

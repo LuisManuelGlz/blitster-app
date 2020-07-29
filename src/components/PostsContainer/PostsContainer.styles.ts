@@ -8,6 +8,9 @@ export default StyleSheet.create({
     marginTop: 8,
     borderRadius: 20,
   },
+  noPostsMessage: {
+    textAlign: 'center',
+  },
   endScroll: {
     marginVertical: 8,
     textAlign: 'center',
