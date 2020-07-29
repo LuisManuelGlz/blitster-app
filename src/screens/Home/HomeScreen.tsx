@@ -15,7 +15,6 @@ const HomeScreen = () => {
 
   useEffect(() => {
     dispatch(post.operations.fetchPosts());
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   if (isFetchingPosts) {

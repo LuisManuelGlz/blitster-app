@@ -28,12 +28,9 @@ const SignupStepOneScreen = () => {
 
   useEffect(() => {
     return () => {
-      if (errorMessages.length > 0) {
-        dispatch(validation.actions.clearErrorMessages());
-      }
+      dispatch(validation.actions.clearErrorMessages());
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [dispatch]);
+  }, []);
 
   const handleFullNameChange = (text: string) => {
     setFormData({ ...formData, fullName: text });
