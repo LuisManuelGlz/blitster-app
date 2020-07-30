@@ -13,7 +13,7 @@ const PostsContainer = (props: Props) => {
   const posts =
     props.posts && props.posts.length > 0 ? (
       props.posts?.map((post) => (
-        <Post.Item style={styles.post} key={post.postId} post={post} />
+        <Post.Item style={styles.post} key={post._id} post={post} />
       ))
     ) : (
       <Text.H2 style={styles.noPostsMessage}>No posts yet.</Text.H2>

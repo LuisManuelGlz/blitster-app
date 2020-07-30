@@ -6,11 +6,15 @@ export interface User {
 }
 
 export interface Post {
-  postId: string;
+  _id: string;
   user: User;
   content: string;
   images?: string[];
   likes: number;
   comments: number;
   createdAt: Date;
+}
+
+export interface PostForCreate {
+  content: string;
 }
