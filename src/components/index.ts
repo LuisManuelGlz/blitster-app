@@ -2,6 +2,7 @@ import AlertContainer from './AlertsContainer';
 import Input from './Input';
 import Button from './Button';
 import Text from './Text';
+import Textarea from './Textarea';
 import CustomDrawerContent from './CustomDrawerContent';
 import PostContainer from './PostsContainer';
 import Post from './Post';
@@ -12,6 +13,7 @@ export {
   Input,
   Button,
   Text,
+  Textarea,
   CustomDrawerContent,
   PostContainer,
   Post,
