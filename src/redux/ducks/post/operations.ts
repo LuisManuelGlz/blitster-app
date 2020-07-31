@@ -2,13 +2,13 @@ import 'react-native-get-random-values';
 import { v4 as uuidv4 } from 'uuid';
 import { AnyAction } from 'redux';
 import { ThunkDispatch } from 'redux-thunk';
+import { NavigationProp } from '@react-navigation/native';
 import { loggedInClient } from '../../../api';
 import { setIsFetchingPosts, setPosts, setIsAddingPost } from './actions';
 import { setAlert } from '../alert/actions';
 import { setErrorMessage, clearErrorMessages } from '../validation/actions';
 import { ErrorMessage } from '../../../interfaces/validation';
 import { PostForCreate } from '../../../interfaces/post';
-import { NavigationProp } from '@react-navigation/native';
 
 export const fetchPosts = () => async (
   dispatch: ThunkDispatch<{}, {}, AnyAction>,
@@ -32,7 +32,7 @@ export const fetchPosts = () => async (
 
 export const addPost = (
   post: PostForCreate,
-  navigation: NavigationProp,
+  navigation: NavigationProp<any>,
 ) => async (dispatch: ThunkDispatch<{}, {}, AnyAction>) => {
   dispatch(setIsAddingPost(true));
   dispatch(clearErrorMessages());

@@ -1,8 +1,9 @@
 import React, { useEffect } from 'react';
-import { View, ActivityIndicator, Button } from 'react-native';
+import { View, ActivityIndicator } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useDispatch } from 'react-redux';
-import { PostContainer } from '../../components';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import { Button, PostContainer } from '../../components';
 import styles from './HomeScreen.styles';
 import { useTypedSelector } from '../../redux';
 import { post } from '../../redux/ducks';
@@ -28,9 +29,13 @@ const HomeScreen = () => {
   }
 
   return (
-    <View>
+    <View style={styles.container}>
       <PostContainer posts={posts} />
-      <Button title="Add Post" onPress={() => navigation.navigate('AddPost')} />
+      <Button.Primary
+        style={styles.button}
+        icon={<Ionicons name="add" size={24} color={'white'} />}
+        onPress={() => navigation.navigate('AddPost')}
+      />
     </View>
   );
 };

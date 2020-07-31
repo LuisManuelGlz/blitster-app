@@ -6,11 +6,12 @@ import styles from './Primary.styles';
 interface Props {
   style?: StyleProp<ViewStyle>;
   block?: boolean;
-  title: string;
+  title?: string;
+  icon?: any;
   onPress: () => void;
 }
 
-const Primary = ({ style, block, title, onPress }: Props) => {
+const Primary = ({ style, block, title, icon, onPress }: Props) => {
   const customStyle = [mainStyles.default, styles.default, style];
 
   if (block) {
@@ -19,7 +20,11 @@ const Primary = ({ style, block, title, onPress }: Props) => {
 
   return (
     <TouchableOpacity style={customStyle} onPress={onPress}>
-      <Text style={styles.buttonTitle}>{title}</Text>
+      <Text style={styles.buttonTitle}>
+        {icon}
+        {icon && title && ' '}
+        {title}
+      </Text>
     </TouchableOpacity>
   );
 };
