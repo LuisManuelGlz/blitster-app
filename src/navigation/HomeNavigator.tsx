@@ -3,8 +3,15 @@ import { createStackNavigator } from '@react-navigation/stack';
 import HomeScreen from '../screens/Home';
 import AddPostScreen from '../screens/AddPost';
 import PostDetailScreen from '../screens/PostDetail';
+import { Post } from '../interfaces/post';
 
-const HomeStack = createStackNavigator();
+export type HomeStackParamList = {
+  Home: undefined;
+  AddPost: undefined;
+  PostDetail: { post: Post };
+};
+
+const HomeStack = createStackNavigator<HomeStackParamList>();
 
 const HomeNavigator = () => (
   <HomeStack.Navigator
@@ -24,7 +31,7 @@ const HomeNavigator = () => (
     <HomeStack.Screen
       name="PostDetail"
       component={PostDetailScreen}
-      options={{ title: 'Post detail xd' }}
+      options={{ title: 'Post' }}
     />
   </HomeStack.Navigator>
 );

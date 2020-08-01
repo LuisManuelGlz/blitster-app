@@ -44,7 +44,11 @@ const AddPostScreen = () => {
       {isAddingPost ? (
         <ActivityIndicator color={'purple'} size={'large'} />
       ) : (
-        <Button.Primary title="Add post" onPress={() => handleAddPostPress()} />
+        <Button.Primary
+          block
+          title="Add post"
+          onPress={() => handleAddPostPress()}
+        />
       )}
     </View>
   );

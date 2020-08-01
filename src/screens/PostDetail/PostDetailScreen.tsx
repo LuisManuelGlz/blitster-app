@@ -1,10 +1,20 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import { View } from 'react-native';
+import { RouteProp } from '@react-navigation/native';
+import { Post } from '../../components';
+import { HomeStackParamList } from '../../navigation/HomeNavigator';
+import styles from './PostDetailScreen.styles';
 
-const PostDetailScreen = () => (
-  <View>
-    <Text>Post detail</Text>
-  </View>
-);
+interface Props {
+  route: RouteProp<HomeStackParamList, 'PostDetail'>;
+}
+
+const PostDetailScreen = ({ route }: Props) => {
+  return (
+    <View style={styles.container}>
+      <Post.Detail post={route.params.post} />
+    </View>
+  );
+};
 
 export default PostDetailScreen;

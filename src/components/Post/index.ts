@@ -1,3 +1,4 @@
 import Item from './Item';
+import Detail from './Detail';
 
-export default { Item };
+export default { Item, Detail };

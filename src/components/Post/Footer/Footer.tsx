@@ -15,11 +15,12 @@ const Footer = ({ style, post: { likes, comments } }: Props) => {
   return (
     <View style={[styles.container, style]}>
       <Text.H3>
-        <AntDesign name="like1" size={24} color={'purple'} /> {likes}
+        <AntDesign name="like1" size={24} color={'purple'} />{' '}
+        {likes > 0 && likes}
       </Text.H3>
       <Text.H3>
         <Ionicons name="chatbox-outline" size={24} color={'purple'} />{' '}
-        {comments}
+        {comments > 0 && comments}
       </Text.H3>
     </View>
   );
