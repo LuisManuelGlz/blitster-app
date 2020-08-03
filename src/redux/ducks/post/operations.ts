@@ -71,7 +71,6 @@ export const likePost = (postId: string) => async (
 ) => {
   try {
     const { data } = await loggedInClient.post(`posts/like/${postId}`);
-    console.log(`\n\n\n ${JSON.stringify(data)} \n\n\n`);
     dispatch(likePostSuccess(data));
   } catch (error) {
     const { status, data } = error.response;

@@ -18,7 +18,7 @@ const CustomDrawerContent = (props: any) => {
   const dispatch = useDispatch();
 
   const handleLogoutPress = async () => {
-    dispatch(auth.actions.logout(refreshToken));
+    dispatch(auth.operations.logout(refreshToken));
   };
 
   return (

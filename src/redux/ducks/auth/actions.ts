@@ -1,5 +1,3 @@
-import 'react-native-get-random-values';
-import { v4 as uuidv4 } from 'uuid';
 import { ThunkDispatch } from 'redux-thunk';
 import {
   SET_DECODED_TOKEN,
@@ -9,13 +7,11 @@ import {
   LOGIN_FAIL,
   REFRESH_TOKEN_SUCCESS,
   REFRESH_TOKEN_FAIL,
-  LOGOUT,
+  LOGOUT_SUCCESS,
+  LOGOUT_FAIL,
   AUTH_ERROR,
   AuthActionTypes,
 } from './types';
-import { setAlert } from '../alert/actions';
-import { clearPosts } from '../post/actions';
-import authClient from '../../../api/authClient';
 import { Auth, DecodedToken } from '../../../interfaces/auth';
 
 export const setDecodedToken = (decodedToken: DecodedToken) => async (
@@ -60,24 +56,16 @@ export const refreshTokenFail = () => async (
   dispatch({ type: REFRESH_TOKEN_FAIL });
 };
 
-export const logout = (refreshToken: string | null) => async (
+export const logoutSuccess = () => async (
   dispatch: ThunkDispatch<{}, {}, AuthActionTypes>,
 ) => {
-  try {
-    await authClient.post('auth/revoke', { refreshToken });
-    dispatch({ type: LOGOUT });
-  } catch (error) {
-    const { status, data } = error.response;
-    dispatch(authError());
+  dispatch({ type: LOGOUT_SUCCESS });
+};
 
-    if (status === 500 || status === 401) {
-      const id = uuidv4();
-      const alert = { id, message: data.message, typeAlert: 'error' };
-      dispatch(setAlert(alert));
-    }
-  } finally {
-    dispatch(clearPosts());
-  }
+export const logoutFail = () => async (
+  dispatch: ThunkDispatch<{}, {}, AuthActionTypes>,
+) => {
+  dispatch({ type: LOGOUT_FAIL });
 };
 
 export const authError = () => async (

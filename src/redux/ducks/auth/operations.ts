@@ -14,6 +14,7 @@ import {
   setIsSigningUp,
 } from '../validation/actions';
 import { setAlert } from '../alert/actions';
+import { clearPosts } from '../post/actions';
 import {
   signupSuccess,
   signupFail,
@@ -22,6 +23,8 @@ import {
   setDecodedToken,
   refreshTokenSuccess,
   refreshTokenFail,
+  logoutSuccess,
+  logoutFail,
 } from './actions';
 import { authClient } from '../../../api';
 import { UserForLogin, UserForSignup } from '../../../interfaces/user';
@@ -176,5 +179,25 @@ export const refreshToken = async (
     }
 
     dispatch(refreshTokenFail());
+  }
+};
+
+export const logout = (currentRefreshToken: string | null) => async (
+  dispatch: ThunkDispatch<{}, {}, AnyAction>,
+) => {
+  try {
+    await authClient.post('auth/revoke', { refreshToken: currentRefreshToken });
+    dispatch(logoutSuccess());
+  } catch (error) {
+    const { status, data } = error.response;
+    dispatch(logoutFail());
+
+    if (status === 500 || status === 401) {
+      const id = uuidv4();
+      const alert = { id, message: data.message, typeAlert: 'error' };
+      dispatch(setAlert(alert));
+    }
+  } finally {
+    dispatch(clearPosts());
   }
 };

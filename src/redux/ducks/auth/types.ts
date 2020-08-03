@@ -8,7 +8,8 @@ export const SET_DECODED_TOKEN = 'Blitster/auth/SET_DECODED_TOKEN';
 // export const USER_LOADED = 'Blitster/auth/USER_LOADED';
 export const REFRESH_TOKEN_SUCCESS = 'Blitster/auth/REFRESH_TOKEN_SUCCESS';
 export const REFRESH_TOKEN_FAIL = 'Blitster/auth/REFRESH_TOKEN_FAIL';
-export const LOGOUT = 'Blitster/auth/LOGOUT';
+export const LOGOUT_SUCCESS = 'Blitster/auth/LOGOUT_SUCCESS';
+export const LOGOUT_FAIL = 'Blitster/auth/LOGOUT_FAIL';
 export const AUTH_ERROR = 'Blitster/auth/AUTH_ERROR';
 
 interface SetDecodedToken {
@@ -43,8 +44,12 @@ interface RefreshTokenFail {
   type: typeof REFRESH_TOKEN_FAIL;
 }
 
-interface Logout {
-  type: typeof LOGOUT;
+interface LogoutSuccess {
+  type: typeof LOGOUT_SUCCESS;
+}
+
+interface LogoutFail {
+  type: typeof LOGOUT_FAIL;
 }
 
 interface AuthError {
@@ -59,5 +64,6 @@ export type AuthActionTypes =
   | LoginFail
   | RefreshTokenSuccess
   | RefreshTokenFail
-  | Logout
+  | LogoutSuccess
+  | LogoutFail
   | AuthError;

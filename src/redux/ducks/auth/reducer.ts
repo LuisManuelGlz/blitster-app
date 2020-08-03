@@ -6,7 +6,8 @@ import {
   SET_DECODED_TOKEN,
   REFRESH_TOKEN_SUCCESS,
   REFRESH_TOKEN_FAIL,
-  LOGOUT,
+  LOGOUT_SUCCESS,
+  LOGOUT_FAIL,
   AUTH_ERROR,
   AuthActionTypes,
 } from './types';
@@ -60,7 +61,8 @@ export default (state = initialState, action: AuthActionTypes) => {
     case SIGNUP_FAIL:
     case LOGIN_FAIL:
     case REFRESH_TOKEN_FAIL:
-    case LOGOUT:
+    case LOGOUT_SUCCESS:
+    case LOGOUT_FAIL:
     case AUTH_ERROR:
       return {
         ...initialState,
