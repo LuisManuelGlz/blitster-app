@@ -3,6 +3,7 @@ import {
   SET_POSTS,
   SET_IS_ADDING_POST,
   LIKE_POST_SUCCESS,
+  CLEAR_POSTS,
   PostActionTypes,
 } from './types';
 import { Post } from '../../../interfaces/post';
@@ -42,6 +43,11 @@ export default (state = initialState, action: PostActionTypes) => {
         posts: state.posts.map((post) =>
           post._id === action.post._id ? action.post : post,
         ),
+      };
+    case CLEAR_POSTS:
+      return {
+        ...state,
+        posts: [],
       };
     default:
       return state;

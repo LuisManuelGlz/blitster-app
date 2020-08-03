@@ -5,6 +5,7 @@ import {
   PostActionTypes,
   SET_IS_ADDING_POST,
   LIKE_POST_SUCCESS,
+  CLEAR_POSTS,
 } from './types';
 import { Post } from '../../../interfaces/post';
 
@@ -41,5 +42,13 @@ export const likePostSuccess = (post: Post) => (
   dispatch({
     type: LIKE_POST_SUCCESS,
     post,
+  });
+};
+
+export const clearPosts = () => (
+  dispatch: ThunkDispatch<{}, {}, PostActionTypes>,
+) => {
+  dispatch({
+    type: CLEAR_POSTS,
   });
 };

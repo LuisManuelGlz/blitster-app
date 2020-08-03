@@ -14,6 +14,7 @@ import {
   AuthActionTypes,
 } from './types';
 import { setAlert } from '../alert/actions';
+import { clearPosts } from '../post/actions';
 import authClient from '../../../api/authClient';
 import { Auth, DecodedToken } from '../../../interfaces/auth';
 
@@ -74,6 +75,8 @@ export const logout = (refreshToken: string | null) => async (
       const alert = { id, message: data.message, typeAlert: 'error' };
       dispatch(setAlert(alert));
     }
+  } finally {
+    dispatch(clearPosts());
   }
 };
 
