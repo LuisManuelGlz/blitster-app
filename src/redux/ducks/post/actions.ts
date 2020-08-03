@@ -4,6 +4,7 @@ import {
   SET_POSTS,
   PostActionTypes,
   SET_IS_ADDING_POST,
+  LIKE_POST_SUCCESS,
 } from './types';
 import { Post } from '../../../interfaces/post';
 
@@ -31,5 +32,14 @@ export const setIsAddingPost = (isAddingPost: boolean) => (
   dispatch({
     type: SET_IS_ADDING_POST,
     isAddingPost,
+  });
+};
+
+export const likePostSuccess = (post: Post) => (
+  dispatch: ThunkDispatch<{}, {}, PostActionTypes>,
+) => {
+  dispatch({
+    type: LIKE_POST_SUCCESS,
+    post,
   });
 };

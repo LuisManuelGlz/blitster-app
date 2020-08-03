@@ -15,7 +15,7 @@ interface Props {
 }
 
 const Item = ({ style, post, onPress }: Props) => {
-  const { user, content, images, createdAt } = post;
+  const { user, content, /*images,*/ createdAt } = post;
 
   return (
     <TouchableOpacity style={[styles.container, style]} onPress={onPress}>

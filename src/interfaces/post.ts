@@ -12,6 +12,7 @@ export interface Post {
   images?: string[];
   likes: number;
   comments: number;
+  liked: boolean;
   createdAt: Date;
 }
 

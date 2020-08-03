@@ -1,20 +1,21 @@
 import {
   SET_IS_FETCHING_POSTS,
   SET_POSTS,
-  PostActionTypes,
   SET_IS_ADDING_POST,
+  LIKE_POST_SUCCESS,
+  PostActionTypes,
 } from './types';
 import { Post } from '../../../interfaces/post';
 
-interface ValidationState {
+interface PostState {
   isFetchingPosts: boolean | null;
-  posts: Post[] | null;
+  posts: Post[];
   isAddingPost: boolean | null;
 }
 
-const initialState: ValidationState = {
+const initialState: PostState = {
   isFetchingPosts: null,
-  posts: null,
+  posts: [],
   isAddingPost: null,
 };
 
@@ -34,6 +35,13 @@ export default (state = initialState, action: PostActionTypes) => {
       return {
         ...state,
         isAddingPost: action.isAddingPost,
+      };
+    case LIKE_POST_SUCCESS:
+      return {
+        ...state,
+        posts: state.posts.map((post) =>
+          post._id === action.post._id ? action.post : post,
+        ),
       };
     default:
       return state;

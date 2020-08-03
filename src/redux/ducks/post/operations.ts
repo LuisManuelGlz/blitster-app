@@ -4,7 +4,12 @@ import { AnyAction } from 'redux';
 import { ThunkDispatch } from 'redux-thunk';
 import { NavigationProp } from '@react-navigation/native';
 import { loggedInClient } from '../../../api';
-import { setIsFetchingPosts, setPosts, setIsAddingPost } from './actions';
+import {
+  setIsFetchingPosts,
+  setPosts,
+  setIsAddingPost,
+  likePostSuccess,
+} from './actions';
 import { setAlert } from '../alert/actions';
 import { setErrorMessage, clearErrorMessages } from '../validation/actions';
 import { ErrorMessage } from '../../../interfaces/validation';
@@ -47,7 +52,6 @@ export const addPost = (
     navigation.goBack();
   } catch (error) {
     const { status, data } = error.response;
-    console.log(`\n\n\n ${JSON.stringify(data)} \n\n\n`);
     if (status === 404 || status === 500) {
       const id = uuidv4();
       const alert = { id, message: data.message, typeAlert: 'error' };
@@ -59,5 +63,26 @@ export const addPost = (
     }
   } finally {
     dispatch(setIsAddingPost(false));
+  }
+};
+
+export const likePost = (postId: string) => async (
+  dispatch: ThunkDispatch<{}, {}, AnyAction>,
+) => {
+  try {
+    const { data } = await loggedInClient.post(`posts/like/${postId}`);
+    console.log(`\n\n\n ${JSON.stringify(data)} \n\n\n`);
+    dispatch(likePostSuccess(data));
+  } catch (error) {
+    const { status, data } = error.response;
+    if (status === 404 || status === 500) {
+      const id = uuidv4();
+      const alert = { id, message: data.message, typeAlert: 'error' };
+      dispatch(setAlert(alert));
+    } else {
+      data.errors?.map((err: ErrorMessage) => {
+        dispatch(setErrorMessage(err));
+      });
+    }
   }
 };
