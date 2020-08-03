@@ -15,10 +15,13 @@ import {
 } from '../validation/actions';
 import { setAlert } from '../alert/actions';
 import {
-  setAuth,
-  authError,
+  signupSuccess,
+  signupFail,
+  loginSuccess,
+  loginFail,
   setDecodedToken,
-  setRefreshToken,
+  refreshTokenSuccess,
+  refreshTokenFail,
 } from './actions';
 import { authClient } from '../../../api';
 import { UserForLogin, UserForSignup } from '../../../interfaces/user';
@@ -91,7 +94,7 @@ export const login = (user: UserForLogin) => async (
       isVerified: decoded.isVerified,
     };
 
-    dispatch(setAuth(data));
+    dispatch(loginSuccess(data));
     dispatch(setDecodedToken(decodedToken));
   } catch (error) {
     const { status, data } = error.response;
@@ -103,7 +106,7 @@ export const login = (user: UserForLogin) => async (
       data.errors?.map((err: ErrorMessage) => {
         dispatch(setErrorMessage(err));
       });
-      dispatch(authError());
+      dispatch(loginFail());
     }
   } finally {
     dispatch(setIsLoggingIn(false));
@@ -127,7 +130,7 @@ export const signup = (user: UserForSignup) => async (
       isVerified: decoded.isVerified,
     };
 
-    dispatch(setAuth(data));
+    dispatch(signupSuccess(data));
     dispatch(setDecodedToken(decodedToken));
   } catch (error) {
     const { status, data } = error.response;
@@ -140,7 +143,7 @@ export const signup = (user: UserForSignup) => async (
       data.errors?.map((err: ErrorMessage) => {
         dispatch(setErrorMessage(err));
       });
-      dispatch(authError());
+      dispatch(signupFail());
     }
   } finally {
     dispatch(setIsSigningUp(false));
@@ -156,7 +159,7 @@ export const refreshToken = async (
       userId: auth.decodedToken.userId,
       refreshToken: auth.refreshToken,
     });
-    dispatch(setRefreshToken(data.accessToken));
+    dispatch(refreshTokenSuccess(data.accessToken));
   } catch (error) {
     const { status, data } = error.response;
 
@@ -172,6 +175,6 @@ export const refreshToken = async (
       });
     }
 
-    dispatch(authError());
+    dispatch(refreshTokenFail());
   }
 };

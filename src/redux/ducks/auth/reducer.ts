@@ -1,7 +1,11 @@
 import {
-  SET_AUTH,
+  SIGNUP_SUCCESS,
+  SIGNUP_FAIL,
+  LOGIN_SUCCESS,
+  LOGIN_FAIL,
   SET_DECODED_TOKEN,
-  SET_REFRESH_TOKEN,
+  REFRESH_TOKEN_SUCCESS,
+  REFRESH_TOKEN_FAIL,
   LOGOUT,
   AUTH_ERROR,
   AuthActionTypes,
@@ -35,7 +39,8 @@ const initialState: AuthState = {
 
 export default (state = initialState, action: AuthActionTypes) => {
   switch (action.type) {
-    case SET_AUTH:
+    case SIGNUP_SUCCESS:
+    case LOGIN_SUCCESS:
       return {
         ...state,
         ...action.auth,
@@ -46,12 +51,15 @@ export default (state = initialState, action: AuthActionTypes) => {
         ...state,
         decodedToken: action.decodedToken,
       };
-    case SET_REFRESH_TOKEN:
+    case REFRESH_TOKEN_SUCCESS:
       return {
         ...state,
         accessToken: action.refreshToken,
         refreshToken: action.refreshToken,
       };
+    case SIGNUP_FAIL:
+    case LOGIN_FAIL:
+    case REFRESH_TOKEN_FAIL:
     case LOGOUT:
     case AUTH_ERROR:
       return {

@@ -2,9 +2,13 @@ import 'react-native-get-random-values';
 import { v4 as uuidv4 } from 'uuid';
 import { ThunkDispatch } from 'redux-thunk';
 import {
-  SET_AUTH,
   SET_DECODED_TOKEN,
-  SET_REFRESH_TOKEN,
+  SIGNUP_SUCCESS,
+  SIGNUP_FAIL,
+  LOGIN_SUCCESS,
+  LOGIN_FAIL,
+  REFRESH_TOKEN_SUCCESS,
+  REFRESH_TOKEN_FAIL,
   LOGOUT,
   AUTH_ERROR,
   AuthActionTypes,
@@ -13,22 +17,46 @@ import { setAlert } from '../alert/actions';
 import authClient from '../../../api/authClient';
 import { Auth, DecodedToken } from '../../../interfaces/auth';
 
-export const setAuth = (auth: Auth) => async (
-  dispatch: ThunkDispatch<{}, {}, AuthActionTypes>,
-) => {
-  dispatch({ type: SET_AUTH, auth });
-};
-
 export const setDecodedToken = (decodedToken: DecodedToken) => async (
   dispatch: ThunkDispatch<{}, {}, AuthActionTypes>,
 ) => {
   dispatch({ type: SET_DECODED_TOKEN, decodedToken });
 };
 
-export const setRefreshToken = (refreshToken: string) => async (
+export const signupSuccess = (auth: Auth) => async (
   dispatch: ThunkDispatch<{}, {}, AuthActionTypes>,
 ) => {
-  dispatch({ type: SET_REFRESH_TOKEN, refreshToken });
+  dispatch({ type: SIGNUP_SUCCESS, auth });
+};
+
+export const signupFail = () => async (
+  dispatch: ThunkDispatch<{}, {}, AuthActionTypes>,
+) => {
+  dispatch({ type: SIGNUP_FAIL });
+};
+
+export const loginSuccess = (auth: Auth) => async (
+  dispatch: ThunkDispatch<{}, {}, AuthActionTypes>,
+) => {
+  dispatch({ type: LOGIN_SUCCESS, auth });
+};
+
+export const loginFail = () => async (
+  dispatch: ThunkDispatch<{}, {}, AuthActionTypes>,
+) => {
+  dispatch({ type: LOGIN_FAIL });
+};
+
+export const refreshTokenSuccess = (refreshToken: string) => async (
+  dispatch: ThunkDispatch<{}, {}, AuthActionTypes>,
+) => {
+  dispatch({ type: REFRESH_TOKEN_SUCCESS, refreshToken });
+};
+
+export const refreshTokenFail = () => async (
+  dispatch: ThunkDispatch<{}, {}, AuthActionTypes>,
+) => {
+  dispatch({ type: REFRESH_TOKEN_FAIL });
 };
 
 export const logout = (refreshToken: string | null) => async (
