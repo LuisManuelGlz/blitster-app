@@ -7,7 +7,7 @@ import SplashScreen from 'react-native-splash-screen';
 import { loggedInClient } from './src/api';
 import { auth } from './src/redux/ducks';
 import AppNavigator from './src/navigation/AppNavigator';
-import { store, persistor } from './src/redux/store';
+import { store, persistor } from './src/redux';
 
 declare const global: { HermesInternal: null | {} };
 

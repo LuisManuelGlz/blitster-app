@@ -1,6 +1,6 @@
 import React from 'react';
 import { View } from 'react-native';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import {
   DrawerContentScrollView,
   DrawerItem,
@@ -9,12 +9,10 @@ import {
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import styles from './CustomDrawerContent.styles';
 import { auth } from '../../redux/ducks';
-import { RootState } from '../../redux';
+import { useTypedSelector } from '../../redux';
 
 const CustomDrawerContent = (props: any) => {
-  const refreshToken = useSelector(
-    (store: RootState) => store.auth.refreshToken,
-  );
+  const refreshToken = useTypedSelector((store) => store.auth.refreshToken);
   const dispatch = useDispatch();
 
   const handleLogoutPress = async () => {

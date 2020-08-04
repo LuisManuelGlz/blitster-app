@@ -20,7 +20,6 @@ interface AuthState {
   expiresIn: number | null;
   isAuthenticated: boolean | null;
   decodedToken: DecodedToken;
-  refreshingToken: boolean | null;
 }
 
 const initialState: AuthState = {
@@ -35,7 +34,6 @@ const initialState: AuthState = {
     role: null,
     isVerified: null,
   },
-  refreshingToken: null,
 };
 
 export default (state = initialState, action: AuthActionTypes) => {
