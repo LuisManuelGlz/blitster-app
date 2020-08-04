@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Image, StyleProp, ViewStyle } from 'react-native';
 import Text from '../Text';
 import styles from './UserInfo.styles';
-import { User } from '../../interfaces/post';
+import { User } from '../../interfaces/user';
 
 interface Props {
   style?: StyleProp<ViewStyle>;

@@ -4,13 +4,13 @@ import { TypedUseSelectorHook, useSelector } from 'react-redux';
 import thunk from 'redux-thunk';
 import { createLogger } from 'redux-logger';
 import { persistStore, persistReducer } from 'redux-persist';
-import { auth, alert, validation, post } from './ducks';
+import { auth, alert, validation, post, user } from './ducks';
 
 const rootPersistConfig = {
   key: 'root',
   storage: AsyncStorage,
   whitelist: ['auth'],
-  blacklist: ['alert', 'validation', 'post'],
+  blacklist: ['alert', 'validation', 'post', 'user'],
 };
 
 const postPersistConfig = {
@@ -24,6 +24,7 @@ const rootReducer = combineReducers({
   auth: auth.reducer,
   validation: validation.reducer,
   post: persistReducer(postPersistConfig, post.reducer),
+  user: user.reducer,
 });
 
 const middleware = [thunk, createLogger()];

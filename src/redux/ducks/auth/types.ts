@@ -5,7 +5,6 @@ export const SIGNUP_FAIL = 'Blitster/auth/SIGNUP_FAIL';
 export const LOGIN_SUCCESS = 'Blitster/auth/LOGIN_SUCCESS';
 export const LOGIN_FAIL = 'Blitster/auth/LOGIN_FAIL';
 export const SET_DECODED_TOKEN = 'Blitster/auth/SET_DECODED_TOKEN';
-// export const USER_LOADED = 'Blitster/auth/USER_LOADED';
 export const REFRESH_TOKEN_SUCCESS = 'Blitster/auth/REFRESH_TOKEN_SUCCESS';
 export const REFRESH_TOKEN_FAIL = 'Blitster/auth/REFRESH_TOKEN_FAIL';
 export const LOGOUT_SUCCESS = 'Blitster/auth/LOGOUT_SUCCESS';

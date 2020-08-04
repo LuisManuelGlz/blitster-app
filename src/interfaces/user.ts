@@ -10,3 +10,10 @@ export interface UserForSignup {
   password1: string;
   password2: string;
 }
+
+export interface User {
+  _id: string;
+  fullName: string;
+  username: string;
+  avatar: string;
+}

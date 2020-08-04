@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { View } from 'react-native';
 import { useDispatch } from 'react-redux';
 import {
@@ -8,12 +8,18 @@ import {
 } from '@react-navigation/drawer';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import styles from './CustomDrawerContent.styles';
-import { auth } from '../../redux/ducks';
+import { auth, user } from '../../redux/ducks';
 import { useTypedSelector } from '../../redux';
+import UserInfo from '../UserInfo';
 
 const CustomDrawerContent = (props: any) => {
   const refreshToken = useTypedSelector((store) => store.auth.refreshToken);
+  const profile = useTypedSelector((store) => store.user.profile);
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(user.operations.fetchProfile());
+  }, []);
 
   const handleLogoutPress = async () => {
     dispatch(auth.operations.logout(refreshToken));
@@ -22,6 +28,9 @@ const CustomDrawerContent = (props: any) => {
   return (
     <View style={styles.conainer}>
       <DrawerContentScrollView>
+        <View style={styles.userInfo}>
+          {profile && <UserInfo user={profile} />}
+        </View>
         <DrawerItemList {...props} />
       </DrawerContentScrollView>
       <View>
