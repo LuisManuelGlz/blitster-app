@@ -36,6 +36,7 @@ const DrawerNavigator = () => (
         ),
       }}
     />
+    {/* TODO SettingsScreen */}
   </Drawer.Navigator>
 );
 
