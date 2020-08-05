@@ -15,7 +15,7 @@ import { setErrorMessage, clearErrorMessages } from '../validation/actions';
 import { ErrorMessage } from '../../../interfaces/validation';
 import { PostForCreate } from '../../../interfaces/post';
 
-export const fetchPosts = () => async (
+export const fetchPosts = async (
   dispatch: ThunkDispatch<{}, {}, AnyAction>,
 ) => {
   dispatch(setIsFetchingPosts(true));
@@ -48,7 +48,7 @@ export const addPost = (
     await loggedInClient.post('posts', formData, {
       headers: { 'Content-Type': 'multipart/form-data' },
     });
-    dispatch(fetchPosts());
+    fetchPosts(dispatch);
     navigation.goBack();
   } catch (error) {
     const { status, data } = error.response;
