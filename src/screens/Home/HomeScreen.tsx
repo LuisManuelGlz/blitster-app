@@ -6,7 +6,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import { Button, PostContainer } from '../../components';
 import styles from './HomeScreen.styles';
 import { useTypedSelector } from '../../redux';
-import { post } from '../../redux/ducks';
+import { post, user } from '../../redux/ducks';
 
 const HomeScreen = () => {
   const navigation = useNavigation();
@@ -17,7 +17,10 @@ const HomeScreen = () => {
   const posts = useTypedSelector((state) => state.post.posts);
 
   useEffect(() => {
-    dispatch(post.operations.fetchPosts());
+    (async () => {
+      await post.operations.fetchPosts(dispatch);
+      dispatch(user.operations.fetchProfile());
+    })();
   }, []);
 
   if (isFetchingPosts) {

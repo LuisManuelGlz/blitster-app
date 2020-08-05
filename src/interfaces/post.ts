@@ -1,9 +1,4 @@
-export interface User {
-  userId: string;
-  fullName: string;
-  username: string;
-  avatar: string;
-}
+import { User } from './user';
 
 export interface Post {
   _id: string;

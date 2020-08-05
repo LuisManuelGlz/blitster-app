@@ -9,8 +9,6 @@ import { auth } from './src/redux/ducks';
 import AppNavigator from './src/navigation/AppNavigator';
 import { store, persistor } from './src/redux';
 
-declare const global: { HermesInternal: null | {} };
-
 const App = () => {
   useEffect(() => SplashScreen.hide(), []);
 

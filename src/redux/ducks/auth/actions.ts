@@ -14,61 +14,61 @@ import {
 } from './types';
 import { Auth, DecodedToken } from '../../../interfaces/auth';
 
-export const setDecodedToken = (decodedToken: DecodedToken) => async (
+export const setDecodedToken = (decodedToken: DecodedToken) => (
   dispatch: ThunkDispatch<{}, {}, AuthActionTypes>,
 ) => {
   dispatch({ type: SET_DECODED_TOKEN, decodedToken });
 };
 
-export const signupSuccess = (auth: Auth) => async (
+export const signupSuccess = (auth: Auth) => (
   dispatch: ThunkDispatch<{}, {}, AuthActionTypes>,
 ) => {
   dispatch({ type: SIGNUP_SUCCESS, auth });
 };
 
-export const signupFail = () => async (
+export const signupFail = () => (
   dispatch: ThunkDispatch<{}, {}, AuthActionTypes>,
 ) => {
   dispatch({ type: SIGNUP_FAIL });
 };
 
-export const loginSuccess = (auth: Auth) => async (
+export const loginSuccess = (auth: Auth) => (
   dispatch: ThunkDispatch<{}, {}, AuthActionTypes>,
 ) => {
   dispatch({ type: LOGIN_SUCCESS, auth });
 };
 
-export const loginFail = () => async (
+export const loginFail = () => (
   dispatch: ThunkDispatch<{}, {}, AuthActionTypes>,
 ) => {
   dispatch({ type: LOGIN_FAIL });
 };
 
-export const refreshTokenSuccess = (refreshToken: string) => async (
+export const refreshTokenSuccess = (refreshToken: string) => (
   dispatch: ThunkDispatch<{}, {}, AuthActionTypes>,
 ) => {
   dispatch({ type: REFRESH_TOKEN_SUCCESS, refreshToken });
 };
 
-export const refreshTokenFail = () => async (
+export const refreshTokenFail = () => (
   dispatch: ThunkDispatch<{}, {}, AuthActionTypes>,
 ) => {
   dispatch({ type: REFRESH_TOKEN_FAIL });
 };
 
-export const logoutSuccess = () => async (
+export const logoutSuccess = () => (
   dispatch: ThunkDispatch<{}, {}, AuthActionTypes>,
 ) => {
   dispatch({ type: LOGOUT_SUCCESS });
 };
 
-export const logoutFail = () => async (
+export const logoutFail = () => (
   dispatch: ThunkDispatch<{}, {}, AuthActionTypes>,
 ) => {
   dispatch({ type: LOGOUT_FAIL });
 };
 
-export const authError = () => async (
+export const authError = () => (
   dispatch: ThunkDispatch<{}, {}, AuthActionTypes>,
 ) => {
   dispatch({ type: AUTH_ERROR });

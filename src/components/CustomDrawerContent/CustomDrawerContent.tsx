@@ -10,18 +10,23 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import styles from './CustomDrawerContent.styles';
 import { auth } from '../../redux/ducks';
 import { useTypedSelector } from '../../redux';
+import UserInfo from '../UserInfo';
 
 const CustomDrawerContent = (props: any) => {
   const refreshToken = useTypedSelector((store) => store.auth.refreshToken);
+  const profile = useTypedSelector((store) => store.user.profile);
   const dispatch = useDispatch();
 
-  const handleLogoutPress = async () => {
+  const handleLogoutPress = () => {
     dispatch(auth.operations.logout(refreshToken));
   };
 
   return (
     <View style={styles.conainer}>
       <DrawerContentScrollView>
+        <View style={styles.userInfo}>
+          {profile && <UserInfo user={profile} />}
+        </View>
         <DrawerItemList {...props} />
       </DrawerContentScrollView>
       <View>
