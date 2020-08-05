@@ -7,7 +7,7 @@ export default StyleSheet.create({
     borderRadius: 25,
   },
   buttonTitle: {
-    color: 'white',
+    color: Colors.white,
     textAlign: 'center',
     fontSize: 16,
   },

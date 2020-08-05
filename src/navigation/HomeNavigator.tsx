@@ -7,6 +7,7 @@ import PostDetailScreen from '../screens/PostDetail';
 import { Post } from '../interfaces/post';
 import ProfileScreen from '../screens/Profile';
 import { User } from '../interfaces/user';
+import { Colors } from '../styles';
 
 export type HomeStackParamList = {
   Home: undefined;
@@ -30,7 +31,7 @@ const HomeNavigator = () => {
     <HomeStack.Navigator
       screenOptions={{
         headerStyle: {
-          backgroundColor: 'transparent',
+          backgroundColor: Colors.transparent,
           elevation: 0,
           shadowOpacity: 0,
         },

@@ -24,6 +24,6 @@ export default StyleSheet.create({
     fontWeight: 'bold',
   },
   about: {
-    color: Colors.gray,
+    color: Colors.grayDarken,
   },
 });

@@ -3,6 +3,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import HomeNavigator from './HomeNavigator';
 import SearchNavigator from './SearchNavigation';
+import { Colors } from '../styles';
 
 const Tab = createBottomTabNavigator();
 
@@ -23,8 +24,8 @@ const TabsNavigatior = () => {
         },
       })}
       tabBarOptions={{
-        activeTintColor: 'purple',
-        inactiveTintColor: 'gray',
+        activeTintColor: Colors.purple,
+        inactiveTintColor: Colors.grayDarken,
       }}>
       <Tab.Screen name="Home" component={HomeNavigator} />
       <Tab.Screen name="Search" component={SearchNavigator} />
