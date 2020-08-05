@@ -7,7 +7,7 @@ export default StyleSheet.create({
     flexDirection: 'row',
     width: '100%',
     maxHeight: 48,
-    backgroundColor: Colors.gray,
+    backgroundColor: Colors.grayLighten,
     borderRadius: 25,
     paddingHorizontal: PADDING_HORIZONTAL,
   },
