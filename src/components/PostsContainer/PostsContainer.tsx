@@ -14,7 +14,7 @@ const PostsContainer = (props: Props) => {
   const navigation = useNavigation();
 
   const handlePostItemPress = (post: IPost) => {
-    navigation.navigate('PostDetail', { post, showTabBar: false });
+    navigation.navigate('PostDetail', { post });
   };
 
   const posts =

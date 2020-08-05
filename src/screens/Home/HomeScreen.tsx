@@ -37,7 +37,7 @@ const HomeScreen = () => {
       <Button.Primary
         style={styles.button}
         icon={<Ionicons name="add" size={24} color={'white'} />}
-        onPress={() => navigation.navigate('AddPost', { showTabBar: false })}
+        onPress={() => navigation.navigate('AddPost')}
       />
     </View>
   );

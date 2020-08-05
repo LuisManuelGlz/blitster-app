@@ -5,11 +5,14 @@ import HomeScreen from '../screens/Home';
 import AddPostScreen from '../screens/AddPost';
 import PostDetailScreen from '../screens/PostDetail';
 import { Post } from '../interfaces/post';
+import ProfileScreen from '../screens/Profile';
+import { User } from '../interfaces/user';
 
 export type HomeStackParamList = {
   Home: undefined;
-  AddPost: { showTabBar: boolean };
-  PostDetail: { post: Post; showTabBar: boolean };
+  Profile: { profile: User };
+  AddPost: undefined;
+  PostDetail: { post: Post };
 };
 
 const HomeStack = createStackNavigator<HomeStackParamList>();
@@ -33,6 +36,11 @@ const HomeNavigator = () => {
         },
       }}>
       <HomeStack.Screen name="Home" component={HomeScreen} />
+      <HomeStack.Screen
+        name="Profile"
+        component={ProfileScreen}
+        options={({ route }) => ({ title: route.params?.profile.fullName })}
+      />
       <HomeStack.Screen
         name="AddPost"
         component={AddPostScreen}
