@@ -1,6 +1,5 @@
 import React from 'react';
 import { ScrollView } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
 import styles from './PostsContainer.styles';
 import Post from '../Post';
 import { Post as IPost } from '../../interfaces/post';
@@ -11,21 +10,10 @@ interface Props {
 }
 
 const PostsContainer = (props: Props) => {
-  const navigation = useNavigation();
-
-  const handlePostItemPress = (post: IPost) => {
-    navigation.navigate('PostDetail', { post });
-  };
-
   const posts =
     props.posts && props.posts.length > 0 ? (
       props.posts.map((post) => (
-        <Post.Item
-          style={styles.post}
-          key={post._id}
-          post={post}
-          onPress={() => handlePostItemPress(post)}
-        />
+        <Post.Item style={styles.post} key={post._id} post={post} />
       ))
     ) : (
       <Text.H2 style={styles.noPostsMessage}>No posts yet.</Text.H2>

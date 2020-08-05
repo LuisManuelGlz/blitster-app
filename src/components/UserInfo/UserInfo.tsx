@@ -19,9 +19,8 @@ interface Props {
 const UserInfo = ({ style, user }: Props) => {
   const navigation = useNavigation();
 
-  const handleUserInfoPress = () => {
+  const handleUserInfoPress = () =>
     navigation.navigate('Profile', { profile: user });
-  };
 
   return (
     <TouchableOpacity
