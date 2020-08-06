@@ -1,6 +1,7 @@
 import {
   SET_IS_FETCHING_POSTS,
   SET_POSTS,
+  SET_CURRENT_USER_POSTS,
   SET_IS_ADDING_POST,
   LIKE_POST_SUCCESS,
   CLEAR_POSTS,
@@ -12,12 +13,14 @@ interface PostState {
   isFetchingPosts: boolean | null;
   posts: Post[];
   isAddingPost: boolean | null;
+  currentUserPosts: Post[];
 }
 
 const initialState: PostState = {
   isFetchingPosts: null,
   posts: [],
   isAddingPost: null,
+  currentUserPosts: [],
 };
 
 export default (state = initialState, action: PostActionTypes) => {
@@ -31,6 +34,11 @@ export default (state = initialState, action: PostActionTypes) => {
       return {
         ...state,
         posts: action.posts,
+      };
+    case SET_CURRENT_USER_POSTS:
+      return {
+        ...state,
+        currentUserPosts: action.posts,
       };
     case SET_IS_ADDING_POST:
       return {

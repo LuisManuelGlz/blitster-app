@@ -1,12 +1,26 @@
-import React from 'react';
-import { ScrollView, View, Image } from 'react-native';
+import React, { useEffect } from 'react';
+import { ScrollView, View, Image, ActivityIndicator } from 'react-native';
 import { useRoute, RouteProp } from '@react-navigation/native';
-import { Text } from '../../components';
+import { useDispatch } from 'react-redux';
+import { Text, PostContainer } from '../../components';
 import { HomeStackParamList } from '../../navigation/HomeNavigator';
 import styles from './ProfileScreen.styles';
+import { useTypedSelector } from '../../redux';
+import { post } from '../../redux/ducks';
 
 const ProfileScreen = () => {
+  const dispatch = useDispatch();
+  const isFetchingPosts = useTypedSelector(
+    (state) => state.post.isFetchingPosts,
+  );
+  const currentUserPosts = useTypedSelector(
+    (state) => state.post.currentUserPosts,
+  );
   const { params } = useRoute<RouteProp<HomeStackParamList, 'Profile'>>();
+
+  useEffect(() => {
+    post.operations.fetchCurrentUserPosts(dispatch, params.profile._id);
+  }, []);
 
   return (
     <View style={styles.container}>
@@ -24,6 +38,13 @@ const ProfileScreen = () => {
             <Text.H3 style={styles.about}>Hi there</Text.H3>
           </View>
         </View>
+        {isFetchingPosts ? (
+          <View style={styles.activityIndicatorContainer}>
+            <ActivityIndicator color={'purple'} size={'large'} />
+          </View>
+        ) : (
+          <PostContainer posts={currentUserPosts} />
+        )}
       </ScrollView>
     </View>
   );

@@ -1,5 +1,5 @@
 import React from 'react';
-import { ScrollView } from 'react-native';
+import { View } from 'react-native';
 import styles from './PostsContainer.styles';
 import Post from '../Post';
 import { Post as IPost } from '../../interfaces/post';
@@ -20,10 +20,10 @@ const PostsContainer = (props: Props) => {
     );
 
   return (
-    <ScrollView style={styles.container}>
+    <View>
       {posts}
       <Text.H2 style={styles.endScroll}>🦆</Text.H2>
-    </ScrollView>
+    </View>
   );
 };
 

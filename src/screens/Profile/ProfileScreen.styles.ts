@@ -26,4 +26,8 @@ export default StyleSheet.create({
   about: {
     color: Colors.grayDarken,
   },
+  activityIndicatorContainer: {
+    flex: 1,
+    justifyContent: 'center',
+  },
 });
