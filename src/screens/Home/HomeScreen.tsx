@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { View, ActivityIndicator } from 'react-native';
+import { View, ScrollView, ActivityIndicator } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useDispatch } from 'react-redux';
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -33,11 +33,13 @@ const HomeScreen = () => {
 
   return (
     <View style={styles.container}>
-      <PostContainer posts={posts} />
+      <ScrollView style={styles.postsContainer}>
+        <PostContainer posts={posts} />
+      </ScrollView>
       <Button.Primary
         style={styles.button}
         icon={<Ionicons name="add" size={24} color={'white'} />}
-        onPress={() => navigation.navigate('AddPost', { showTabBar: false })}
+        onPress={() => navigation.navigate('AddPost')}
       />
     </View>
   );

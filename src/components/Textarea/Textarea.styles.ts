@@ -4,7 +4,7 @@ import { Colors } from '../../styles';
 
 export default StyleSheet.create({
   inputContainer: {
-    backgroundColor: Colors.gray,
+    backgroundColor: Colors.grayLighten,
     borderRadius: 10,
     paddingHorizontal: PADDING_HORIZONTAL,
   },

@@ -7,6 +7,7 @@ import { loggedInClient } from '../../../api';
 import {
   setIsFetchingPosts,
   setPosts,
+  setCurrentUserPosts,
   setIsAddingPost,
   likePostSuccess,
 } from './actions';
@@ -23,6 +24,27 @@ export const fetchPosts = async (
   try {
     const { data } = await loggedInClient.get('posts');
     dispatch(setPosts(data));
+  } catch (error) {
+    const { status, data } = error.response;
+    if (status === 404 || status === 500) {
+      const id = uuidv4();
+      const alert = { id, message: data.message, typeAlert: 'error' };
+      dispatch(setAlert(alert));
+    }
+  } finally {
+    dispatch(setIsFetchingPosts(false));
+  }
+};
+
+export const fetchCurrentUserPosts = async (
+  dispatch: ThunkDispatch<{}, {}, AnyAction>,
+  userId: string,
+) => {
+  dispatch(setIsFetchingPosts(true));
+
+  try {
+    const { data } = await loggedInClient.get(`posts/of/${userId}`);
+    dispatch(setCurrentUserPosts(data));
   } catch (error) {
     const { status, data } = error.response;
     if (status === 404 || status === 500) {

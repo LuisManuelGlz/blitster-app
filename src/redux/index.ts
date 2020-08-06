@@ -16,7 +16,7 @@ const rootPersistConfig = {
 const postPersistConfig = {
   key: 'post',
   storage: AsyncStorage,
-  blacklist: ['isFetchingPosts', 'isAddingPost'],
+  blacklist: ['isFetchingPosts', 'isAddingPost', 'currentUserPosts'],
 };
 
 const rootReducer = combineReducers({

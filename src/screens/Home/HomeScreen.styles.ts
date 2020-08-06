@@ -4,6 +4,9 @@ export default StyleSheet.create({
   container: {
     flex: 1,
   },
+  postsContainer: {
+    paddingHorizontal: 16,
+  },
   activityIndicatorContainer: {
     flex: 1,
     justifyContent: 'center',

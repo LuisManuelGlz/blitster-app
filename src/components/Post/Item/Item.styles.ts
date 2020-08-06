@@ -1,8 +1,9 @@
 import { StyleSheet } from 'react-native';
+import { Colors } from '../../../styles';
 
 export default StyleSheet.create({
   container: {
-    backgroundColor: '#CCCCCC',
+    backgroundColor: Colors.grayLighten,
     padding: 16,
   },
   postHeader: {
@@ -11,7 +12,7 @@ export default StyleSheet.create({
     justifyContent: 'space-between',
   },
   creationDate: {
-    color: '#696969',
+    color: Colors.grayDarken,
   },
   body: {
     paddingVertical: 8,

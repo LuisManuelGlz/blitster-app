@@ -4,6 +4,7 @@ import IntroScreen from '../screens/Intro';
 import LoginScreen from '../screens/Login';
 import SignupStepOneScreen from '../screens/SignupStepOne';
 import SignupStepTwoScreen from '../screens/SignupStepTwo';
+import { Colors } from '../styles';
 
 export type AuthStackParamList = {
   Intro: undefined;
@@ -18,7 +19,7 @@ const AuthNavigator = () => (
   <AuthStack.Navigator
     screenOptions={{
       headerStyle: {
-        backgroundColor: 'transparent',
+        backgroundColor: Colors.transparent,
         elevation: 0,
         shadowOpacity: 0,
       },

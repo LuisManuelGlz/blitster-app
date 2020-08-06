@@ -3,7 +3,7 @@ import { Colors } from '../../../styles';
 
 export default StyleSheet.create({
   default: {
-    backgroundColor: 'transparent',
+    backgroundColor: Colors.transparent,
     borderWidth: 2,
     borderColor: Colors.purple,
     borderRadius: 25,
