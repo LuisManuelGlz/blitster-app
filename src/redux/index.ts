@@ -33,7 +33,7 @@ const persistedReducer = persistReducer(rootPersistConfig, rootReducer);
 
 const store = createStore(persistedReducer, applyMiddleware(...middleware));
 
-let persistor = persistStore(store);
+const persistor = persistStore(store);
 
 export type RootState = ReturnType<typeof rootReducer>;
 export const useTypedSelector: TypedUseSelectorHook<RootState> = useSelector;
