@@ -18,7 +18,7 @@ const AddPostScreen = () => {
   const isAddingPost = useTypedSelector((state) => state.post.isAddingPost);
   const navigation = useNavigation();
   const dispatch = useDispatch();
-  const { control, handleSubmit, register, errors } = useForm<FormData>();
+  const { control, handleSubmit, setValue, errors } = useForm<FormData>();
 
   const onSubmit = (data: PostForCreate) => {
     dispatch(post.operations.addPost(data, navigation));
@@ -26,7 +26,7 @@ const AddPostScreen = () => {
 
   return (
     <View style={styles.container}>
-      <Form {...{ control, register, errors, validation: addPostValidation }}>
+      <Form {...{ control, setValue, errors, validation: addPostValidation }}>
         <Textarea
           style={styles.textarea}
           name="content"

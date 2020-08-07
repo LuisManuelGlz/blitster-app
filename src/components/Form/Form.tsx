@@ -17,11 +17,16 @@ interface ErrorMap {
 interface Props {
   children: JSX.Element | JSX.Element[];
   control: Control<any>;
+  setValue: (
+    name: string,
+    value: any,
+    config?: { shouldValidate: boolean },
+  ) => void;
   errors: ErrorMap;
   validation: ValidationMap;
 }
 
-const Form = ({ children, control, errors, validation }: Props) => {
+const Form = ({ children, control, setValue, errors, validation }: Props) => {
   return (
     <Fragment>
       {(Array.isArray(children) ? children : [children]).map((child, index) => {
@@ -29,10 +34,11 @@ const Form = ({ children, control, errors, validation }: Props) => {
           <Controller
             key={index}
             control={control}
-            render={({ onChange, value }) =>
+            render={({ value }) =>
               React.createElement(child.type, {
                 ...child.props,
-                onChangeText: (text: string) => onChange(text),
+                onChangeText: (text: string) =>
+                  setValue(child.props.name, text, { shouldValidate: true }),
                 //onBlur: () => triggerValidation(child.props.name),
                 blurOnSubmit: false,
                 value,
