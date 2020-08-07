@@ -1,45 +1,38 @@
 import React from 'react';
 import { View, Text, TextInput, StyleProp, ViewStyle } from 'react-native';
+import { FieldError } from 'react-hook-form';
 import styles from './Textarea.styles';
-import { ErrorMessage } from '../../interfaces/errorMessage';
 
 interface Props {
   style?: StyleProp<ViewStyle>;
+  name: string;
   placeholder?: string;
   value?: string;
-  errorMessages?: ErrorMessage[];
-  onChangeText: (text: string) => void;
+  error?: FieldError;
+  onChangeText?: (text: string) => void;
 }
 
 const Textarea = ({
   style,
   placeholder,
   value,
-  errorMessages,
+  error,
   onChangeText,
 }: Props) => {
   return (
     <View style={style}>
-      <View
-        style={[
-          styles.inputContainer,
-          errorMessages && errorMessages.length > 0 ? styles.inputError : null,
-        ]}>
+      <View style={[styles.inputContainer, error ? styles.inputError : null]}>
         <TextInput
           style={styles.input}
           placeholder={placeholder}
           value={value}
           multiline
           numberOfLines={4}
-          onChangeText={(text) => onChangeText(text)}
+          onChangeText={onChangeText}
         />
       </View>
       <View style={styles.errorsContainer}>
-        {errorMessages?.map((errorMessage, index) => (
-          <Text key={index} style={styles.errorMessage}>
-            {errorMessage.msg}
-          </Text>
-        ))}
+        <Text style={styles.errorMessage}>{error && error.message}</Text>
       </View>
     </View>
   );
