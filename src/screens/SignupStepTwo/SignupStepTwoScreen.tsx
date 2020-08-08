@@ -1,13 +1,20 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { ActivityIndicator, View } from 'react-native';
 import { useDispatch } from 'react-redux';
 import { RouteProp } from '@react-navigation/native';
-import { Input, Button, Text } from '../../components';
+import { useForm } from 'react-hook-form';
+import { Input, Button, Text, Form } from '../../components';
 import styles from './SignupStepTwoScreen.styles';
 import { AuthStackParamList } from '../../navigation/AuthNavigator';
-import { ErrorMessage } from '../../interfaces/errorMessage';
 import { useTypedSelector } from '../../redux';
 import { validation, auth } from '../../redux/ducks';
+import { signupStepTwoValidation } from './validations';
+
+type FormData = {
+  username: string;
+  password1: string;
+  password2: string;
+};
 
 interface Props {
   route: RouteProp<AuthStackParamList, 'SignupStepTwo'>;
@@ -22,38 +29,42 @@ const SignupStepTwoScreen = ({ route }: Props) => {
   );
   const isSigningUp = useTypedSelector((store) => store.validation.isSigningUp);
   const dispatch = useDispatch();
-
-  const [formData, setFormData] = useState({
-    username: '',
-    password1: '',
-    password2: '',
-  });
+  const { control, handleSubmit, setValue, errors } = useForm<FormData>();
 
   useEffect(() => {
     return () => {
       dispatch(validation.actions.clearErrorMessages());
     };
-  }, [dispatch]);
+  }, []);
 
-  const handleUsernameChange = (text: string) => {
-    setFormData({ ...formData, username: text });
-    dispatch(auth.operations.checkUsername(formData.username));
+  const handleUsernameChange = () => {
+    errorMessages?.map(
+      (errorMessage) =>
+        errorMessage.param === 'username' &&
+        dispatch(validation.actions.removeErrorMessages('username')),
+    );
   };
 
-  const handlePassword1Change = (text: string) => {
-    setFormData({ ...formData, password1: text });
+  const handlePasswordsChange = () => {
+    errorMessages?.map(
+      (errorMessage) =>
+        errorMessage.param === 'password2' &&
+        dispatch(validation.actions.removeErrorMessages('password2')),
+    );
   };
 
-  const handlePassword2Change = (text: string) => {
-    setFormData({ ...formData, password2: text });
-  };
-
-  const handleSignupPress = () => {
+  const onSubmit = (data: {
+    username: string;
+    password1: string;
+    password2: string;
+  }) => {
     const { userDetails } = route.params;
+
+    dispatch(auth.operations.checkUsername(data.username));
 
     dispatch(
       auth.operations.signup({
-        ...formData,
+        ...data,
         ...userDetails,
       }),
     );
@@ -63,49 +74,45 @@ const SignupStepTwoScreen = ({ route }: Props) => {
     <View style={styles.container}>
       <Text.H1 style={styles.title}>Create your account</Text.H1>
 
-      <Input
-        style={styles.input}
-        placeholder="Username"
-        onChangeText={(text) => handleUsernameChange(text)}
-        value={formData.username}
-        iconRight={
-          isUsernameInputLoading ? <ActivityIndicator color={'purple'} /> : null
-        }
-        errorMessages={errorMessages.filter(
-          (err: ErrorMessage) => err.param === 'username',
-        )}
-      />
-      <Input
-        style={styles.input}
-        placeholder="Password"
-        onChangeText={(text) => handlePassword1Change(text)}
-        value={formData.password1}
-        errorMessages={errorMessages.filter(
-          (err: ErrorMessage) => err.param === 'password1',
-        )}
-        secureTextEntry={true}
-      />
-      <Input
-        style={styles.input}
-        placeholder="Confirm password"
-        onChangeText={(text) => handlePassword2Change(text)}
-        value={formData.password2}
-        errorMessages={errorMessages.filter(
-          (err: ErrorMessage) => err.param === 'password2',
-        )}
-        secureTextEntry={true}
-      />
-
-      {isSigningUp ? (
-        <ActivityIndicator color={'purple'} size={'large'} />
-      ) : (
-        <Button.Primary
-          style={styles.button}
-          block
-          title="Sign up"
-          onPress={() => handleSignupPress()}
+      <Form
+        {...{ control, setValue, errors, validation: signupStepTwoValidation }}>
+        <Input
+          style={styles.input}
+          name="username"
+          placeholder="Username"
+          onChangeText={handleUsernameChange}
+          iconRight={
+            isUsernameInputLoading ? (
+              <ActivityIndicator color={'purple'} />
+            ) : null
+          }
         />
-      )}
+        <Input
+          style={styles.input}
+          name="password1"
+          placeholder="Password"
+          onChangeText={handlePasswordsChange}
+          secureTextEntry={true}
+        />
+        <Input
+          style={styles.input}
+          name="password2"
+          placeholder="Confirm password"
+          onChangeText={handlePasswordsChange}
+          secureTextEntry={true}
+        />
+
+        {isSigningUp ? (
+          <ActivityIndicator color={'purple'} size={'large'} />
+        ) : (
+          <Button.Primary
+            style={styles.button}
+            block
+            title="Sign up"
+            onPress={handleSubmit(onSubmit)}
+          />
+        )}
+      </Form>
     </View>
   );
 };

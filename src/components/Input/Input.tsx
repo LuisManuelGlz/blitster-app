@@ -1,52 +1,54 @@
 import React from 'react';
-import { View, Text, TextInput, StyleProp, ViewStyle } from 'react-native';
+import { View, Text, TextInput, TextInputProps } from 'react-native';
+import { FieldError } from 'react-hook-form';
 import styles from './Input.styles';
-import { ErrorMessage } from '../../interfaces/errorMessage';
+import { useTypedSelector } from '../../redux';
 
-interface Props {
-  style?: StyleProp<ViewStyle>;
-  placeholder?: string;
-  value?: string;
-  secureTextEntry?: boolean;
+interface Props extends TextInputProps {
+  name: string;
+  error?: FieldError;
   iconLeft?: any;
   iconRight?: any;
-  errorMessages?: ErrorMessage[];
-  onChangeText: (text: string) => void;
 }
 
 const Input = ({
   style,
+  name,
   placeholder,
   value,
   iconLeft,
   iconRight,
-  errorMessages,
+  error,
   secureTextEntry,
   onChangeText,
 }: Props) => {
+  const errorMessages = useTypedSelector(
+    (store) => store.validation.errorMessages,
+  );
+
   return (
     <View style={style}>
-      <View
-        style={[
-          styles.inputContainer,
-          errorMessages && errorMessages.length > 0 ? styles.inputError : null,
-        ]}>
+      <View style={[styles.inputContainer, error ? styles.inputError : null]}>
         <View style={styles.iconContainer}>{iconLeft}</View>
         <TextInput
           style={styles.input}
           placeholder={placeholder}
           secureTextEntry={secureTextEntry}
           value={value}
-          onChangeText={(text) => onChangeText(text)}
+          onChangeText={onChangeText}
         />
         <View style={styles.iconContainer}>{iconRight}</View>
       </View>
       <View style={styles.errorsContainer}>
-        {errorMessages?.map((errorMessage, index) => (
-          <Text key={index} style={styles.errorMessage}>
-            {errorMessage.msg}
-          </Text>
-        ))}
+        {error && <Text style={styles.errorMessage}>{error.message}</Text>}
+        {errorMessages.map(
+          (errorMessage, index) =>
+            errorMessage.param === name && (
+              <Text key={index} style={styles.errorMessage}>
+                {errorMessage.msg}
+              </Text>
+            ),
+        )}
       </View>
     </View>
   );
