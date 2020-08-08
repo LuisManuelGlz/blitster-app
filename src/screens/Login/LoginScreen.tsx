@@ -1,87 +1,70 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { View, TouchableOpacity, ActivityIndicator } from 'react-native';
 import { useDispatch } from 'react-redux';
+import { useForm } from 'react-hook-form';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import { Input, Button, Text } from '../../components';
+import { Input, Button, Form, Text } from '../../components';
 import styles from './LoginScreen.styles';
-import { ErrorMessage } from '../../interfaces/errorMessage';
 import { useTypedSelector } from '../../redux';
-import { auth, validation } from '../../redux/ducks';
+import { auth } from '../../redux/ducks';
+import { UserForLogin } from '../../interfaces/user';
+import { loginValidation } from './validations';
+
+type FormData = {
+  username: string;
+  password: string;
+};
 
 const LogInScreen = () => {
-  const errorMessages = useTypedSelector(
-    (store) => store.validation.errorMessages,
-  );
   const isLoggingIn = useTypedSelector((store) => store.validation.isLoggingIn);
   const dispatch = useDispatch();
-
-  const [formData, setFormData] = useState({ username: '', password: '' });
+  const { control, handleSubmit, setValue, errors } = useForm<FormData>();
   const [isPasswordHidden, setIsPasswordHidden] = useState(true);
 
-  const handleUsernameChange = (text: string) => {
-    setFormData({ ...formData, username: text });
+  const onSubmit = (data: UserForLogin) => {
+    dispatch(auth.operations.login(data));
   };
-
-  const handlePasswordChange = (text: string) => {
-    setFormData({ ...formData, password: text });
-  };
-
-  const handleLoginPress = () => {
-    dispatch(auth.operations.login(formData));
-  };
-
-  useEffect(() => {
-    return () => {
-      dispatch(validation.actions.clearErrorMessages());
-    };
-  }, []);
 
   return (
     <View style={styles.container}>
       <Text.H1 style={styles.title}>Welcome Back!</Text.H1>
 
-      <Input
-        style={styles.input}
-        placeholder="Username"
-        value={formData.username}
-        onChangeText={(text) => handleUsernameChange(text)}
-        iconLeft={<Ionicons name="person" size={24} color={'gray'} />}
-        errorMessages={errorMessages.filter(
-          (err: ErrorMessage) => err.param === 'username',
-        )}
-      />
-      <Input
-        style={styles.input}
-        placeholder="Password"
-        value={formData.password}
-        onChangeText={(text) => handlePasswordChange(text)}
-        iconLeft={<Ionicons name="lock-closed" size={24} color={'gray'} />}
-        iconRight={
-          <TouchableOpacity
-            onPress={() => setIsPasswordHidden((value) => !value)}>
-            <Ionicons
-              name={isPasswordHidden ? 'eye' : 'eye-off'}
-              size={24}
-              color={'gray'}
-            />
-          </TouchableOpacity>
-        }
-        errorMessages={errorMessages.filter(
-          (err: ErrorMessage) => err.param === 'password',
-        )}
-        secureTextEntry={isPasswordHidden}
-      />
-
-      {isLoggingIn ? (
-        <ActivityIndicator color={'purple'} size={'large'} />
-      ) : (
-        <Button.Primary
-          style={styles.button}
-          block
-          title="Log in"
-          onPress={() => handleLoginPress()}
+      <Form {...{ control, setValue, errors, validation: loginValidation }}>
+        <Input
+          style={styles.input}
+          name="username"
+          placeholder="Username"
+          iconLeft={<Ionicons name="person" size={24} color={'gray'} />}
         />
-      )}
+        <Input
+          style={styles.input}
+          name="password"
+          placeholder="Password"
+          iconLeft={<Ionicons name="lock-closed" size={24} color={'gray'} />}
+          iconRight={
+            <TouchableOpacity
+              onPress={() => setIsPasswordHidden((value) => !value)}>
+              <Ionicons
+                name={isPasswordHidden ? 'eye' : 'eye-off'}
+                size={24}
+                color={'gray'}
+              />
+            </TouchableOpacity>
+          }
+          secureTextEntry={isPasswordHidden}
+        />
+
+        {isLoggingIn ? (
+          <ActivityIndicator color={'purple'} size={'large'} />
+        ) : (
+          <Button.Primary
+            style={styles.button}
+            block
+            title="Log in"
+            onPress={handleSubmit(onSubmit)}
+          />
+        )}
+      </Form>
     </View>
   );
 };

@@ -1,15 +1,11 @@
 import React from 'react';
-import { View, Text, TextInput, StyleProp, ViewStyle } from 'react-native';
+import { View, Text, TextInput, TextInputProps } from 'react-native';
 import { FieldError } from 'react-hook-form';
 import styles from './Textarea.styles';
 
-interface Props {
-  style?: StyleProp<ViewStyle>;
+interface Props extends TextInputProps {
   name: string;
-  placeholder?: string;
-  value?: string;
   error?: FieldError;
-  onChangeText?: (text: string) => void;
 }
 
 const Textarea = ({
@@ -32,7 +28,7 @@ const Textarea = ({
         />
       </View>
       <View style={styles.errorsContainer}>
-        <Text style={styles.errorMessage}>{error && error.message}</Text>
+        {error && <Text style={styles.errorMessage}>{error.message}</Text>}
       </View>
     </View>
   );

@@ -37,8 +37,10 @@ const Form = ({ children, control, setValue, errors, validation }: Props) => {
             render={({ value }) =>
               React.createElement(child.type, {
                 ...child.props,
-                onChangeText: (text: string) =>
-                  setValue(child.props.name, text, { shouldValidate: true }),
+                onChangeText: (text: string) => {
+                  setValue(child.props.name, text, { shouldValidate: true });
+                  child.props.onChangeText && child.props.onChangeText();
+                },
                 //onBlur: () => triggerValidation(child.props.name),
                 blurOnSubmit: false,
                 value,

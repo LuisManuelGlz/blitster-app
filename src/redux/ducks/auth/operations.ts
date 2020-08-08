@@ -2,6 +2,7 @@ import 'react-native-get-random-values';
 import { v4 as uuidv4 } from 'uuid';
 import { AnyAction } from 'redux';
 import { ThunkDispatch } from 'redux-thunk';
+import { NavigationProp } from '@react-navigation/native';
 import jwtDecode from 'jwt-decode';
 import {
   setErrorMessage,
@@ -33,19 +34,22 @@ import { DecodedTokenPayload } from '../../../interfaces/auth';
 import { ErrorMessage } from '../../../interfaces/errorMessage';
 import { RootState } from '../../../redux';
 
-export const checkEmail = (email: string) => async (
+export const checkEmail = async (
   dispatch: ThunkDispatch<{}, {}, AnyAction>,
+  data: { fullName: string; email: string },
+  navigation: NavigationProp<any>,
 ) => {
   dispatch(setIsEmailValid(false));
   dispatch(setIsEmailInputLoading(true));
 
   try {
-    await authClient.post('auth/check-email', {
-      email,
-    });
+    const { email } = data;
+
+    await authClient.post('auth/check-email', { email });
 
     dispatch(setIsEmailValid(true));
     dispatch(removeErrorMessages('email'));
+    navigation.navigate('SignupStepTwo', { userDetails: data });
   } catch (error) {
     const { errors } = error.response.data;
 
@@ -120,6 +124,7 @@ export const login = (user: UserForLogin) => async (
 export const signup = (user: UserForSignup) => async (
   dispatch: ThunkDispatch<{}, {}, AnyAction>,
 ) => {
+  dispatch(setIsUsernameInputLoading(true));
   dispatch(setIsSigningUp(true));
   dispatch(clearErrorMessages());
 
@@ -150,6 +155,7 @@ export const signup = (user: UserForSignup) => async (
       dispatch(signupFail());
     }
   } finally {
+    dispatch(setIsUsernameInputLoading(false));
     dispatch(setIsSigningUp(false));
   }
 };
