@@ -6,7 +6,7 @@ export default StyleSheet.create({
     color: Colors.black,
   },
   primary: {
-    color: Colors.purple,
+    color: Colors.primary,
   },
   secondary: {
     color: Colors.gray,
@@ -15,7 +15,7 @@ export default StyleSheet.create({
     color: Colors.white,
   },
   danger: {
-    color: Colors.red,
+    color: Colors.danger,
   },
   center: {
     textAlign: 'center',

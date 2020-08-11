@@ -58,7 +58,7 @@ const SignupStepOneScreen = () => {
           onChangeText={handleEmailChange}
           iconRight={
             isEmailInputLoading ? (
-              <ActivityIndicator color={Colors.purple} />
+              <ActivityIndicator color={Colors.primary} />
             ) : null
           }
         />

@@ -19,10 +19,11 @@ const AuthNavigator = () => (
   <AuthStack.Navigator
     screenOptions={{
       headerStyle: {
-        backgroundColor: Colors.transparent,
+        backgroundColor: Colors.backgroundColor,
         elevation: 0,
         shadowOpacity: 0,
       },
+      headerTintColor: Colors.textLight,
     }}>
     <AuthStack.Screen
       name="Intro"

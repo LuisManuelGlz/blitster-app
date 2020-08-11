@@ -84,7 +84,7 @@ const SignupStepTwoScreen = ({ route }: Props) => {
           onChangeText={handleUsernameChange}
           iconRight={
             isUsernameInputLoading ? (
-              <ActivityIndicator color={Colors.purple} />
+              <ActivityIndicator color={Colors.primary} />
             ) : null
           }
         />
@@ -104,7 +104,7 @@ const SignupStepTwoScreen = ({ route }: Props) => {
         />
 
         {isSigningUp ? (
-          <ActivityIndicator color={Colors.purple} size={'large'} />
+          <ActivityIndicator color={Colors.primary} size={'large'} />
         ) : (
           <Button.Primary
             style={styles.button}

@@ -32,7 +32,7 @@ const Item = ({ style, post }: Props) => {
       </View>
 
       <View style={styles.body}>
-        <Text.H3>{content}</Text.H3>
+        <Text.H3 style={styles.content}>{content}</Text.H3>
       </View>
 
       <Footer post={post} />

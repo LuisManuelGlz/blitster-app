@@ -35,13 +35,13 @@ const ProfileScreen = () => {
           </View>
           <View style={styles.userInfo}>
             <Text.H2 style={styles.fullName}>{params.profile.fullName}</Text.H2>
-            <Text.H3>{params.profile.username}</Text.H3>
+            <Text.H3 style={styles.username}>{params.profile.username}</Text.H3>
             <Text.H3 style={styles.about}>Hi there</Text.H3>
           </View>
         </View>
         {isFetchingPosts ? (
           <View style={styles.activityIndicatorContainer}>
-            <ActivityIndicator color={Colors.purple} size={'large'} />
+            <ActivityIndicator color={Colors.primary} size={'large'} />
           </View>
         ) : (
           <PostContainer posts={currentUserPosts} />

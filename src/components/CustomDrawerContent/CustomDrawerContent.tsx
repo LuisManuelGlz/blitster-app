@@ -11,6 +11,7 @@ import styles from './CustomDrawerContent.styles';
 import { auth } from '../../redux/ducks';
 import { useTypedSelector } from '../../redux';
 import UserInfo from '../UserInfo';
+import { Colors } from '../../styles';
 
 const CustomDrawerContent = (props: any) => {
   const refreshToken = useTypedSelector((store) => store.auth.refreshToken);
@@ -31,6 +32,8 @@ const CustomDrawerContent = (props: any) => {
       </DrawerContentScrollView>
       <View>
         <DrawerItem
+          labelStyle={{ color: Colors.grayLighten }}
+          inactiveTintColor={Colors.grayLighten}
           label="Logout"
           icon={({ color, size }) => (
             <Ionicons name="exit" size={size} color={color} />

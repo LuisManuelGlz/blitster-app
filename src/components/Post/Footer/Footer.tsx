@@ -30,18 +30,18 @@ const Footer = ({
   return (
     <View style={[styles.container, style]}>
       <TouchableOpacity onPress={() => likePost()}>
-        <Text.H3>
+        <Text.H3 style={styles.likes}>
           <AntDesign
             name={liked ? 'like1' : 'like2'}
             size={24}
-            color={Colors.purple}
+            color={Colors.primary}
           />{' '}
           {likes > 0 && likes}
         </Text.H3>
       </TouchableOpacity>
       <TouchableOpacity onPress={onPressComment}>
-        <Text.H3>
-          <Ionicons name="chatbox-outline" size={24} color={Colors.purple} />{' '}
+        <Text.H3 style={styles.comments}>
+          <Ionicons name="chatbox-outline" size={24} color={Colors.primary} />{' '}
           {comments > 0 && comments}
         </Text.H3>
       </TouchableOpacity>

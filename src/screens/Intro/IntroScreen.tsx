@@ -11,7 +11,7 @@ const IntroScreen = () => {
   return (
     <View style={styles.container}>
       <Image style={styles.logo} source={ImagesAssets.logos.react} />
-      <Text.H1>Welcome to Blitster</Text.H1>
+      <Text.H1 style={styles.title}>Welcome to Blitster</Text.H1>
       <Button.Primary
         style={styles.button}
         title="Log in"
