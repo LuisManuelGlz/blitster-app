@@ -3,7 +3,7 @@ import { Colors } from '../../../styles';
 
 export default StyleSheet.create({
   default: {
-    backgroundColor: Colors.red,
+    backgroundColor: Colors.danger,
   },
   text: {
     color: Colors.white,

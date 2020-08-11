@@ -3,6 +3,7 @@ import { Colors } from '../../styles';
 
 export default StyleSheet.create({
   container: {
+    backgroundColor: Colors.backgroundColor,
     flex: 1,
   },
   profileContainer: {
@@ -21,7 +22,11 @@ export default StyleSheet.create({
   },
   userInfo: {},
   fullName: {
+    color: Colors.textLight,
     fontWeight: 'bold',
+  },
+  username: {
+    color: Colors.textLight,
   },
   about: {
     color: Colors.grayDarken,

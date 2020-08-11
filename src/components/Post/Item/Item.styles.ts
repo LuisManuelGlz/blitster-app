@@ -3,7 +3,7 @@ import { Colors } from '../../../styles';
 
 export default StyleSheet.create({
   container: {
-    backgroundColor: Colors.grayLighten,
+    backgroundColor: Colors.grayDarken,
     padding: 16,
   },
   postHeader: {
@@ -12,9 +12,12 @@ export default StyleSheet.create({
     justifyContent: 'space-between',
   },
   creationDate: {
-    color: Colors.grayDarken,
+    color: Colors.grayLighten,
   },
   body: {
     paddingVertical: 8,
+  },
+  content: {
+    color: Colors.textLight,
   },
 });

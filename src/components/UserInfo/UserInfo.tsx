@@ -29,7 +29,7 @@ const UserInfo = ({ style, user }: Props) => {
       <Image style={styles.avatar} source={{ uri: user.avatar }} />
       <View style={styles.userInfo}>
         <Text.H3 style={styles.fullName}>{user.fullName}</Text.H3>
-        <Text.H3>{user.username}</Text.H3>
+        <Text.H3 style={styles.username}>{user.username}</Text.H3>
       </View>
     </TouchableOpacity>
   );

@@ -5,11 +5,11 @@ export default StyleSheet.create({
   default: {
     backgroundColor: Colors.transparent,
     borderWidth: 2,
-    borderColor: Colors.purple,
+    borderColor: Colors.primary,
     borderRadius: 25,
   },
   buttonTitle: {
-    color: Colors.purple,
+    color: Colors.primary,
     textAlign: 'center',
     fontSize: 16,
   },

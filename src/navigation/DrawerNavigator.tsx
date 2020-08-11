@@ -3,12 +3,19 @@ import { createDrawerNavigator } from '@react-navigation/drawer';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { CustomDrawerContent } from '../components';
 import TabsNavigator from './TabsNavigator';
+import { Colors } from '../styles';
 
 const Drawer = createDrawerNavigator();
 
 const DrawerNavigator = () => (
   <Drawer.Navigator
-    drawerContent={(props: any) => <CustomDrawerContent {...props} />}>
+    drawerContent={(props: any) => <CustomDrawerContent {...props} />}
+    drawerStyle={{ backgroundColor: Colors.backgroundColor }}
+    drawerContentOptions={{
+      activeTintColor: Colors.primary,
+      inactiveTintColor: Colors.grayLighten,
+      labelStyle: { color: Colors.grayLighten },
+    }}>
     <Drawer.Screen
       name="Home"
       component={TabsNavigator}

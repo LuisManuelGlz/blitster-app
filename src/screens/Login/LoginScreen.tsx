@@ -60,7 +60,7 @@ const LogInScreen = () => {
         />
 
         {isLoggingIn ? (
-          <ActivityIndicator color={Colors.purple} size={'large'} />
+          <ActivityIndicator color={Colors.primary} size={'large'} />
         ) : (
           <Button.Primary
             style={styles.button}

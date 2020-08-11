@@ -21,12 +21,12 @@ export default StyleSheet.create({
   },
   inputError: {
     borderWidth: 1.5,
-    borderColor: Colors.red,
+    borderColor: Colors.danger,
   },
   errorsContainer: {
     paddingHorizontal: 8,
   },
   errorMessage: {
-    color: Colors.red,
+    color: Colors.danger,
   },
 });

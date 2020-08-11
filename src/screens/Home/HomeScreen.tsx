@@ -27,7 +27,7 @@ const HomeScreen = () => {
   if (isFetchingPosts) {
     return (
       <View style={styles.activityIndicatorContainer}>
-        <ActivityIndicator color={Colors.purple} size={'large'} />
+        <ActivityIndicator color={Colors.primary} size={'large'} />
       </View>
     );
   }
@@ -39,7 +39,7 @@ const HomeScreen = () => {
       </ScrollView>
       <Button.Primary
         style={styles.button}
-        icon={<Ionicons name="add" size={24} color={Colors.white} />}
+        icon={<Ionicons name="add" size={24} color={Colors.textDark} />}
         onPress={() => navigation.navigate('AddPost')}
       />
     </View>

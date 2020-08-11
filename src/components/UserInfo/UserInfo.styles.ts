@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native';
+import { Colors } from '../../styles';
 
 export default StyleSheet.create({
   container: {
@@ -13,6 +14,10 @@ export default StyleSheet.create({
     marginLeft: 16,
   },
   fullName: {
+    color: Colors.textLight,
     fontWeight: 'bold',
+  },
+  username: {
+    color: Colors.textLight,
   },
 });

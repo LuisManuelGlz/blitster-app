@@ -24,8 +24,11 @@ const TabsNavigatior = () => {
         },
       })}
       tabBarOptions={{
-        activeTintColor: Colors.purple,
-        inactiveTintColor: Colors.grayDarken,
+        activeTintColor: Colors.primary,
+        inactiveTintColor: Colors.grayLighten,
+        tabStyle: {
+          backgroundColor: Colors.backgroundColor,
+        },
       }}>
       <Tab.Screen name="Home" component={HomeNavigator} />
       <Tab.Screen name="Search" component={SearchNavigator} />

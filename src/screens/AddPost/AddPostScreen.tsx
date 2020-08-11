@@ -34,7 +34,7 @@ const AddPostScreen = () => {
           placeholder="Content"
         />
         {isAddingPost ? (
-          <ActivityIndicator color={Colors.purple} size={'large'} />
+          <ActivityIndicator color={Colors.primary} size={'large'} />
         ) : (
           <Button.Primary title="Submit" onPress={handleSubmit(onSubmit)} />
         )}
