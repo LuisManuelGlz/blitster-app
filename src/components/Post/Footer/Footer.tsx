@@ -7,6 +7,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import styles from './Footer.styles';
 import { Post } from '../../../interfaces/post';
 import { post } from '../../../redux/ducks';
+import { Colors } from '../../../styles';
 
 interface Props {
   style?: StyleProp<ViewStyle>;
@@ -33,14 +34,14 @@ const Footer = ({
           <AntDesign
             name={liked ? 'like1' : 'like2'}
             size={24}
-            color={'purple'}
+            color={Colors.purple}
           />{' '}
           {likes > 0 && likes}
         </Text.H3>
       </TouchableOpacity>
       <TouchableOpacity onPress={onPressComment}>
         <Text.H3>
-          <Ionicons name="chatbox-outline" size={24} color={'purple'} />{' '}
+          <Ionicons name="chatbox-outline" size={24} color={Colors.purple} />{' '}
           {comments > 0 && comments}
         </Text.H3>
       </TouchableOpacity>

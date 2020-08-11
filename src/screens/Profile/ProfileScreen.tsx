@@ -7,6 +7,7 @@ import { HomeStackParamList } from '../../navigation/HomeNavigator';
 import styles from './ProfileScreen.styles';
 import { useTypedSelector } from '../../redux';
 import { post } from '../../redux/ducks';
+import { Colors } from '../../styles';
 
 const ProfileScreen = () => {
   const dispatch = useDispatch();
@@ -40,7 +41,7 @@ const ProfileScreen = () => {
         </View>
         {isFetchingPosts ? (
           <View style={styles.activityIndicatorContainer}>
-            <ActivityIndicator color={'purple'} size={'large'} />
+            <ActivityIndicator color={Colors.purple} size={'large'} />
           </View>
         ) : (
           <PostContainer posts={currentUserPosts} />

@@ -7,6 +7,7 @@ import { Button, PostContainer } from '../../components';
 import styles from './HomeScreen.styles';
 import { useTypedSelector } from '../../redux';
 import { post, user } from '../../redux/ducks';
+import { Colors } from '../../styles';
 
 const HomeScreen = () => {
   const navigation = useNavigation();
@@ -26,7 +27,7 @@ const HomeScreen = () => {
   if (isFetchingPosts) {
     return (
       <View style={styles.activityIndicatorContainer}>
-        <ActivityIndicator color={'purple'} size={'large'} />
+        <ActivityIndicator color={Colors.purple} size={'large'} />
       </View>
     );
   }
@@ -38,7 +39,7 @@ const HomeScreen = () => {
       </ScrollView>
       <Button.Primary
         style={styles.button}
-        icon={<Ionicons name="add" size={24} color={'white'} />}
+        icon={<Ionicons name="add" size={24} color={Colors.white} />}
         onPress={() => navigation.navigate('AddPost')}
       />
     </View>

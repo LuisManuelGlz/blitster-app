@@ -9,6 +9,7 @@ import styles from './AddPostScreen.styles';
 import { useTypedSelector } from '../../redux';
 import { PostForCreate } from 'src/interfaces/post';
 import { addPostValidation } from './validations';
+import { Colors } from '../../styles';
 
 type FormData = {
   content: string;
@@ -33,7 +34,7 @@ const AddPostScreen = () => {
           placeholder="Content"
         />
         {isAddingPost ? (
-          <ActivityIndicator color={'purple'} size={'large'} />
+          <ActivityIndicator color={Colors.purple} size={'large'} />
         ) : (
           <Button.Primary title="Submit" onPress={handleSubmit(onSubmit)} />
         )}

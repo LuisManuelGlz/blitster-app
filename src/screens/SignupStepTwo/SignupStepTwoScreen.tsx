@@ -9,6 +9,7 @@ import { AuthStackParamList } from '../../navigation/AuthNavigator';
 import { useTypedSelector } from '../../redux';
 import { validation, auth } from '../../redux/ducks';
 import { signupStepTwoValidation } from './validations';
+import { Colors } from '../../styles';
 
 type FormData = {
   username: string;
@@ -83,7 +84,7 @@ const SignupStepTwoScreen = ({ route }: Props) => {
           onChangeText={handleUsernameChange}
           iconRight={
             isUsernameInputLoading ? (
-              <ActivityIndicator color={'purple'} />
+              <ActivityIndicator color={Colors.purple} />
             ) : null
           }
         />
@@ -103,7 +104,7 @@ const SignupStepTwoScreen = ({ route }: Props) => {
         />
 
         {isSigningUp ? (
-          <ActivityIndicator color={'purple'} size={'large'} />
+          <ActivityIndicator color={Colors.purple} size={'large'} />
         ) : (
           <Button.Primary
             style={styles.button}

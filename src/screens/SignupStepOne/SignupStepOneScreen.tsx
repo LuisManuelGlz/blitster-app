@@ -8,6 +8,7 @@ import styles from './SignupStepOneScreen.styles';
 import { auth, validation } from '../../redux/ducks';
 import { useTypedSelector } from '../../redux';
 import { signupStepOneValidation } from './validations';
+import { Colors } from '../../styles';
 
 type FormData = {
   fullName: string;
@@ -56,7 +57,9 @@ const SignupStepOneScreen = () => {
           placeholder="Email"
           onChangeText={handleEmailChange}
           iconRight={
-            isEmailInputLoading ? <ActivityIndicator color={'purple'} /> : null
+            isEmailInputLoading ? (
+              <ActivityIndicator color={Colors.purple} />
+            ) : null
           }
         />
         {!isEmailInputLoading ? (

@@ -9,6 +9,7 @@ import { useTypedSelector } from '../../redux';
 import { auth } from '../../redux/ducks';
 import { UserForLogin } from '../../interfaces/user';
 import { loginValidation } from './validations';
+import { Colors } from '../../styles';
 
 type FormData = {
   username: string;
@@ -34,20 +35,24 @@ const LogInScreen = () => {
           style={styles.input}
           name="username"
           placeholder="Username"
-          iconLeft={<Ionicons name="person" size={24} color={'gray'} />}
+          iconLeft={
+            <Ionicons name="person" size={24} color={Colors.grayDarken} />
+          }
         />
         <Input
           style={styles.input}
           name="password"
           placeholder="Password"
-          iconLeft={<Ionicons name="lock-closed" size={24} color={'gray'} />}
+          iconLeft={
+            <Ionicons name="lock-closed" size={24} color={Colors.grayDarken} />
+          }
           iconRight={
             <TouchableOpacity
               onPress={() => setIsPasswordHidden((value) => !value)}>
               <Ionicons
                 name={isPasswordHidden ? 'eye' : 'eye-off'}
                 size={24}
-                color={'gray'}
+                color={Colors.grayDarken}
               />
             </TouchableOpacity>
           }
@@ -55,7 +60,7 @@ const LogInScreen = () => {
         />
 
         {isLoggingIn ? (
-          <ActivityIndicator color={'purple'} size={'large'} />
+          <ActivityIndicator color={Colors.purple} size={'large'} />
         ) : (
           <Button.Primary
             style={styles.button}

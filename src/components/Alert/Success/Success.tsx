@@ -9,6 +9,7 @@ import {
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import mainStyles from '../styles';
 import styles from './Success.styles';
+import { Colors } from '../../../styles';
 
 interface Props {
   style?: StyleProp<ViewStyle>;
@@ -23,7 +24,7 @@ const Success = (props: Props) => {
     <View style={customStyles}>
       <Text style={styles.text}>{message}</Text>
       <TouchableOpacity>
-        <Ionicons name="close-outline" size={24} color={'black'} />
+        <Ionicons name="close-outline" size={24} color={Colors.black} />
       </TouchableOpacity>
     </View>
   );

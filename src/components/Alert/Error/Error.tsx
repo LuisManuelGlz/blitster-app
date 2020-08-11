@@ -11,6 +11,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import { alert } from '../../../redux/ducks';
 import mainStyles from '../styles';
 import styles from './Error.styles';
+import { Colors } from '../../../styles';
 
 interface Props {
   style?: StyleProp<ViewStyle>;
@@ -27,7 +28,7 @@ const Error = (props: Props) => {
     <View style={customStyles}>
       <Text style={styles.text}>{message}</Text>
       <TouchableOpacity onPress={() => dispatch(alert.actions.removeAlert(id))}>
-        <Ionicons name="close-outline" size={24} color={'white'} />
+        <Ionicons name="close-outline" size={24} color={Colors.white} />
       </TouchableOpacity>
     </View>
   );
