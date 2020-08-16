@@ -61,8 +61,6 @@ const SignupStepTwoScreen = ({ route }: Props) => {
   }) => {
     const { userDetails } = route.params;
 
-    dispatch(auth.operations.checkUsername(data.username));
-
     dispatch(
       auth.operations.signup({
         ...data,
