@@ -1,7 +1,7 @@
 import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
-  conainer: {
+  container: {
     flex: 1,
   },
   userInfo: {

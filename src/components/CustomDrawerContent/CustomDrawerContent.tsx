@@ -23,10 +23,10 @@ const CustomDrawerContent = (props: any) => {
   };
 
   return (
-    <View style={styles.conainer}>
+    <View style={styles.container}>
       <DrawerContentScrollView>
         <View style={styles.userInfo}>
-          {profile && <UserInfo user={profile} />}
+          {profile && <UserInfo user={profile.user} />}
         </View>
         <DrawerItemList {...props} />
       </DrawerContentScrollView>

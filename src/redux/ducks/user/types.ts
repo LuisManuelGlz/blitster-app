@@ -1,11 +1,11 @@
-import { User } from '../../../interfaces/user';
+import { Profile } from '../../../interfaces/profile';
 
 export const SET_PROFILE = 'Blitster/auth/SET_PROFILE';
 export const CLEAR_PROFILE = 'Blitster/auth/CLEAR_PROFILE';
 
 interface SetProfile {
   type: typeof SET_PROFILE;
-  profile: User;
+  profile: Profile;
 }
 
 interface ClearProfile {

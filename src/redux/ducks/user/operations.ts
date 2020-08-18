@@ -10,7 +10,7 @@ export const fetchProfile = () => async (
   dispatch: ThunkDispatch<{}, {}, AnyAction>,
 ) => {
   try {
-    const { data } = await loggedInClient.get('users/me');
+    const { data } = await loggedInClient.get('profile');
     dispatch(setProfile(data));
   } catch (error) {
     const { status, data } = error.response;

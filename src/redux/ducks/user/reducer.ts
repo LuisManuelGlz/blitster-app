@@ -1,8 +1,8 @@
 import { UserActionTypes, SET_PROFILE, CLEAR_PROFILE } from './types';
-import { User } from '../../../interfaces/user';
+import { Profile } from '../../../interfaces/profile';
 
 interface UserState {
-  profile: User | null;
+  profile: Profile | null;
 }
 
 const initialState: UserState = {

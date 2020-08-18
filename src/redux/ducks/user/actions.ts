@@ -1,8 +1,8 @@
 import { ThunkDispatch } from 'redux-thunk';
 import { UserActionTypes, SET_PROFILE, CLEAR_PROFILE } from './types';
-import { User } from '../../../interfaces/user';
+import { Profile } from '../../../interfaces/profile';
 
-export const setProfile = (profile: User) => (
+export const setProfile = (profile: Profile) => (
   dispatch: ThunkDispatch<{}, {}, UserActionTypes>,
 ) => {
   dispatch({
