@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native';
+import { Colors } from '../../styles';
 
 export default StyleSheet.create({
   post: {
@@ -6,6 +7,7 @@ export default StyleSheet.create({
     borderRadius: 20,
   },
   noPostsMessage: {
+    color: Colors.textLight,
     textAlign: 'center',
   },
   endScroll: {
