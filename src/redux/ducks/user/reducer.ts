@@ -1,25 +1,25 @@
-import { UserActionTypes, SET_PROFILE, CLEAR_PROFILE } from './types';
-import { Profile } from '../../../interfaces/profile';
+import { UserActionTypes, SET_USER, CLEAR_USER } from './types';
+import { User } from '../../../interfaces/user';
 
 interface UserState {
-  profile: Profile | null;
+  user: User | null;
 }
 
 const initialState: UserState = {
-  profile: null,
+  user: null,
 };
 
 export default (state = initialState, action: UserActionTypes) => {
   switch (action.type) {
-    case SET_PROFILE:
+    case SET_USER:
       return {
         ...state,
-        profile: action.profile,
+        user: action.user,
       };
-    case CLEAR_PROFILE:
+    case CLEAR_USER:
       return {
         ...state,
-        profile: null,
+        user: null,
       };
     default:
       return state;

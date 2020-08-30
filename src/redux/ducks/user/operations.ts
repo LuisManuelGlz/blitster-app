@@ -3,7 +3,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { AnyAction } from 'redux';
 import { ThunkDispatch } from 'redux-thunk';
 import { loggedInClient } from '../../../api';
-import { setProfile } from './actions';
+import { setUser } from './actions';
 import { setAlert } from '../alert/actions';
 
 export const fetchProfile = () => async (
@@ -11,7 +11,7 @@ export const fetchProfile = () => async (
 ) => {
   try {
     const { data } = await loggedInClient.get('profile');
-    dispatch(setProfile(data));
+    dispatch(setUser(data));
   } catch (error) {
     const { status, data } = error.response;
     if (status === 404 || status === 500) {

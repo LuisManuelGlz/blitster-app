@@ -15,7 +15,7 @@ import { Colors } from '../../styles';
 
 const CustomDrawerContent = (props: any) => {
   const refreshToken = useTypedSelector((store) => store.auth.refreshToken);
-  const profile = useTypedSelector((store) => store.user.profile);
+  const user = useTypedSelector((store) => store.user.user);
   const dispatch = useDispatch();
 
   const handleLogoutPress = () => {
@@ -25,9 +25,7 @@ const CustomDrawerContent = (props: any) => {
   return (
     <View style={styles.container}>
       <DrawerContentScrollView>
-        <View style={styles.userInfo}>
-          {profile && <UserInfo user={profile.user} />}
-        </View>
+        <View style={styles.userInfo}>{user && <UserInfo user={user} />}</View>
         <DrawerItemList {...props} />
       </DrawerContentScrollView>
       <View>

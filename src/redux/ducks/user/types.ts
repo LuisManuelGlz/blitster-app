@@ -1,15 +1,15 @@
-import { Profile } from '../../../interfaces/profile';
+import { User } from '../../../interfaces/user';
 
-export const SET_PROFILE = 'Blitster/auth/SET_PROFILE';
-export const CLEAR_PROFILE = 'Blitster/auth/CLEAR_PROFILE';
+export const SET_USER = 'Blitster/auth/SET_USER';
+export const CLEAR_USER = 'Blitster/auth/CLEAR_USER';
 
-interface SetProfile {
-  type: typeof SET_PROFILE;
-  profile: Profile;
+interface SetUser {
+  type: typeof SET_USER;
+  user: User;
 }
 
-interface ClearProfile {
-  type: typeof CLEAR_PROFILE;
+interface ClearUser {
+  type: typeof CLEAR_USER;
 }
 
-export type UserActionTypes = SetProfile | ClearProfile;
+export type UserActionTypes = SetUser | ClearUser;

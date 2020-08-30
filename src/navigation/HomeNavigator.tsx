@@ -11,7 +11,7 @@ import { Colors } from '../styles';
 
 export type HomeStackParamList = {
   Home: undefined;
-  Profile: { profile: User };
+  Profile: { user: User };
   AddPost: undefined;
   PostDetail: { post: Post };
 };
@@ -41,7 +41,7 @@ const HomeNavigator = () => {
       <HomeStack.Screen
         name="Profile"
         component={ProfileScreen}
-        options={({ route }) => ({ title: route.params?.profile.fullName })}
+        options={({ route }) => ({ title: route.params?.user.fullName })}
       />
       <HomeStack.Screen
         name="AddPost"

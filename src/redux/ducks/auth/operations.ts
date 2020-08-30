@@ -16,7 +16,7 @@ import {
 } from '../validation/actions';
 import { setAlert } from '../alert/actions';
 import { clearPosts } from '../post/actions';
-import { clearProfile } from '../user/actions';
+import { clearUser } from '../user/actions';
 import {
   signupSuccess,
   signupFail,
@@ -187,7 +187,7 @@ export const refreshToken = async (
 
     dispatch(refreshTokenFail());
     dispatch(clearPosts());
-    dispatch(clearProfile());
+    dispatch(clearUser());
   }
 };
 
@@ -208,6 +208,6 @@ export const logout = (currentRefreshToken: string | null) => async (
     }
   } finally {
     dispatch(clearPosts());
-    dispatch(clearProfile());
+    dispatch(clearUser());
   }
 };

@@ -1,3 +1,5 @@
+import { Profile } from './profile';
+
 export interface UserForLogin {
   username: string;
   password: string;
@@ -16,4 +18,5 @@ export interface User {
   fullName: string;
   username: string;
   avatar: string;
+  profile: Profile;
 }

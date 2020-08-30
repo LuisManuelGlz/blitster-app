@@ -20,7 +20,7 @@ const ProfileScreen = () => {
   const { params } = useRoute<RouteProp<HomeStackParamList, 'Profile'>>();
 
   useEffect(() => {
-    post.operations.fetchCurrentUserPosts(dispatch, params.profile._id);
+    post.operations.fetchCurrentUserPosts(dispatch, params.user._id);
   }, []);
 
   return (
@@ -28,14 +28,11 @@ const ProfileScreen = () => {
       <ScrollView style={styles.profileContainer}>
         <View style={styles.userInfoContainer}>
           <View style={styles.avatarContainer}>
-            <Image
-              style={styles.avatar}
-              source={{ uri: params.profile.avatar }}
-            />
+            <Image style={styles.avatar} source={{ uri: params.user.avatar }} />
           </View>
           <View style={styles.userInfo}>
-            <Text.H2 style={styles.fullName}>{params.profile.fullName}</Text.H2>
-            <Text.H3 style={styles.username}>{params.profile.username}</Text.H3>
+            <Text.H2 style={styles.fullName}>{params.user.fullName}</Text.H2>
+            <Text.H3 style={styles.username}>{params.user.username}</Text.H3>
             <Text.H3 style={styles.about}>Hi there</Text.H3>
           </View>
         </View>
