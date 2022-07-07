@@ -19,7 +19,7 @@
     "@react-navigation/stack": "^5.7.1",
     "axios": "^0.19.2",
     "jwt-decode": "^2.2.0",
-    "moment": "^2.27.0",
+    "moment": "^2.29.4",
     "react": "16.11.0",
     "react-hook-form": "^6.3.0",
     "react-moment": "^0.9.7",
